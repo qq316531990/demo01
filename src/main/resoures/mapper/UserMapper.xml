@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+
+    <select id="login" resultType="com.pojo.User">
+        SELECT *
+        FROM  user  where user_name=#{0}
+    </select>
+    <insert id="insertUser"  parameterType="com.pojo.User">
+        insert into user (user_name,phone,pwd,permission_id,credibility,balance)
+        value (#{user.user_name},#{user.phone},#{user.pwd},#{user.permission_id},#{user.credibility},#{user.balance})
+    </insert>
+
+</mapper>
