@@ -6,17 +6,18 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE>
 <html>
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/menu.js"></script>
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../js/menu.js"></script>
 </head>
 <body>
 <div id="header">
@@ -24,13 +25,13 @@
     <div class="navigation">
         <ul>
             <li>欢迎您！</li>
-            <li><a href="">${userLogin.userName}</a>
+            <li><a href="">${userLogin.user_name}</a>
             </li>
-            <li><a href="">修改密码</a>
+            <li><a href="<%=path%>/jsp/admin_updatePass.jsp" target="main">修改密码</a>
             </li>
             <li><a href="">设置</a>
             </li>
-            <li><a href="<%=path%>/login.jsp">退出</a>
+            <li><a href="#" onclick="loginOut()">注销</a>
             </li>
             <li>
 
@@ -44,13 +45,22 @@
 
 
                 <li>
-                    <h4 class="M7">
-                        <span></span>管理
-                    </h4>
-                    <div class="list-item none">
-                        <a href='<%=path %>/jsp/book.jsp' target="main">用户管理</a>
-                        </div>
-                </li>
+            <h4 class="M7">
+                <span></span>用户
+            </h4>
+            <div class="list-item none">
+                <a href='<%=path %>/jsp/user_manager.jsp' target="main">用户管理</a>
+            </div>
+        </li>
+            <li>
+                <h4 class="M5">
+                    <span></span>书籍分类管理
+                </h4>
+                <div class="list-item none">
+                    <a href='<%=path %>/jsp/type_manager.jsp' target="main">一级分类管理</a>
+                    <a href='<%=path %>/jsp/secondType_manager.jsp' target="main">二级分类管理</a>
+                </div>
+            </li>
 
 
 
@@ -74,7 +84,7 @@
 
         <div class="main">
             <iframe name="main" style=" width:100%; height:95%; border:none"
-                    src="..\welcome.jsp"> </iframe>
+                    src=""> </iframe>
         </div>
 
     </div>
@@ -93,6 +103,25 @@
         $("#right-nav2").empty();
         $("#right-nav2").append($a);
     });
+
+    function loginOut() {
+        $.ajax({
+            type: 'post',
+            url: '<%=path %>/user/loginOut',
+            dataType: "json",
+            async: true,
+            data: {},
+            success: function (data) {
+                     if(data==1){
+                         alert("注销成功!");
+                         window.location.href = "../login.jsp" ;
+                     }
+
+
+            }
+        });
+
+    }
 </script>
 </body>
 </html>
