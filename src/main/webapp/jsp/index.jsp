@@ -53,12 +53,22 @@
             </div>
         </li>
             <li>
-                <h4 class="M5">
-                    <span></span>书籍分类管理
+            <h4 class="M5">
+                <span></span>书籍分类管理
+            </h4>
+            <div class="list-item none">
+                <a href='<%=path %>/jsp/type_manager.jsp' target="main">一级分类管理</a>
+                <a href='<%=path %>/jsp/secondType_manager.jsp' target="main">二级分类管理</a>
+            </div>
+        </li>
+
+            <li>
+                <h4 class="M1">
+                    <span></span>书籍借阅归还
                 </h4>
                 <div class="list-item none">
-                    <a href='<%=path %>/jsp/type_manager.jsp' target="main">一级分类管理</a>
-                    <a href='<%=path %>/jsp/secondType_manager.jsp' target="main">二级分类管理</a>
+                    <a href='<%=path %>/borrow_manager' target="main">借阅</a>
+                    <a href='<%=path %>/' target="main">归还</a>
                 </div>
             </li>
 
