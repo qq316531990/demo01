@@ -122,7 +122,6 @@
     $('#updateType').click(function(){
         var secondType_id =$("#secondType_id").val();
         var secondType_name =$("#secondType_name").val();
-        var type_id=$("#type_id option:selected").val();
         if(secondType_name==""){
             alert("分类名不能为空！")
             return false;
@@ -133,7 +132,7 @@
                 url: '<%=path %>/second/updateType',
                 dataType: "json",
                 async: true,
-                data: {secondType_name:secondType_name,secondType_id:secondType_id,type_id:type_id},
+                data: {secondType_name:secondType_name,secondType_id:secondType_id},
                 success: function (data) {
                     if (data === 1) {
                         alert("修改成功");
