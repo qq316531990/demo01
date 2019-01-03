@@ -51,7 +51,7 @@
             <if test="type.secondType_name!= null">secondType_name=#{type.secondType_name},</if>
             <if test="type.type_id!= null">type_id=#{type.type_id},</if>
         </trim>
-        where type_id=#{type.secondType_id}
+        where secondType_id=#{type.secondType_id}
     </update>
     <select id="getTypeByTypeName" resultType="com.pojo.SecondTypeView">
         SELECT *
