@@ -20,13 +20,20 @@
 
     <mvc:default-servlet-handler/>
 
+    <!-- 定义文件解释器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置默认编码-->
+        <property name="defaultEncoding" value="utf_8" />
+        <!--上传图片最大5M-->
+        <property name="maxUploadSize" value="5242440" />
+    </bean>
+
     <!-- 3.配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/" />
         <property name="suffix" value=".jsp" />
     </bean>
-
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.controller" />
 </beans>

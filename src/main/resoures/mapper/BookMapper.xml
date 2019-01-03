@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Book" >
+    <id column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_author" property="bookAuthor" jdbcType="VARCHAR" />
+    <result column="book_published_Information" property="bookPublishedInformation" jdbcType="VARCHAR" />
+    <result column="book_count" property="bookCount" jdbcType="INTEGER" />
+    <result column="book_description" property="bookDescription" jdbcType="VARCHAR" />
+    <result column="book_image" property="bookImage" jdbcType="VARCHAR" />
+    <result column="book_tag" property="bookTag" jdbcType="INTEGER" />
+    <result column="book_price" property="bookPrice" jdbcType="DECIMAL" />
+    <result column="book_borrowing_number" property="bookBorrowingNumber" jdbcType="INTEGER" />
+    <result column="book_star" property="bookStar" jdbcType="DECIMAL" />
+    <result column="book_comment_number" property="bookCommentNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    book_id, book_name, book_author, book_published_Information, book_count, book_description, 
+    book_image, book_tag, book_price, book_borrowing_number, book_star, book_comment_number
+  </sql>
+  <!-- 查询所有图书 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    limit #{begin},#{pageSize}
+  </select>
+<!--查询上架的图书-->
+  <select id="selectAllByTag1" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from book where book_tag = 1
+    limit #{begin},#{pageSize}
+</select>
+<!--查询未上架的图书-->
+  <select id="selectAllByTag0" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book where book_tag = 0
+    limit #{begin},#{pageSize}
+  </select>
+
+  <select id="selectAllCount" resultType="Integer">
+    select
+    count(*) from book
+  </select>
+
+  <!--查询上架的图书数量-->
+  <select id="selectAllByTag1Count" resultMap="BaseResultMap">
+    select
+    count(*)
+    from book where book_tag = 1
+  </select>
+  <!--查询未上架的图书数量-->
+  <select id="selectAllByTag0Count" resultMap="BaseResultMap">
+    select
+    count(*)
+    from book where book_tag = 0
+  </select>
+
+
+
+  <select id="selectCountByCondition" resultType="Integer">
+    select
+    count(*) from book where 1=1
+    <choose>
+      <when test="book !=null and book.bookId != null">
+        and book_id=#{book.bookId, jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookName !=null">
+        and book_name like '%${book.bookName}%'
+      </when>
+      <when test="book !=null and book.bookAuthor !=null">
+        and book_author=#{book.bookAuthor, jdbcType=VARCHAR}
+      </when>
+      <when test="book !=null and book.bookPublishedInformation !=null">
+        and book_published_Information like '%${book.bookPublishedInformation}%'
+      </when>
+      <when test="book !=null and book.bookCount !=null">
+        and book_count &lt;= #{book.bookCount , jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookTag !=null">
+        and book_tag = #{book.bookTag , jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookPrice !=null">
+        and book_price &lt;= #{book.bookPrice , jdbcType=DECIMAL}
+      </when>
+      <when test="book !=null and book.bookBorrowingNumber !=null">
+        and book_borrowing_number &gt;= #{book.bookBorrowingNumber, jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookStar !=null">
+        and book_star &gt;= #{book.bookStar, jdbcType=DECIMAL}
+      </when>
+    </choose>
+  </select>
+
+  <select id="findByCondition" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"></include>
+    from book where 1=1
+    <choose>
+      <when test="book !=null and book.bookId != null">
+        and book_id=#{book.bookId, jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookName !=null">
+        and book_name like '%${book.bookName}%'
+      </when>
+      <when test="book !=null and book.bookAuthor !=null">
+        and book_author=#{book.bookAuthor, jdbcType=VARCHAR}
+      </when>
+      <when test="book !=null and book.bookPublishedInformation !=null">
+        and book_published_Information like '%${book.bookPublishedInformation}%'
+      </when>
+      <when test="book !=null and book.bookCount !=null">
+        and book_count &lt;= #{book.bookCount , jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookTag !=null">
+        and book_tag = #{book.bookTag , jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookPrice !=null">
+        and book_price &lt;= #{book.bookPrice , jdbcType=DECIMAL}
+      </when>
+      <when test="book !=null and book.bookBorrowingNumber !=null">
+        and book_borrowing_number &gt;= #{book.bookBorrowingNumber, jdbcType=INTEGER}
+      </when>
+      <when test="book !=null and book.bookStar !=null">
+        and book_star &gt;= #{book.bookStar, jdbcType=DECIMAL}
+      </when>
+    </choose>
+      limit #{begin},#{pageSize}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.Book" >
+    insert into book (book_id, book_name, book_author, 
+      book_published_Information, book_count, book_description, 
+      book_image, book_tag, book_price, 
+      book_borrowing_number, book_star, book_comment_number
+      )
+    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookAuthor,jdbcType=VARCHAR}, 
+      #{bookPublishedInformation,jdbcType=VARCHAR}, #{bookCount,jdbcType=INTEGER}, #{bookDescription,jdbcType=VARCHAR}, 
+      #{bookImage,jdbcType=VARCHAR}, #{bookTag,jdbcType=INTEGER}, #{bookPrice,jdbcType=DECIMAL}, 
+      #{bookBorrowingNumber,jdbcType=INTEGER}, #{bookStar,jdbcType=DECIMAL}, #{bookCommentNumber,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.pojo.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookAuthor != null" >
+        book_author,
+      </if>
+      <if test="bookPublishedInformation != null" >
+        book_published_Information,
+      </if>
+      <if test="bookCount != null" >
+        book_count,
+      </if>
+      <if test="bookDescription != null" >
+        book_description,
+      </if>
+      <if test="bookImage != null" >
+        book_image,
+      </if>
+      <if test="bookTag != null" >
+        book_tag,
+      </if>
+      <if test="bookPrice != null" >
+        book_price,
+      </if>
+      <if test="bookBorrowingNumber != null" >
+        book_borrowing_number,
+      </if>
+      <if test="bookStar != null" >
+        book_star,
+      </if>
+      <if test="bookCommentNumber != null" >
+        book_comment_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null" >
+        #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPublishedInformation != null" >
+        #{bookPublishedInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCount != null" >
+        #{bookCount,jdbcType=INTEGER},
+      </if>
+      <if test="bookDescription != null" >
+        #{bookDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bookImage != null" >
+        #{bookImage,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTag != null" >
+        #{bookTag,jdbcType=INTEGER},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookBorrowingNumber != null" >
+        #{bookBorrowingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bookStar != null" >
+        #{bookStar,jdbcType=DECIMAL},
+      </if>
+      <if test="bookCommentNumber != null" >
+        #{bookCommentNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Book" >
+    update book
+    <set >
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null" >
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPublishedInformation != null" >
+        book_published_Information = #{bookPublishedInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCount != null" >
+        book_count = #{bookCount,jdbcType=INTEGER},
+      </if>
+      <if test="bookDescription != null" >
+        book_description = #{bookDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bookImage != null" >
+        book_image = #{bookImage,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTag != null" >
+        book_tag = #{bookTag,jdbcType=INTEGER},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookBorrowingNumber != null" >
+        book_borrowing_number = #{bookBorrowingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bookStar != null" >
+        book_star = #{bookStar,jdbcType=DECIMAL},
+      </if>
+      <if test="bookCommentNumber != null" >
+        book_comment_number = #{bookCommentNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Book" >
+    update book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      book_author = #{bookAuthor,jdbcType=VARCHAR},
+      book_published_Information = #{bookPublishedInformation,jdbcType=VARCHAR},
+      book_count = #{bookCount,jdbcType=INTEGER},
+      book_description = #{bookDescription,jdbcType=VARCHAR},
+      book_image = #{bookImage,jdbcType=VARCHAR},
+      book_tag = #{bookTag,jdbcType=INTEGER},
+      book_price = #{bookPrice,jdbcType=DECIMAL},
+      book_borrowing_number = #{bookBorrowingNumber,jdbcType=INTEGER},
+      book_star = #{bookStar,jdbcType=DECIMAL},
+      book_comment_number = #{bookCommentNumber,jdbcType=INTEGER}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+</mapper>
