@@ -9,8 +9,59 @@
         FROM  user  where user_name=#{0}
     </select>
     <insert id="insertUser"  parameterType="com.pojo.User">
-        insert into user (user_name,phone,pwd,permission_id,credibility,balance)
-        value (#{user.user_name},#{user.phone},#{user.pwd},#{user.permission_id},#{user.credibility},#{user.balance})
-    </insert>
+        insert into user (user_name,phone,pwd,permission_id,credibility,balance,sex)
+        value (#{user.user_name},#{user.phone},#{user.pwd},#{user.permission_id},#{user.credibility},#{user.balance},#{user.sex})
+   </insert>
+    <select id="listUsers" resultType="com.pojo.User" parameterType="map">
+        select * from user
+        <trim prefix="where" prefixOverrides="and">
+            <if test="user.user_name !=null and user.user_name !=''">
+                AND
+               user_name LIKE #{user.user_name} or  phone  LIKE #{user.user_name}
+            </if>
+        </trim>
+         limit #{startIndex},#{pageSize}
+    </select>
+    <select id="countUsers" resultType="java.lang.Integer" parameterType="map">
+        select count(1) from user
+        <trim prefix="where" prefixOverrides="and">
+            <if test="user.user_name !=null and user.user_name !=''">
+            and    CONCAT(user_name,phone) LIKE CONCAT (#{user.user_name})
+            </if>
+        </trim>
+
+    </select>
+
+    <delete id="deleteUsers" parameterType="Integer[]">
+        <!-- delete from emp where empno in(7789,7790) -->
+        <!-- forEach : 用来循环 collection : 用来指定循环的数据的类型 可以填的值有：array,list,map item
+            : 循环中为每个循环的数据指定一个别名 index : 循环中循环的下标 open : 开始 close : 结束 separator : 数组中元素之间的分隔符 -->
+        delete from user where user_id in
+        <foreach collection="array" item="user_id"  open="("
+                 separator="," close=")">
+            #{user_id}
+        </foreach>
+    </delete>
+
+    <select id="getUserByUserId" resultType="com.pojo.User">
+        SELECT *
+        FROM  user  where user_id=#{0}
+    </select>
+    <update id="updateUser"   parameterType="com.pojo.User">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+       <if test="user.user_name!= null">user_name=#{user.user_name},</if>
+       <if test="user.phone!= null">phone=#{user.phone}, </if>
+       <if test="user.pwd!= null"> pwd=#{user.pwd}, </if>
+       <if test="user.user_img!= null"> user_img=#{user.user_img},</if>
+       <if test="user.user_real_name!= null">user_real_name=#{user.user_real_name},</if>
+       <if test="user.user_idcard!= null"> user_idcard=#{user.user_idcard},</if>
+       <if test="user.sex!= null">sex=#{user.sex},</if>
+       <if test="user.permission_id!= null"> permission_id=#{user.permission_id},</if>
+       <if test="user.credibility!= null">credibility=#{user.credibility},</if>
+       <if test="user.balance!= null">balance=#{user.balance},</if>
+       </trim>
+        where user_id=#{user.user_id}
+    </update>
 
 </mapper>

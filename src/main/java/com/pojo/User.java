@@ -8,7 +8,7 @@ public class User {
     private String user_img;
     private String user_real_name;
     private String user_idcard;
-    private String Sex;
+    private String sex;
     private int  permission_id;
     private int credibility;
     private int   balance;
@@ -23,7 +23,7 @@ public class User {
                 ", user_img='" + user_img + '\'' +
                 ", user_real_name='" + user_real_name + '\'' +
                 ", user_idcard='" + user_idcard + '\'' +
-                ", Sex='" + Sex + '\'' +
+                ", sex='" + sex + '\'' +
                 ", permission_id=" + permission_id +
                 ", credibility=" + credibility +
                 ", balance=" + balance +
@@ -87,11 +87,11 @@ public class User {
     }
 
     public String getSex() {
-        return Sex;
+        return sex;
     }
 
     public void setSex(String sex) {
-        Sex = sex;
+        this.sex = sex;
     }
 
     public int getPermission_id() {

@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   alert("账号或密码错误！")
 					   } else {
 						   alert("登录成功")
-						   window.location.href = "index.jsp";
+						   window.location.href = "jsp/index.jsp" ;
 					   }
 				   }
 			   });
