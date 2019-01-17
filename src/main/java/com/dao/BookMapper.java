@@ -79,5 +79,25 @@ public interface BookMapper {
      */
     int updateByPrimaryKey(Book record);
 
+   /*
+    *
+    * @Author tangxiangan
+    * @Description //更新库存
+    * @Date 15:00 2019/1/7
+    * @Param [i, bookId]
+    * @return int
+    **/
+    int updateBookCount(@Param("i")int i,@Param("bookId")int bookId);
+    /*
+    *
+     * @Author tangxiangan
+     * @Description //
+     * @Date 15:01 2019/1/7
+     * @Param [bookId]
+     * @return int
+     **/
+    int updateBookBorrowNumber(@Param("bookId")int bookId);
+
+
 
 }

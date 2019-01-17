@@ -18,13 +18,10 @@ public class LoginFilter implements Filter  {
         HttpServletResponse response=(HttpServletResponse)servletResponse;
         String ip=request.getRemoteAddr();//获取客户端的IP地址;
         String[] str={"/demo01/login.jsp","/demo01/register.jsp","/demo01/user/login",
-                "/demo01/user/register","/demo01/user/register",
-                "/demo01/js/login/TweenLite.min.js","/demo01/js/jquery-1.8.2.min.js",
-                "/demo01/js/login/EasePack.min.js",
-                "/demo01/js/login/demo-1.js","/demo01/js/login/rAF.js"};
+                "/demo01/user/register","/demo01/user/register","/demo01/second/getTypesForUser"};
         String page=request.getRequestURI();
         System.out.println(page);
-        if(page.contains(".css")||page.contains(".png")){
+        if(page.contains("/js/")||page.contains("/css/")||page.contains("/images/")){
             System.out.println("放行！");
             filterChain.doFilter(request, response);//如果是允许访问的资源  直接放行
             return ;

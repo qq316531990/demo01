@@ -1,6 +1,6 @@
 package com.pojo;
 
-public class SecondTypeView {
+public class SecondTypeVO {
     private int secondType_id;
     private String secondType_name;
     private int type_id;
@@ -8,7 +8,7 @@ public class SecondTypeView {
 
     @Override
     public String toString() {
-        return "SecondTypeView{" +
+        return "SecondTypeVO{" +
                 "secondType_id=" + secondType_id +
                 ", secondType_name='" + secondType_name + '\'' +
                 ", type_id=" + type_id +

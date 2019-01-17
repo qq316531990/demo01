@@ -17,7 +17,7 @@ public class TimerTask {
     MessageController messageController;
 
 //    @Scheduled(cron = "0 0 1 * * ?")//每天1.2.3点执行
-    @Scheduled(cron = "0 13 16 ? * *")
+    @Scheduled(cron = "0 03 17 ? * *")
     public void task1()
     {
 

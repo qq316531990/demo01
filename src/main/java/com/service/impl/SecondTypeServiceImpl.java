@@ -3,7 +3,7 @@ package com.service.impl;
 import com.dao.SecondTypeDao;
 import com.pojo.PageBean;
 import com.pojo.SecondType;
-import com.pojo.SecondTypeView;
+import com.pojo.SecondTypeVO;
 import com.service.SecondTypeService;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,17 @@ import java.util.Map;
 @Service
 public class SecondTypeServiceImpl implements SecondTypeService {
     @Resource
-    SecondTypeDao secondTypeDao;
+    private SecondTypeDao secondTypeDao;
+
+    public List<SecondType> listAllTypes() {
+        return  secondTypeDao.listAllTypes();
+    }
+
     public int insertType(SecondType type) {
         return secondTypeDao.insertType(type);
     }
 
-    public PageBean<SecondTypeView> listTypes(PageBean<SecondTypeView> pageBean, SecondTypeView type) {
+    public PageBean<SecondTypeVO> listTypes(PageBean<SecondTypeVO> pageBean, SecondTypeVO type) {
         Map map=new HashMap();
         System.out.println(type);
         map.put("type", type);
@@ -35,10 +40,10 @@ public class SecondTypeServiceImpl implements SecondTypeService {
         return secondTypeDao.deleteTypes(secondType_id);
     }
 
-    public List<SecondTypeView> getTypeByTypeId(Integer type_id) {
+    public List<SecondTypeVO> getTypeByTypeId(Integer type_id) {
         return secondTypeDao.getTypeByTypeId(type_id);
     }
-    public List<SecondTypeView> getType2ByTypeId(Integer type_id) {
+    public List<SecondTypeVO> getType2ByTypeId(Integer type_id) {
         return secondTypeDao.getType2ByTypeId(type_id);
     }
 
@@ -46,7 +51,7 @@ public class SecondTypeServiceImpl implements SecondTypeService {
         return secondTypeDao.updateType(type);
     }
 
-    public List<SecondTypeView> getTypeByTypeName(String type_name) {
+    public List<SecondTypeVO> getTypeByTypeName(String type_name) {
         return secondTypeDao.getTypeByTypeName(type_name);
     }
 }

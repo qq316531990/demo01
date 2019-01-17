@@ -3,88 +3,73 @@ package com.pojo;
 import java.util.Date;
 
 public class Borrow {
-    private Integer borrowId;
 
-    private Integer userId;
-
-    private Integer bookId;
-
-    private Date lendTime;
-
-    private Date returnTime;
-
-    private Date actualReturnTime;
-
-    public Borrow(){
-
-    }
-
-    public Borrow(Integer borrowId, Integer userId, Integer bookId, Date lendTime, Date returnTime, Date actualReturnTime) {
-        this.borrowId = borrowId;
-        this.userId = userId;
-        this.bookId = bookId;
-        this.lendTime = lendTime;
-        this.returnTime = returnTime;
-        this.actualReturnTime = actualReturnTime;
-    }
+    private int borrow_id;
+    private int user_id;
+    private int book_id;
+    private Date lend_time;
+    private Date return_time;
+    private Date actual_return_time;
 
     @Override
     public String toString() {
         return "Borrow{" +
-                "borrowId=" + borrowId +
-                ", userId=" + userId +
-                ", bookId=" + bookId +
-                ", lendTime=" + lendTime +
-                ", returnTime=" + returnTime +
-                ", actualReturnTime=" + actualReturnTime +
+                "borrow_id=" + borrow_id +
+                ", user_id=" + user_id +
+                ", book_id=" + book_id +
+                ", lend_time=" + lend_time +
+                ", return_time=" + return_time +
+                ", actual_return_time=" + actual_return_time +
                 '}';
     }
 
-    public Integer getBorrowId() {
-        return borrowId;
+    public int getBorrow_id() {
+        return borrow_id;
     }
 
-    public void setBorrowId(Integer borrowId) {
-        this.borrowId = borrowId;
+    public void setBorrow_id(int borrow_id) {
+        this.borrow_id = borrow_id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public Integer getBookId() {
-        return bookId;
+    public int getBook_id() {
+        return book_id;
     }
 
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
+    public void setBook_id(int book_id) {
+        this.book_id = book_id;
     }
 
-    public Date getLendTime() {
-        return lendTime;
+    public Date getLend_time() {
+        return lend_time;
     }
 
-    public void setLendTime(Date lendTime) {
-        this.lendTime = lendTime;
+    public void setLend_time(Date lend_time) {
+        this.lend_time = lend_time;
     }
 
-    public Date getReturnTime() {
-        return returnTime;
+    public Date getReturn_time() {
+        return return_time;
     }
 
-    public void setReturnTime(Date returnTime) {
-        this.returnTime = returnTime;
+    public void setReturn_time(Date return_time) {
+        this.return_time = return_time;
     }
 
-    public Date getActualReturnTime() {
-        return actualReturnTime;
+    public Date getActual_return_time() {
+        return actual_return_time;
     }
 
-    public void setActualReturnTime(Date actualReturnTime) {
-        this.actualReturnTime = actualReturnTime;
+    public void setActual_return_time(Date actual_return_time) {
+        this.actual_return_time = actual_return_time;
     }
 }
+
+

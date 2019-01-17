@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
-    UserDao userDao;
+    private UserDao userDao;
     public List<User> login(String user_name) {
         return userDao.login( user_name);
     }

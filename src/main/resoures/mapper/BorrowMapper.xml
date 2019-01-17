@@ -1,113 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.BorrowMapper" >
-  <resultMap id="BaseResultMap" type="com.pojo.Borrow" >
-    <id column="borrow_id" property="borrowId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="book_id" property="bookId" jdbcType="INTEGER" />
-    <result column="lend_time" property="lendTime" jdbcType="TIMESTAMP" />
-    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
-    <result column="actual_return_time" property="actualReturnTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    borrow_id, user_id, book_id, lend_time, return_time, actual_return_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from borrow
-    where usse_id = #{userId,jdbcType=INTEGER}
-  </select>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BorrowDao">
 
-  <select id="queryAllUnReturn" resultMap="BaseResultMap" >
+    <insert id="insertBorrow"  parameterType="com.pojo.Borrow">
+        insert into Borrow (user_id,book_id,lend_time,return_time)
+        value (#{borrow.user_id},#{borrow.book_id},#{borrow.lend_time},#{borrow.return_time})
+   </insert>
+    <update id="updateBorrow"   parameterType="com.pojo.Borrow">
+        update Borrow
+        <trim prefix="set" suffixOverrides=",">
+            <if test="borrow.actual_return_time!= null">actual_return_time=#{borrow.actual_return_time},</if>
+        </trim>
+        where borrow_id=#{borrow.borrow_id}
+    </update>
+
+  <select id="queryAllUnReturn" resultType="com.pojo.Borrow">
     select
-    <include refid="Base_Column_List" />
+    *
     from borrow
     where actual_return_time is null
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from borrow
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.pojo.Borrow" >
-    insert into borrow (borrow_id, user_id, book_id, 
-      lend_time, return_time, actual_return_time
-      )
-    values (#{borrowId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, 
-      #{lendTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, #{actualReturnTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.pojo.Borrow" >
-    insert into borrow
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="borrowId != null" >
-        borrow_id,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="bookId != null" >
-        book_id,
-      </if>
-      <if test="lendTime != null" >
-        lend_time,
-      </if>
-      <if test="returnTime != null" >
-        return_time,
-      </if>
-      <if test="actualReturnTime != null" >
-        actual_return_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="borrowId != null" >
-        #{borrowId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="bookId != null" >
-        #{bookId,jdbcType=INTEGER},
-      </if>
-      <if test="lendTime != null" >
-        #{lendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="returnTime != null" >
-        #{returnTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="actualReturnTime != null" >
-        #{actualReturnTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Borrow" >
-    update borrow
-    <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="bookId != null" >
-        book_id = #{bookId,jdbcType=INTEGER},
-      </if>
-      <if test="lendTime != null" >
-        lend_time = #{lendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="returnTime != null" >
-        return_time = #{returnTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="actualReturnTime != null" >
-        actual_return_time = #{actualReturnTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.pojo.Borrow" >
-    update borrow
-    set user_id = #{userId,jdbcType=INTEGER},
-      book_id = #{bookId,jdbcType=INTEGER},
-      lend_time = #{lendTime,jdbcType=TIMESTAMP},
-      return_time = #{returnTime,jdbcType=TIMESTAMP},
-      actual_return_time = #{actualReturnTime,jdbcType=TIMESTAMP}
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </update>
+
+    <select id="listBorrows" resultType="com.pojo.ReturnBookVO" parameterType="map">
+        select * from (select borrow.*,book.book_name,book.book_price,`user`.user_name,book.book_author,book.book_image FROM borrow
+        LEFT JOIN book on book.book_id=borrow.book_id
+        LEFT JOIN `user` ON  `user`.user_id=borrow.user_id ORDER BY borrow_id) a
+        <trim prefix="where" prefixOverrides="and">
+            <if test="borrow.user_id !=0">
+                AND
+                a.user_id=#{borrow.user_id}
+            </if>
+            <if test="isReturnBook==1">
+                AND
+                a.actual_return_time  IS NULL
+            </if>
+        </trim>
+        ORDER BY a.actual_return_time
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="countBorrows" resultType="java.lang.Integer" parameterType="map">
+        select count(1) from
+       (select borrow.*,book.book_name,book.book_price,`user`.user_name
+         FROM borrow
+         LEFT JOIN book on book.book_id=borrow.book_id
+         LEFT JOIN `user` ON  `user`.user_id=borrow.user_id) a
+        <trim prefix="where" prefixOverrides="and">
+            <if test="borrow.user_id !=0 ">
+                AND
+                 a.user_id=#{borrow.user_id}
+            </if>
+        </trim>
+    </select>
+
 </mapper>

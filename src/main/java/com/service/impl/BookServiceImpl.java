@@ -62,7 +62,11 @@ public class BookServiceImpl implements BookService {
         return bookMapper.findByCondition(book,begin,pageSize);
     }
 
-    public int countByCondition(Book book){
+    public int countByCondition(Book book) {
         return bookMapper.selectCountByCondition(book);
+    }
+
+    public int updateBookCount(int i, int bookId) {
+        return bookMapper.updateBookCount(i,bookId);
     }
 }
