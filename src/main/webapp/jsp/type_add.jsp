@@ -61,13 +61,11 @@
                 async: true,
                 data: {type_name:type_name},
                 success: function (data) {
-                    if (data === null) {
+                    if (data == null) {
                         alert("添加成功");
                         window.location.href = "type_manager.jsp";
-
-                    } else {
-                        alert("该分类已存在！");
-                    }
+                    } else
+                    {alert("该分类已存在！");}
                 }
             });
 

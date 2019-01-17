@@ -16,26 +16,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path %>/css/admin_login.css" rel="stylesheet" type="text/css"/>
 <!--必要样式-->
 <link rel="stylesheet" type="text/css" href="<%=path %>/css/component.css" />
-	<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-
-
-
-
-	
-
-
-
-
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
-
 	<div class="container demo-1">
 		<div class="content">
 			<div id="large-header" class="large-header">
 				<canvas id="demo-canvas"></canvas>
 				<div class="logo_box">
 					<p id="p01" style="font-size: 30px; font-family:'微软雅黑';margin-left: 50px">Wonders Library</p>
-
 						<div class="input_outer">
 							<span class="u_user"></span> <input name="user_name" id="user_name" class="text"
 								style="color: #FFFFFF !important; font-size:20px; " type="text"
@@ -50,11 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<button class="act-but submit" id="login"
 								style="color: #FFFFFF; width: 325px; height: 50px;" >登录</button>
 						              <a id="reg" style="color: #FFFFFF; width: 325px; height: 50px;  margin-left:43%; " href="<%=path %>/register.jsp" >去注册</a>
- 
 						</div>
-							
-	
-
 					</div>
 			</div>
 		</div>
@@ -65,10 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path %>/js/login/EasePack.min.js"></script>
 		<script src="<%=path %>/js/login/rAF.js"></script>
 		<script src="<%=path %>/js/login/demo-1.js"></script>
-
 	</div>
 	<script type="text/javascript">
-
 	   $('#login').click(function(){
 		   var user_name =$("#user_name").val();
 		   var pwd =$("#pwd").val();
@@ -92,7 +75,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   alert("账号或密码错误！")
 					   } else {
 						   alert("登录成功")
-						   window.location.href = "jsp/index.jsp" ;
+						   if (data.permission_id==1){
+							   window.location.href = "second/getTypesForUser" ;
+						   }else{
+							   window.location.href = "jsp/index.jsp" ;
+						   }
+
 					   }
 				   }
 			   });

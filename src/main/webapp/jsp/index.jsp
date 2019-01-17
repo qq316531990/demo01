@@ -16,7 +16,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link type="text/css" rel="stylesheet" href="../css/style.css" />
-    <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="../js/menu.js"></script>
 </head>
 <body>
@@ -43,7 +42,7 @@
     <div class="left_menu">
         <ul id="nav_dot">
 
-
+           <c:if test="${userLogin.permission_id==6}">
                 <li>
             <h4 class="M7">
                 <span></span>用户
@@ -52,7 +51,9 @@
                 <a href='<%=path %>/jsp/user_manager.jsp' target="main">用户管理</a>
             </div>
         </li>
+           </c:if>
             <li>
+       <c:if test="${userLogin.permission_id==6}">
             <h4 class="M5">
                 <span></span>书籍分类管理
             </h4>
@@ -61,14 +62,23 @@
                 <a href='<%=path %>/jsp/secondType_manager.jsp' target="main">二级分类管理</a>
             </div>
         </li>
-
+            </c:if>
             <li>
                 <h4 class="M1">
                     <span></span>书籍借阅归还
                 </h4>
                 <div class="list-item none">
-                    <a href='<%=path %>/borrow_manager' target="main">借阅</a>
-                    <a href='<%=path %>/' target="main">归还</a>
+                    <a href='<%=path %>/jsp/borrow_manager.jsp' target="main">借阅</a>
+                    <a href='<%=path %>/jsp/returnBook.jsp' target="main">归还</a>
+                </div>
+            </li>
+            <li>
+                <h4 class="M2">
+                    <span></span>统计
+                </h4>
+                <div class="list-item none">
+                    <a href='<%=path %>/jsp/countTypesByBorrow.jsp' target="main">书籍分类借阅统计</a>
+
                 </div>
             </li>
 

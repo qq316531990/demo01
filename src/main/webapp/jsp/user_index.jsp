@@ -5,256 +5,194 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>拼夕夕夕夕</title>
-    <link href="<%=path%>/css/slider.css" rel="stylesheet" type="text/css"/>
-    <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
-    <script src="<%=path%>/js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+    <!-- Bootstrap core CSS -->
+    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="<%=path%>/asserts/js/vendor/popper.min.js"></script>
+    <script src="<%=path%>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+    <script >
+         function loginOut() {
+            $.ajax({
+                type: 'post',
+                url:'<%=path %>/user/loginOut',
+                dataType: "json",
+                async: true,
+                data: {},
+                success: function (data) {
+                    if (data == 1) {
+                        alert("注销成功!");
+                        window.location.href = "../login.jsp";
+                    }
 
 
+                }
+            })}
 
     </script>
 </head>
+
 <body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
+        <a class="navbar-brand" href="#">WondersLibrary</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%=path%>/jsp/user_index.jsp">首页<span class="sr-only">(current)</span></a>
+                </li>
+           <c:forEach var="type" items="${typeList}">
+                <li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name} <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
+                        <c:forEach var="secondType" items="${secondTypeList}">
+                            <c:if test="${type.type_id==secondType.type_id}">
+                                <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </li>
+           </c:forEach>
+            </ul>
+            </ul>
+            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
+        </div>
+        <c:if test="${adminIsLogin!='OK'}">
+        <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
+        </c:if>
+        <c:if test="${adminIsLogin=='OK'}">
+            <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
+        <ul class="navbar-nav mr-auto">
+            <li class="dropdown">
 
-<div class="container header">
-    <div class="span5">
-        <div class="logo">
-
-            <img width="190px" height="56px"   src="<%=path%>/images/dd.gif" alt="传智播客"/>
+            <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
             </a>
-        </div>
-    </div>
-    <div class="span9">
-        <div class="headerAd">
-            <img  height="56px" src="<%=path%>/images/header.jpg" width="320" height="50" alt="正品保障" title="正品保障"/>
-        </div>
-    </div>
-
-
-    <div class="span10 last">
-        <div class="topNav clearfix">
-            <ul>
-
-
-                <c:choose>
-
-                    <c:when test="${user==null}">
-                        <li id="headerLogin" class="headerLogin" style="display: list-item;">
-                            <a href="<%=path%>/users/login.jsp">登录</a>|</li>
-                        <li id="headerRegister" class="headerRegister"
-                            style="display: list-item;"><a href="<%=path%>/users/register.jsp">注册</a>|
-                        </li>
-
-                    </c:when>
-                    <c:otherwise>
-                        <li id="headerLogin" class="headerLogin" style="display: list-item;">
-                                ${user.userName} 欢迎您！
-                            |</li>
-                        <li id="headerLogin" class="headerLogin" style="display: list-item;">
-                            <a href="<%=path%>/QueryOrderIdByUserIdServlet?userID=${user.userID}">我的订单</a>
-                            |</li>
-                        <li id="headerRegister" class="headerRegister"
-                            style="display: list-item;"><a href="<%=path%>/users/login.jsp">退出</a>|
-                        </li>
-                    </c:otherwise>
-
-                </c:choose>
-                <li><a>会员中心</a> |</li>
-                <li><a>购物指南</a> |</li>
-                <li><a>关于我们</a></li>
-
+            <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
+                <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
+                <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
+                <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
+                <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
             </ul>
-
-        </div>
-        <input type="text" id="pname" />
-        <button onclick="search()">查询</button>
-        <div class="cart">
-
-            <a href="<%=path%>/ShowUserCartServlet?userID=${user.userID}">购物车</a>
-        </div>
-        <div class="phone">
-
-            客服热线: <strong>96008/53277764</strong>
-        </div>
-    </div>
-    <div class="span24">
-        <ul class="mainNav">
-            <li><a href="<%=path%>/">首页</a> |</li>
-            <li><a href="<%=path%>/users/productList.jsp?booktype=青春文学">青春文学</a> |</li>
-            <li><a href="<%=path%>/users/productList.jsp?booktype=人文社科">人文社科</a> |</li>
-            <li><a href="<%=path%>/users/productList.jsp?booktype=科学技术">科学技术</a> |</li>
-            <li><a href="<%=path%>/users/productList.jsp?booktype=经济管理">经济管理</a> |</li>
-            <li><a href="<%=path%>/users/productList.jsp?booktype=小说">小说</a> </li>
-
-
-        </ul>
-    </div>
-
-</div>
-
-<div class="container index">
-
-
-    <div class="span24">
-        <div id="hotProduct" class="hotProduct clearfix">
-            <div class="title">
-                <strong>热门商品</strong>
-                <!-- <a  target="_blank"></a> -->
-            </div>
-            <ul class="tab">
-                <li class="current">
-                    <a  target="_blank"></a>
-                </li>
-                <li>
-                    <a  target="_blank"></a>
-                </li>
-                <li>
-                    <a target="_blank"></a>
-                </li>
-            </ul>
-            <ul class="tabContent" style="display: block;">
-                <c:forEach items="${hotList}" var="books" >
-
-                    <li>
-
-                        <a href="<%=path %>/QueryByIdServlet?bookID=${books.bookID}" ><img src="<%=path %>/img/books/${books.img}"></a>
-                    </li>
-                </c:forEach>
-
-            </ul>
-
-        </div>
-    </div>
-    <div class="span24">
-        <div id="newProduct" class="newProduct clearfix">
-            <div class="title">
-                <strong>最新商品</strong>
-                <a  target="_blank"></a>
-            </div>
-            <ul class="tab">
-                <li class="current">
-                </li>
-                <li>
-                    <a  target="_blank"></a>
-                </li>
-                <li>
-                    <a target="_blank"></a>
-                </li>
-            </ul>
-
-
-
-            <ul class="tabContent" style="display: block;">
-                <c:forEach items="${newList}" var="books" >
-
-                    <li>
-
-                        <a href="<%=path %>/QueryByIdServlet?bookID=${books.bookID}"><img src="<%=path %>/img/books/${books.img}"></a>
-                    </li>
-                </c:forEach>
-
-            </ul>
-
-        </div>
-    </div>
-    <div class="span24">
-        <div class="friendLink">
-            <dl>
-                <dt>新手指南</dt>
-                <dd>
-                    <a  target="_blank">支付方式</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">配送方式</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">售后服务</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">购物帮助</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">蔬菜卡</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">礼品卡</a>
-                    |
-                </dd>
-                <dd>
-                    <a target="_blank">银联卡</a>
-                    |
-                </dd>
-                <dd>
-                    <a  target="_blank">亿家卡</a>
-                    |
-                </dd>
-
-                <dd class="more">
-                    <a >更多</a>
-                </dd>
-            </dl>
-        </div>
-    </div>
-</div>
-<div class="container footer">
-    <div class="span24">
-        <div class="footerAd">
-            <img src="<%=path%>/images/footer.jpg" width="950" height="52" alt="我们的优势" title="我们的优势">
-        </div>	</div>
-    <div class="span24">
-        <ul class="bottomNav">
-            <li>
-                <a>关于我们</a>
-                |
-            </li>
-            <li>
-                <a>联系我们</a>
-                |
-            </li>
-            <li>
-                <a>招贤纳士</a>
-                |
-            </li>
-            <li>
-                <a>法律声明</a>
-                |
-            </li>
-            <li>
-                <a>友情链接</a>
-                |
-            </li>
-            <li>
-                <a target="_blank">支付方式</a>
-                |
-            </li>
-            <li>
-                <a target="_blank">配送方式</a>
-                |
-            </li>
-            <li>
-                <a>服务声明</a>
-                |
-            </li>
-            <li>
-                <a>广告声明</a>
-
             </li>
         </ul>
+        </c:if>
+    </nav>
+</header>
+<main role="main" style="">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="first-slide" src="<%=path%>/images/B1.jpg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption text-left">
+                        <h1>one</h1>
+                        <p>content</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button"> Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="second-slide" src="<%=path%>/images/B1.jpg" alt="Second slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>two</h1>
+                        <p>content</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="third-slide" src="<%=path%>/images/B1.jpg" alt="Third slide">
+                <div class="container">
+                    <div class="carousel-caption text-right">
+                        <h1>three</h1>
+                        <p>content</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <div class="span24">
-        <div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
-    </div>
-</div>
+    <!-- Marketing messaging and featurettes
+      ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <!-- START THE FEATURETTES -->
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>© 2017-2018 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </footer>
+</main>
+<!-- Bootstrap core JavaScript
+  ================================================== -->
+
+
 </body>
+
 </html>

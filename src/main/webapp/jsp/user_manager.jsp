@@ -32,8 +32,7 @@
                 data:{"user_name":user_name,"currPage":currPage,"pageSize":pageSize},
                 dataType:'json',
                 success:function(data){
-                    console.log(data);
-                    loadData(data);
+                      loadData(data);
                 }
             });
         }
@@ -141,15 +140,15 @@
 <script type="text/javascript">
 
     function del(id){
-        alert(id);
         if(confirm("您确定要删除吗?")){
+            alert(123);
             $.ajax({
                 url:'../user/deleteUsers',
-                data:{"user_id":user_id},
+                data:{"user_id":id},
                 dataType:'json',
                 traditional: true,
                 success:function (data) {
-                    if(data==1){
+                    if(data===1){
                         alert("删除成功啦！");
                         window.location.href="user_manager.jsp";
                     }else{

@@ -28,7 +28,7 @@
         <div class="form-group">
                 <div class="label">
                     <label>用户名</label>
-                </div>
+        </div>
                 <div class="field">
                     <input type="text" class="input w50" value="" name="user_name" id="user_name" data-validate="required:请输入用户名" />
                     <div class="tips"></div>
@@ -79,7 +79,11 @@
 </div>
 <script type="text/javascript" src="/demo01/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
-
+    $(function(){
+    if('${msg}'){
+        layer.msg('${msg}');
+    }
+    })
     $('#addUser').click(function(){
         var user_name =$("#user_name").val();
         var pwd =$("#pwd").val();
@@ -107,6 +111,7 @@
                     } else {
                         alert("该用户名已被注册！");
                     }
+
                 }
             });
         }
