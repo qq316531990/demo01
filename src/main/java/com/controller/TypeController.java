@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,6 +31,20 @@ public class TypeController {
         return list;
     }
 
+
+    @RequestMapping("/getAllType1")
+    @ResponseBody
+    public ModelAndView list1(){
+        List<Type> list = typeService.getList();
+        for (Type type:list
+        ) {
+            System.out.println(type);
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("jsp/book");
+        mav.addObject("list1", list);
+        return mav;
+    }
 
 
     @RequestMapping("/listTypes") //映射路径

@@ -18,6 +18,9 @@
 <body>
 
 <a href="book/selectBook" title="" target="mainCont">图书管理</a>
+<a href="message/selectMessageForUser" title="" target="mainCont">我的消息</a>
+<a href="message/selectMessageForManege" title="" target="mainCont">消息管理</a>
+<a href="book/selectBookToUser" title="" target="mainCont">用户首页</a>
 
 <%--<!-- 	内容区 -->--%>
 <%--<div class="container-fluid">--%>

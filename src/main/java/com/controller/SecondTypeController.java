@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -27,6 +28,16 @@ public class SecondTypeController {
         return typePageBean;
     }
 
+    @RequestMapping("/selectType2ById")
+    @ResponseBody
+    public  List<SecondTypeView> getType2ByTypeId(HttpServletRequest request,String  type_id) {
+        List<SecondTypeView> list=secondTypeService.getType2ByTypeId(Integer.parseInt(type_id));
+        if(list.size()==0){
+            return null;
+        }
+        request.getSession().setAttribute("list2", list);
+        return list;
+    }
 
     @RequestMapping("/deleteTypes")
     @ResponseBody

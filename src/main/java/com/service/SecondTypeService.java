@@ -11,6 +11,7 @@ public interface SecondTypeService {
     PageBean<SecondTypeView> listTypes(PageBean<SecondTypeView> pageBean, SecondTypeView type);
     int deleteTypes(Integer[] secondType_id);
     List<SecondTypeView> getTypeByTypeId(Integer type_id);
+    List<SecondTypeView> getType2ByTypeId(Integer type_id);
     int updateType(SecondType type);
     List<SecondTypeView> getTypeByTypeName (String type_name);
 }

@@ -15,6 +15,7 @@ public interface  SecondTypeDao {
     int deleteTypes(Integer[] secondType_id);
     int updateType(@Param("type") SecondType type);
     List<SecondTypeView> getTypeByTypeId(Integer type_id);
+    List<SecondTypeView> getType2ByTypeId(Integer type_id);
     int insertType(@Param("type") SecondType type);
     List<SecondTypeView> getTypeByTypeName (String type_name);
 }

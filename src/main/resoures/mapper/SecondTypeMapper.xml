@@ -44,6 +44,11 @@
         FROM  SecondTypeView  where secondType_id=#{0}
     </select>
 
+    <select id="getType2ByTypeId" resultType="com.pojo.SecondTypeView">
+        SELECT *
+        FROM  SecondTypeView  where type_id=#{0}
+    </select>
+
 
     <update id="updateType"   parameterType="com.pojo.SecondTypeView">
         update SecondType

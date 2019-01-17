@@ -33,21 +33,27 @@ public interface BookMapper {
      * @return
      */
     List<Book> selectAll(@Param("begin") int begin ,@Param("pageSize") int pageSize);
-    List<Book> selectAllByTag1(@Param("begin") int begin ,@Param("pageSize") int pageSize);
-    List<Book> selectAllByTag0(@Param("begin") int begin ,@Param("pageSize") int pageSize);
+
 
     /**
      * 查询总记录条数
      * @return
      */
     int selectAllCount();
-    int selectAllByTag1Count();
-    int selectAllByTag0Count();
+
+    /**
+     * 根据ID查询
+     * @param bookId
+     * @return
+     */
+    Book selectByPrimaryKey(Integer bookId);
 
 
     /**
      * 选择性模糊查询
      * @param book
+     * @param begin 开始页
+     * @param pageSize 每页大小
      * @return
      */
     List<Book> findByCondition(@Param("book") Book book,@Param("begin") int begin ,@Param("pageSize") int pageSize);
@@ -56,7 +62,7 @@ public interface BookMapper {
      * 条件查询记录条数
      * @return
      */
-    int selectCountByCondition();
+    int selectCountByCondition(@Param("book") Book book);
 
     /**
      * 全部修改
@@ -64,6 +70,7 @@ public interface BookMapper {
      * @return
      */
     int updateByPrimaryKeySelective(Book record);
+    int updateById(int bookId);
 
     /**
      * 选择性修改
@@ -71,4 +78,6 @@ public interface BookMapper {
      * @return
      */
     int updateByPrimaryKey(Book record);
+
+
 }

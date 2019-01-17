@@ -27,6 +27,10 @@ public class BookServiceImpl implements BookService {
         return bookMapper.updateByPrimaryKeySelective(book);
     }
 
+    public int updateBookById(int bookId) {
+        return bookMapper.updateById(bookId);
+    }
+
     /**
      * 查询图书(所有,上架,未上架)
      * @return
@@ -34,12 +38,7 @@ public class BookServiceImpl implements BookService {
     public List<Book> queryAll( int begin ,int pageSize) {
         return bookMapper.selectAll(begin,pageSize);
     }
-    public List<Book> queryAllByTag1( int begin ,int pageSize) {
-        return bookMapper.selectAllByTag1(begin,pageSize);
-    }
-    public List<Book> queryAllByTag0( int begin ,int pageSize) {
-        return bookMapper.selectAllByTag0(begin,pageSize);
-    }
+
 
     /**
      * 查询数量(..;..;..)
@@ -48,11 +47,9 @@ public class BookServiceImpl implements BookService {
     public int countAll(){
         return bookMapper.selectAllCount();
     }
-    public int countByTag1(){
-        return bookMapper.selectAllByTag1Count();
-    }
-    public int countByTag0(){
-        return bookMapper.selectAllByTag0Count();
+
+    public Book queryById(int bookId) {
+        return bookMapper.selectByPrimaryKey(bookId);
     }
 
 
@@ -65,7 +62,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.findByCondition(book,begin,pageSize);
     }
 
-    public int countByCondition(){
-        return bookMapper.selectCountByCondition();
+    public int countByCondition(Book book){
+        return bookMapper.selectCountByCondition(book);
     }
 }

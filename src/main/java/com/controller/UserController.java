@@ -37,6 +37,7 @@ public class UserController {
             if (list.get(0).getPwd().equals(pwd)) {
                 session.setAttribute("userLogin", list.get(0));
                 session.setAttribute("adminIsLogin", "OK");
+
                 System.out.println(list.get(0));
                 return list.get(0);
             } else {
