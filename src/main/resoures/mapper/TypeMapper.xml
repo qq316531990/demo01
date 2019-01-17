@@ -61,4 +61,39 @@
         FROM  type  where type_name=#{0}
     </select>
 
+    <select id="listTypeStatistics" resultType="com.pojo.StatisticsVO">
+     SELECT type.type_name name,SUM(book.book_borrowing_number)sum from type
+     left JOIN secondtype on secondtype.type_id=type.type_id
+     LEFT JOIN book_type ON secondtype.secondType_id=book_type.secondType_id
+     LEFT JOIN book ON book_type.book_id=book.book_id
+     GROUP BY type.type_id LIMIT 0,5
+    </select>
+    <select id="listSecondTypeStatistics" resultType="com.pojo.StatisticsVO">
+      SELECT * FROM(
+      SELECT secondtype.secondType_name name,SUM(book.book_borrowing_number) sum from secondtype
+      LEFT JOIN book_type ON secondtype.secondType_id=book_type.secondType_id
+      LEFT JOIN book ON book_type.book_id=book.book_id
+      GROUP BY secondtype.secondType_id )a ORDER BY sum DESC limit 0,10
+    </select>
+
+    <select id="listLastMonthSecondTypeStatistics" resultType="com.pojo.StatisticsVO">
+     SELECT type_name name,COUNT(1) sum FROM
+   ( SELECT secondtype.secondType_name type_name,borrow.* FROM borrow
+     LEFT JOIN book_type ON borrow.book_id=book_type.book_id
+     LEFT JOIN secondtype ON secondtype.secondType_id=book_type.secondType_id
+     WHERE PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format( borrow.actual_return_time, '%Y%m' ) ) =1
+    ) a
+     GROUP BY type_name
+    limit 0,10
+    </select>
+
+    <select id="listLastMonthBorrowStatistics" resultType="com.pojo.StatisticsVO">
+      SELECT book_name name,COUNT(1) sum FROM
+    ( SELECT book.book_name book_name,borrow.* FROM borrow
+      LEFT JOIN book ON book.book_id=borrow.book_id
+      WHERE PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format( borrow.actual_return_time, '%Y%m' ) ) =1
+     ) a
+      GROUP BY book_name
+    </select>
+
 </mapper>

@@ -3,7 +3,7 @@ package com.service.impl;
 import com.dao.TypeDao;
 import com.pojo.PageBean;
 import com.pojo.Type;
-import com.pojo.User;
+import com.pojo.StatisticsVO;
 import com.service.TypeService;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +16,17 @@ import java.util.Map;
 @Service
 public class TypeServiceImpl implements TypeService {
     @Resource
-    TypeDao typeDao;
+    private TypeDao typeDao;
     public List<Type> getList() {
         return typeDao.getList();
     }
 
     public int insertType(Type type) {
         return typeDao.insertType(type);
+    }
+
+    public List<StatisticsVO> listLastMonthBorrowStatistics() {
+        return typeDao.listLastMonthBorrowStatistics();
     }
 
     public PageBean<Type> listTypes(PageBean<Type> pageBean, Type type) {
@@ -46,6 +50,18 @@ public class TypeServiceImpl implements TypeService {
 
     public List<Type> getTypeByTypeName(String type_name) {
         return typeDao.getTypeByTypeName(type_name);
+    }
+
+    public List<StatisticsVO> listLastMonthSecondTypeStatistics() {
+        return typeDao.listLastMonthSecondTypeStatistics();
+    }
+
+    public List<StatisticsVO> listSecondTypeStatistics() {
+        return typeDao.listSecondTypeStatistics();
+    }
+
+    public List<StatisticsVO> listTypeStatistics() {
+        return typeDao.listTypeStatistics();
     }
 
     public int updateType(Type type) {

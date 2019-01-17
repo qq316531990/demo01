@@ -1,6 +1,7 @@
 package com.service;
 
 import com.pojo.Book;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -58,6 +59,8 @@ public interface BookService {
      * 条件查询记录数
      * @return
      */
-    int countByCondition();
+    int countByCondition(Book book);
+
+    int updateBookCount(@Param("i")int i, @Param("bookId")int bookId);
 
 }

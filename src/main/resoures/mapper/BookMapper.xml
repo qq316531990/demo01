@@ -61,7 +61,7 @@
 
 
 
-  <select id="selectCountByCondition" resultType="Integer">
+  <select id="selectCountByCondition" resultType="Integer" parameterType="com.pojo.Book">
     select
     count(*) from book where 1=1
     <choose>
@@ -281,4 +281,25 @@
       book_comment_number = #{bookCommentNumber,jdbcType=INTEGER}
     where book_id = #{bookId,jdbcType=INTEGER}
   </update>
+
+
+  <update id="updateBookCount"  >
+    update book
+    set
+    <if test="i==1 " >
+    book_count = book_count+1
+  </if>
+    <if test="i==-1 " >
+      book_count = book_count-1
+    </if>
+       where book_id = #{bookId}
+  </update>
+
+  <update id="updateBookBorrowNumber"  >
+    update book
+    set
+      book_borrowing_number = book_borrowing_number+1
+    where book_id = #{bookId}
+  </update>
+
 </mapper>

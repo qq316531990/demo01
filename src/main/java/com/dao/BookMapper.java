@@ -56,7 +56,7 @@ public interface BookMapper {
      * 条件查询记录条数
      * @return
      */
-    int selectCountByCondition();
+    int selectCountByCondition(@Param("book") Book book);
 
     /**
      * 全部修改
@@ -71,4 +71,26 @@ public interface BookMapper {
      * @return
      */
     int updateByPrimaryKey(Book record);
+
+   /*
+    *
+    * @Author tangxiangan
+    * @Description //更新库存
+    * @Date 15:00 2019/1/7
+    * @Param [i, bookId]
+    * @return int
+    **/
+    int updateBookCount(@Param("i")int i,@Param("bookId")int bookId);
+    /*
+    *
+     * @Author tangxiangan
+     * @Description //
+     * @Date 15:01 2019/1/7
+     * @Param [bookId]
+     * @return int
+     **/
+    int updateBookBorrowNumber(@Param("bookId")int bookId);
+
+
+
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BorrowDao">
+
+    <insert id="insertBorrow"  parameterType="com.pojo.Borrow">
+        insert into Borrow (user_id,book_id,lend_time,return_time)
+        value (#{borrow.user_id},#{borrow.book_id},#{borrow.lend_time},#{borrow.return_time})
+   </insert>
+    <update id="updateBorrow"   parameterType="com.pojo.Borrow">
+        update Borrow
+        <trim prefix="set" suffixOverrides=",">
+            <if test="borrow.actual_return_time!= null">actual_return_time=#{borrow.actual_return_time},</if>
+        </trim>
+        where borrow_id=#{borrow.borrow_id}
+    </update>
+
+    <select id="listBorrows" resultType="com.pojo.ReturnBookVO" parameterType="map">
+        select * from (select borrow.*,book.book_name,book.book_price,`user`.user_name,book.book_author,book.book_image FROM borrow
+        LEFT JOIN book on book.book_id=borrow.book_id
+        LEFT JOIN `user` ON  `user`.user_id=borrow.user_id ORDER BY borrow_id) a
+        <trim prefix="where" prefixOverrides="and">
+            <if test="borrow.user_id !=0">
+                AND
+                a.user_id=#{borrow.user_id}
+            </if>
+            <if test="isReturnBook==1">
+                AND
+                a.actual_return_time  IS NULL
+            </if>
+        </trim>
+        ORDER BY a.actual_return_time
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="countBorrows" resultType="java.lang.Integer" parameterType="map">
+        select count(1) from
+       (select borrow.*,book.book_name,book.book_price,`user`.user_name
+         FROM borrow
+         LEFT JOIN book on book.book_id=borrow.book_id
+         LEFT JOIN `user` ON  `user`.user_id=borrow.user_id) a
+        <trim prefix="where" prefixOverrides="and">
+            <if test="borrow.user_id !=0 ">
+                AND
+                 a.user_id=#{borrow.user_id}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

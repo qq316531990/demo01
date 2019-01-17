@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
 public interface UserService {
    List<User> login(String user_name);
    int insertUser(User user);

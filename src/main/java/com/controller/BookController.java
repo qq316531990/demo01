@@ -1,7 +1,4 @@
 package com.controller;
-
-
-
 import com.pojo.Book;
 import com.service.BookService;
 import com.utils.PageUtils;
@@ -24,8 +21,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -157,13 +152,13 @@ public class BookController {
             list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
 
         }else{
-            totalNum=bookService.countByCondition();
+             totalNum=bookService.countByCondition(getBook(file,request,"select"));
             pu= new PageUtils<Book>(currentPage, pageSize, totalNum);
             list2 = bookService.queryByCondition(getBook(file,request,"select"), (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }
         pu.setList(list2);
 
-        mav.setViewName("book");
+        mav.setViewName("jsp/book");
         mav.addObject("pu", pu);
         mav.addObject("msg",msg(i));
         return mav;
@@ -213,6 +208,38 @@ public class BookController {
 
 }
 
+
+
+
+    @RequestMapping("/selectBookForBorrow")
+    public  @ResponseBody PageUtils<Book> selectBookForBorrow(HttpServletRequest request,Integer currPage,String bookName) throws Exception{
+        List<Book> list2;
+        int pageSize = 4;		//每页大小
+        int totalNum=0;   //总条数
+           PageUtils<Book> pu;
+        if(currPage==0){
+            currPage=1;
+        }
+        if(bookName ==null||"".equals(bookName)) {
+            System.out.println(currPage);
+            totalNum=bookService.countAll();
+            pu= new PageUtils<Book>(currPage, pageSize, totalNum);
+            list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+        }else{
+            Book book=new Book();
+            System.out.println(currPage);
+             bookName =new String(bookName.getBytes("ISO-8859-1"),"utf-8");
+            System.out.println(bookName);
+            book.setBookName(bookName);
+            totalNum=bookService.countByCondition(book);
+            pu= new PageUtils<Book>(currPage, pageSize, totalNum);
+            list2 = bookService.queryByCondition(book, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+        }
+        pu.setList(list2);
+        request.getSession().setAttribute("pu",pu);
+        request.getSession().setAttribute("msg",msg(i));
+            return  pu;
+    }
 //    /**
 //     * 文件下载
 //     */
