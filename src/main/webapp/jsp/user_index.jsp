@@ -18,6 +18,10 @@
     <title></title>
     <!-- Bootstrap core CSS -->
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -67,7 +71,7 @@
                     <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                         <c:forEach var="secondType" items="${secondTypeList}">
                             <c:if test="${type.type_id==secondType.type_id}">
-                                <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                                <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
                             </c:if>
                         </c:forEach>
                     </ul>
@@ -92,6 +96,7 @@
                 <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                 <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
                 <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
             </ul>
             </li>
         </ul>
@@ -148,41 +153,74 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="container marketing">
-        <!-- START THE FEATURETTES -->
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
+    <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
+        <div class="form-group">
+            <label for="exampleInputName2">书名</label>
+            <input type="text" name="bookName" class="form-control" id="exampleInputName2" placeholder="1">
+        </div>
+        <button type="submit" class="btn btn-default">查找</button>
+
+    </form>
+    <div class="container-fluid" style="margin-top: 40px;">
+        <div class="row">
+
+
+            <div class="col-sm-6 col-sm-offset-1" >
+
+                <c:forEach items="${pu.list}" var="book" >
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-3 col-xs-12">
+                            <div class="thumbnail">
+                                <img src="<%=path%>/images/upload/${book.bookImage}" width=100% height=100% alt="" />
+                                <tr>
+                                        <%--<td><input type="checkbox" name="ids" value="${message.messageId}"/></td>--%>
+                                    <%--<td style="display:none;" title="${book.bookId}">${book.bookId}</td>--%>
+                                    <td title="${book.bookAuthor}">作者: ${book.bookAuthor}</td>
+                                    <td title="${book.bookPrice}">价格:${book.bookPrice}</td>
+                                </tr>
+                                <div class="caption text-center">
+                                    <a href="">详情</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+
+                <div class="text-right">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pu.currentPage == 1}">
+                                <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/demo01/second/getTypesForUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach begin="${pu.start}" end="${pu.end}"  var="i">
+                            <c:choose>
+                                <c:when test="${i == pu.currentPage}">
+                                    <li class="active"><a href="#">${i}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="/demo01/second/getTypesForUser?cp=${i}">${i}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pu.currentPage == pu.last}">
+                                <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/demo01/second/getTypesForUser?cp=${pu.next}"><span>&raquo;</span></a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
             </div>
         </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
-            </div>
-        </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
-            </div>
-        </div>
-        <hr class="featurette-divider">
-        <!-- /END THE FEATURETTES -->
-    </div><!-- /.container -->
+    </div>
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>

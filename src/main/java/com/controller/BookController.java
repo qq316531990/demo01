@@ -22,12 +22,8 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-
-import java.util.UUID;
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -167,30 +163,45 @@ public class BookController {
 
     @ResponseBody
     @RequestMapping("/selectBookToUser")
-    public ModelAndView listToUser(MultipartFile file,HttpServletRequest request){
+    public ModelAndView listToUser(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         String cp = request.getParameter("cp");
         int currentPage = cp != null ? Integer.parseInt(cp) : 1;
         PageUtils<Book> pu;
-        List<Book> list2;
+        List<Book> list2 =new ArrayList<Book>();
         String tab=request.getParameter("tab");
+        System.out.println(tab);
         if(tab ==null) {
             int totalNum=bookService.countAll();
-            pu= new PageUtils<Book>(currentPage, 20, totalNum);
+            pu= new PageUtils<Book>(currentPage, 10, totalNum);
             list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
-        }else{
+        }else if(tab.equals("3")){
+            System.out.println(tab);
             Book book1=new Book();
-            book1.setBookName(request.getParameter("bookName"));
+            if(request.getParameter("bookName")!=null){
+                book1.setBookName(request.getParameter("bookName"));
+            }
+
             int totalNum=bookService.countByCondition(book1);
-            pu= new PageUtils<Book>(currentPage, 20, totalNum);
+            pu= new PageUtils<Book>(currentPage, 10, totalNum);
             list2 = bookService.queryByCondition(book1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+        }else if(tab.equals("2")){
+            int secondTypeId=Integer.parseInt(request.getParameter("typeId"));
+            List<Integer> list0=bookTypeService.selectBookByType(secondTypeId);
+            for(Integer list:list0){
+                list2.add(bookService.queryById(list));
+            }
+            pu= new PageUtils<Book>(currentPage, 10, 0);
+        }else{
+            System.out.println(tab);
+            return  null;
         }
         pu.setList(list2);
 
-        mav.setViewName("user_index");
-        mav.addObject("pu", pu);
+        mav.setViewName("jsp/user_index");
+            mav.addObject("pu", pu);
         return mav;
-    }
+}
 
 
     @ResponseBody

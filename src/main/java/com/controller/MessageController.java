@@ -47,8 +47,15 @@ public class MessageController {
 
     public Message getMessage(HttpServletRequest request,  String s, String tag) {
         User user = (User) request.getSession().getAttribute("userLogin");
-        int bookId=Integer.parseInt(request.getParameter("bookId"));
-        String userId = request.getParameter("userId");
+        int bookId=0;
+        if((Borrow) request.getSession().getAttribute("borrow")!=null){
+            Borrow borrow=(Borrow) request.getSession().getAttribute("borrow");
+            bookId=borrow.getBook_id();
+        }else{
+            bookId=Integer.parseInt(request.getParameter("bookId"));
+        }
+
+        //String userId = request.getParameter("userId");
         Message msg = new Message();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
@@ -61,25 +68,25 @@ public class MessageController {
             e.printStackTrace();
         }
         //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
-        if (s == "add" && tag == "0") {
-            msg.setUserId(user.getUser_id());
-            msg.setMessageContent(bookService.queryById(bookId).getBookName()+" : 您于"
-                    + d1
-                    + "成功预约"
-                    + bookService.queryById(bookId).getBookName()
-                    + ", 请于第二日21时之前取书, 未按时取书将影响您的信誉及之后的体验,敬请留意."
-                    + "/n"
-                    + "取消预约请于2小时内进行,取消不会对您产生任何影响,感谢您的使用,谢谢!"
-                    + "                                                      By 某潜伏的书虫");
-            //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:评论消息
-            msg.setMessageType(0);
-            //0:未读,1:已读
-            msg.setMessageState(0);
-        }
+//        if (s == "add" && tag == "0") {
+//            msg.setUserId(user.getUser_id());
+//            msg.setMessageContent(bookService.queryById(bookId).getBookName()+" : 您于"
+//                    + d1
+//                    + "成功预约"
+//                    + bookService.queryById(bookId).getBookName()
+//                    + ", 请于第二日21时之前取书, 未按时取书将影响您的信誉及之后的体验,敬请留意."
+//                    + "/n"
+//                    + "取消预约请于2小时内进行,取消不会对您产生任何影响,感谢您的使用,谢谢!"
+//                    + "                                                      By 某潜伏的书虫");
+//            //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:评论消息
+//            msg.setMessageType(0);
+//            //0:未读,1:已读
+//            msg.setMessageState(0);
+//        }
 
         //借书成功消息
-        if (s == "add" && tag == "1") {
-            msg.setUserId(Integer.parseInt(userId));
+        if (s == "add" && tag.equals("1") ) {
+            msg.setUserId(user.getUser_id());
 
             Date date=new Date();
             Calendar calendar = Calendar.getInstance();
@@ -206,17 +213,20 @@ public class MessageController {
         message.setMessageId(msgId);
         message.setMessageState(1);
         i=messageService.updateMessage(message);
+        User user = (User) request.getSession().getAttribute("userLogin");
+        int j=messageService.selectUnreadCount(user.getUser_id());
+        request.getSession().setAttribute("unRead",j);
         return listUser(request);
     }
 
 
-    @ResponseBody
-    @RequestMapping("/unreadMessage")
-    public ModelAndView unreadMessage(HttpServletRequest request){
-        User user = (User) request.getSession().getAttribute("userLogin");
-        int j=messageService.selectUnreadCount(user.getUser_id());
-        return null;//返回个人主页,在主页上显示未读数
-    }
+//    @ResponseBody
+//    @RequestMapping("/unreadMessage")
+//    public ModelAndView unreadMessage(HttpServletRequest request){
+//        User user = (User) request.getSession().getAttribute("userLogin");
+//        int j=messageService.selectUnreadCount(user.getUser_id());
+//        return null;//返回个人主页,在主页上显示未读数
+//    }
 
     /**
      * 个人消息

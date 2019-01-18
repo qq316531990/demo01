@@ -87,7 +87,7 @@
                 </h4>
                 <div class="list-item none">
                     <a href='<%=path %>/message/selectMessageForManege' target="main">消息管理</a>
-
+                    <a href='<%=path%>/message/selectMessageForUser' target="main">我的消息<span class="badge">${sessionScope.unRead}</span></a>
                 </div>
             </li>
             <li>
