@@ -78,8 +78,8 @@
                 <td>${book1.bookCount}</td>
             </tr>
             <tr style="height: 40px">
-                <td><a href="">返回</a>：</td>
-                <td><a href="">借阅</a></td>
+                <td><a href="<%=path%>/second/getTypesForUser">返回</a></td>
+                <td><a href="#">借阅</a></td>
             </tr>
 
         </table>
