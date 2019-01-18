@@ -1,8 +1,11 @@
 package com.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.pojo.Book;
 import com.pojo.PageBean;
 import com.pojo.User;
+import com.service.BookService;
+import com.service.MessageService;
 import com.service.UserService;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +24,13 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    MessageService messageService;
+    @Autowired
+    BookController bookController;
     @RequestMapping("/login")
     public @ResponseBody
-    User login(HttpSession session, String user_name, String pwd) {
+    User login(HttpSession session, String user_name, String pwd,HttpServletRequest request) {
         System.out.println(pwd);
         List<User> list = userService.login(user_name);
         if (list.size() == 0) {
@@ -35,6 +41,9 @@ public class UserController {
                 session.setAttribute("userLogin", list.get(0));
                 session.setAttribute("adminIsLogin", "OK");
 
+                User user =list.get(0);
+                int unRead=messageService.selectUnreadCount(user.getUser_id());
+                request.getSession().setAttribute("unRead",unRead);
                 System.out.println(list.get(0));
                 return list.get(0);
             } else {

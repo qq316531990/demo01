@@ -425,10 +425,7 @@
             </table>
             <%--分页标签 -->--%>
 
-            <s:url value="queryBook.action" id="u1">
-                <s:param name="currentPage" value="page.currentPage+1"/>
-                <s:param name="name" value="#session.name"/>
-            </s:url>
+
 
             <div class="text-right">
                 <ul class="pagination">
