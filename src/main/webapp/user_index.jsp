@@ -169,31 +169,31 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <%--<div class="container-fluid" style="margin-top: 40px;">--%>
-        <%--<div class="row">--%>
+    <div class="container-fluid" style="margin-top: 40px;">
+        <div class="row">
 
 
-            <%--<div class="col-sm-6 col-sm-offset-1" >--%>
-                <%--<div class="row">--%>
-                    <%--<span class="h col-sm-10" style="font-size: 20px;">正在热映   (43部)</span>--%>
-                    <%--<a href="" class="h text-right col-sm-2 " style="font-size: 10px; line-height: 20px;">全部></a>--%>
+            <div class="col-sm-6 col-sm-offset-1" >
+                <div class="row">
+                    <span class="h col-sm-10" style="font-size: 20px;">正在热映   (43部)</span>
+                    <a href="" class="h text-right col-sm-2 " style="font-size: 10px; line-height: 20px;">全部></a>
 
-                <%--</div>--%>
-                <%--<c:forEach items="${pu.list}" var="book" >--%>
-                <%--<div class="row" style="margin-top: 30px;">--%>
-                    <%--<div class="col-md-3 col-xs-12">--%>
-                        <%--<div class="thumbnail">--%>
-                            <%--<img src="images/upload/${book.bookImage}" alt="" />--%>
-                            <%--<div class="caption text-center">--%>
-                                <%--<p class="h">购票</p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--</c:forEach>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+                </div>
+                <c:forEach items="${pu.list}" var="book" >
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-3 col-xs-12">
+                        <div class="thumbnail">
+                            <img src="images/upload/${book.bookImage}" alt="" />
+                            <div class="caption text-center">
+                                <p class="h">购票</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
