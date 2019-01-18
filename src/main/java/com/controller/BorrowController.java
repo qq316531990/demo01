@@ -36,6 +36,7 @@ public class BorrowController {
      **/
     @RequestMapping("/insertBorrow") //映射路径
     public @ResponseBody Integer insertBorrow(Borrow borrow) {
+
       return  borrowService.insertBorrow(borrow);
 
     }

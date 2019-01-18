@@ -75,6 +75,8 @@ public class SecondTypeController {
     @RequestMapping("/updateType")
     @ResponseBody
     public  Integer updateType(SecondType type) {
+
+        System.out.println(type);
         int num =secondTypeService.updateType(type);
         return num;
     }

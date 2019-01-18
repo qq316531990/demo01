@@ -70,7 +70,7 @@
          } else
          {
            window.event.returnValue=false;
-           window.location.href="<%=path%>/book/selectBookForBorrow";
+           window.location.href="<%=path%>/jsp/borrow_manager.jsp";
            alert("借阅成功!");
          }
        }

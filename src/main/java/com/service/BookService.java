@@ -61,6 +61,6 @@ public interface BookService {
      */
     int countByCondition(Book book);
 
-    int updateBookCount(@Param("i")int i, @Param("bookId")int bookId);
+    int updateBookCount(int i,int bookId);
 
 }
