@@ -107,7 +107,7 @@
                 alert('评分：'+(starRating.toFixed(1)+'分'));
                 comment_content=$('#comment_content').val();
                 user_id=${userLogin.user_id};
-                book_id=${param.vo_book_id}
+                book_id=${param.vo_book_id};
                 $.ajax({
                     type:'post',
                     url:'<%=path %>/comment/add',
