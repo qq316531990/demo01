@@ -240,8 +240,7 @@
                     <dd id="d5"></dd>
                     <dt>图书简介:</dt>
                     <dd id="d6"></dd>
-                    <dt>图片:</dt>
-                    <dd id="d7"></dd>
+
                     <dt>上下架:</dt>
                     <dd id="d8"></dd>
                     <dt>价格:</dt>
@@ -407,7 +406,7 @@
                         <td title="${book.bookPublishedInformation}">${book.bookPublishedInformation}</td>
                         <td title="${book.bookCount}">${book.bookCount}</td>
                         <td title="${book.bookDescription}">${book.bookDescription}</td>
-                        <td title="${book.bookImage}">${book.bookImage}</td>
+                        <td title="${book.bookImage}"><img src="<%=path%>/images/upload/${book.bookImage}" width=50px height=80px alt="" /></td>
                         <td >
                             <c:if test="${book.bookTag==1}">上架</c:if>
                             <c:if test="${book.bookTag==2}">下架</c:if>
