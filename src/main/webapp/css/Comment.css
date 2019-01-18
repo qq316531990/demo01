@@ -1,0 +1,127 @@
+.book{
+    width: 800px;
+    height: 460px;
+    border: 1px solid black;
+    position: relative;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: 50px;
+}
+.bookpicture{
+    width: 430px;
+    height: 430px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+.bookword{
+    width: auto;
+    height: auto;
+    position: absolute;
+    margin-left: 460px;
+    margin-top: 40px;
+}
+.display{
+    width: 550px;
+    height: 200px;
+    border: 1px solid black;
+    position: relative;
+    left: 50%;
+    margin-top: 5px;
+    margin-left: -290px;
+}
+.disHuiFu{
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    margin-left: 170px;
+    margin-top: 155px;
+}
+.disxx{
+    width: 450px;
+    height: 60px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.disid{
+    width: 80px;
+    height: 60px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 460px;
+}
+.distext{
+    width: 500px;
+    height: auto;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 5px;
+}
+.distime{
+    width: 160px;
+    height: 25px;
+    position: absolute;
+    margin-top: 155px;
+    margin-left: 5px;
+}
+.input{
+    width: 600px;
+    height: 400px;
+    position: relative;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 20px;
+}
+.xing{
+    list-style: none;
+    font-size: 40px;
+    color: #ffefa6;
+    cursor: pointer;
+}
+.caoZuo{
+    width: 80px;
+    height: 30px;
+    float: right;
+    margin-top: 155px;
+}
+.fenYe{
+    width: 200px;
+    height: 40px;
+    position: relative;
+    left: 50%;
+    margin-top: 30px;
+    margin-left: 100px;
+}
+.huiFuPl{
+    width: 450px;
+    position: relative;
+    left: 50%;
+    margin-left: -190px;
+    background-color: rgba(150, 164, 153, 0.3);
+}
+.rating-stars {
+    width: 100%;
+    text-align: center;
+}
+
+.rating-stars .rating-stars-container {
+    font-size: 0px;
+}
+
+.rating-stars .rating-stars-container .rating-star {
+    display: inline-block;
+    font-size: 32px;
+    color: #555555;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--active,
+.rating-stars .rating-stars-container .rating-star.is--hover {
+    color: #f1c40f;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--no-hover {
+    color: #555555;
+}
