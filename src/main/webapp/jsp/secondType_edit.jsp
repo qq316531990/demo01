@@ -40,7 +40,7 @@
                         $("#type_id").empty();
                         var list=data;
                         for(var i=0;i<list.length;i++){
-                            var $type_name=$("<option value='"+list[i].type_id+"'>"+list[i].type_name+"</option>");
+                            var $type_name=$("<option id='type_id' value='"+list[i].type_id+"'>"+list[i].type_name+"</option>");
                             $("#type_id").append($type_name);
                         }
                     }
@@ -122,6 +122,7 @@
     $('#updateType').click(function(){
         var secondType_id =$("#secondType_id").val();
         var secondType_name =$("#secondType_name").val();
+        var type_id=$("#type_id").val();
         if(secondType_name==""){
             alert("分类名不能为空！")
             return false;
@@ -132,7 +133,7 @@
                 url: '<%=path %>/second/updateType',
                 dataType: "json",
                 async: true,
-                data: {secondType_name:secondType_name,secondType_id:secondType_id},
+                data: {secondType_name:secondType_name,secondType_id:secondType_id,type_id:type_id},
                 success: function (data) {
                     if (data === 1) {
                         alert("修改成功");
