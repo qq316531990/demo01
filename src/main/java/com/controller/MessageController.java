@@ -111,12 +111,13 @@ public class MessageController {
 
         if(s=="add"&&tag=="4"){
             //通过获取被评论ID发消息给被评论人
-            Comment parentComment =commentService.queryById(Integer.parseInt(request.getParameter("parentCommentId")));
+            List<Comment> parent =commentService.findComment_id(Integer.parseInt(request.getParameter("parentCommentId")));
+            Comment parentComment=parent.get(0);
             String commentContent=request.getParameter("commentContent");
-            int parentUserId=parentComment.getUserId();
+            int parentUserId=parentComment.getUser_id();
             String userName=userService.getUserByUserId(parentUserId).get(0).getUser_name();
             msg.setUserId(parentUserId);
-            msg.setMessageContent(parentComment.getCommentContent()+ " //  " +userName+"  //  " +commentContent);
+            msg.setMessageContent(parentComment.getComment_content()+ " //  " +userName+"  //  " +commentContent);
             msg.setMessageType(4);
             msg.setMessageState(0);
         }
