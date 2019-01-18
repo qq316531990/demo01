@@ -77,6 +77,11 @@
                 <td>图书数量：</td>
                 <td>${book1.bookCount}</td>
             </tr>
+            <tr style="height: 40px">
+                <td><a href="">返回</a>：</td>
+                <td><a href="">借阅</a></td>
+            </tr>
+
         </table>
     </div>
 </div>

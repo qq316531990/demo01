@@ -116,7 +116,7 @@
                     data:{user_id: user_id, book_id: book_id,comment_content:comment_content,comment_state:starRating},
                 });
                 alert('发表成功');
-                window.location.href='<%=path%>/jsp/user_borrow_history.jsp';
+                window.location.href='<%=path%>/borrow/listBorrowsForUsers?currPage=1';
             }
         })
     })
