@@ -87,7 +87,7 @@
                 </h4>
                 <div class="list-item none">
                     <a href='<%=path %>/message/selectMessageForManege' target="main">消息管理</a>
-
+                    <a href='<%=path%>/message/selectMessageForUser' target="main">我的消息<span class="badge">${sessionScope.unRead}</span></a>
                 </div>
             </li>
             <li>
@@ -106,7 +106,6 @@
                 <div class="list-item none">
                     <a href='<%=path %>/comment/find' target="main">书籍评论管理</a>
                     <a href='<%=path %>/comment/findHuiFu' target="main">评论回复管理</a>
-                    <a href="<%=path %>/comment/findBook?book_id=18">用户评论</a>
                 </div>
             </li>
 
