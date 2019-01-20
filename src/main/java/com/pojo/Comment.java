@@ -1,60 +1,92 @@
 package com.pojo;
 
-public class Comment {
-    private int commentId;
-    private int userId;
-    private int bookId;
-    private  int parentCommentId;
-    private String commentContent;
+import java.util.Date;
 
-    public Comment(int commentId, int userId, int bookId, int parentCommentId, String commentContent) {
-        this.commentId = commentId;
-        this.userId = userId;
-        this.bookId = bookId;
-        this.parentCommentId = parentCommentId;
-        this.commentContent = commentContent;
-    }
+public class Comment {
+    private int comment_id;
+    private int user_id;
+    private int book_id;
+    private int parent_comment_id;
+    private String comment_content;
+    private Date comment_time;
+    private int comment_great_number;
+    private int comment_state;
 
     public Comment() {
     }
 
-    public int getCommentId() {
-        return commentId;
+    public Comment(int comment_id, int user_id, int book_id, int parent_comment_id, String comment_content, Date comment_time, int comment_great_number, int comment_state) {
+        this.comment_id = comment_id;
+        this.user_id = user_id;
+        this.book_id = book_id;
+        this.parent_comment_id = parent_comment_id;
+        this.comment_content = comment_content;
+        this.comment_time = comment_time;
+        this.comment_great_number = comment_great_number;
+        this.comment_state = comment_state;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public int getComment_id() {
+        return comment_id;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public int getBookId() {
-        return bookId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public int getBook_id() {
+        return book_id;
     }
 
-    public int getParentCommentId() {
-        return parentCommentId;
+    public void setBook_id(int book_id) {
+        this.book_id = book_id;
     }
 
-    public void setParentCommentId(int parentCommentId) {
-        this.parentCommentId = parentCommentId;
+    public int getParent_comment_id() {
+        return parent_comment_id;
     }
 
-    public String getCommentContent() {
-        return commentContent;
+    public void setParent_comment_id(int parent_comment_id) {
+        this.parent_comment_id = parent_comment_id;
     }
 
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
+    public String getComment_content() {
+        return comment_content;
+    }
+
+    public void setComment_content(String comment_content) {
+        this.comment_content = comment_content;
+    }
+
+    public Date getComment_time() {
+        return comment_time;
+    }
+
+    public void setComment_time(Date comment_time) {
+        this.comment_time = comment_time;
+    }
+
+    public int getComment_great_number() {
+        return comment_great_number;
+    }
+
+    public void setComment_great_number(int comment_great_number) {
+        this.comment_great_number = comment_great_number;
+    }
+
+    public int getComment_state() {
+        return comment_state;
+    }
+
+    public void setComment_state(int comment_state) {
+        this.comment_state = comment_state;
     }
 }

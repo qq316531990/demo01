@@ -162,24 +162,65 @@
         <button type="submit" class="btn btn-default">查找</button>
 
     </form>
-    <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
-        <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
-            <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:200px;height:200px; vertical-align:middle;" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:100%;height:40px;text-align: center" >
-                    <h4 class="card-title">${book.bookName}</h4>
-                </div>
-                <div class="card-footer">
-                    <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm">详情</button>
+    <div class="container-fluid" style="margin-top: 40px;">
+        <div class="row">
+
+
+            <div class="col-sm-6 col-sm-offset-1" >
+
+                <c:forEach items="${pu.list}" var="book" >
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-3 col-xs-12">
+                            <div class="thumbnail">
+                                <img src="<%=path%>/images/upload/${book.bookImage}" width=100% height=100% alt="" />
+                                <tr>
+                                        <%--<td><input type="checkbox" name="ids" value="${message.messageId}"/></td>--%>
+                                    <%--<td style="display:none;" title="${book.bookId}">${book.bookId}</td>--%>
+                                    <td title="${book.bookAuthor}">作者: ${book.bookAuthor}</td>
+                                    <td title="${book.bookPrice}">价格:${book.bookPrice}</td>
+                                </tr>
+                                <div class="caption text-center">
+                                    <a href="">详情</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+
+                <div class="text-right">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pu.currentPage == 1}">
+                                <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/demo01/second/getTypesForUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach begin="${pu.start}" end="${pu.end}"  var="i">
+                            <c:choose>
+                                <c:when test="${i == pu.currentPage}">
+                                    <li class="active"><a href="#">${i}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="/demo01/second/getTypesForUser?cp=${i}">${i}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pu.currentPage == pu.last}">
+                                <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/demo01/second/getTypesForUser?cp=${pu.next}"><span>&raquo;</span></a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
                 </div>
             </div>
         </div>
-        </c:forEach>
-    </div>
-
-
     </div>
     <!-- FOOTER -->
     <footer class="container">
