@@ -67,6 +67,10 @@ public class BorrowServiceImpl implements BorrowService {
         return count;
     }
 
+    public List<Borrow> queryAllUnReturn() {
+        return borrowDao.queryAllUnReturn();
+    }
+
     /**
      * @Author tangxiangan
      * @Description //TODO 借阅

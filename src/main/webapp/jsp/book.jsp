@@ -1,13 +1,19 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.pojo.Type" %>
+<%@ page import="com.controller.TypeController" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<!-- 导入jstl标准标签库的核心标签：c标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 格式化标签 -->
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <%@ include file="/jsp/sourceCss.jsp" %>
+    <%@ include file="../sourceCss.jsp" %>
     <style>
 
         .aa{
@@ -44,9 +50,9 @@
 
 <!-- 选择查询模态框 -->
 <div class="modal animated fadeInUp" id="bookSelect">
-    <form action="/demo01/book/selectBook?tab=1" class="form-horizontal" id="bookSelectForm" method="post">
+    <form action="/demo01/book/selectBook" class="form-horizontal" id="bookSelectForm" method="get">
         <!-- 隐藏域用于请求后台指定的方法 -->
-        <%--<input type="hidden" name="add" />--%>
+        <input type="hidden" name="tab" value="1"/>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -55,62 +61,62 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书编号</label>
+                        <label for="" class="control-label col-sm-2">图书编号</label>
                         <div class="col-sm-8">
                             <textarea name="bookId"  rows="3" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">书籍名称</label>
+                        <label for="" class="control-label col-sm-2">书籍名称</label>
                         <div class="col-sm-8">
                             <textarea name="bookName" rows="3" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">作者</label>
+                        <label for="" class="control-label col-sm-2">作者</label>
                         <div class="col-sm-8">
                             <textarea name="bookAuthor" rows="3" class="form-control" ></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">版号</label>
+                        <label for="" class="control-label col-sm-2">版号</label>
                         <div class="col-sm-8">
                             <textarea name="bookPublishedInformation" rows="3" class="form-control" ></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书数量</label>
+                        <label for="" class="control-label col-sm-2">图书数量</label>
                         <div class="col-sm-8">
                             <textarea name="bookCount" rows="3" class="form-control" ></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">上下架</label>
+                        <label for="" class="control-label col-sm-2">上下架</label>
                         <div class="col-sm-8">
                             <textarea name="bookTag"  rows="3" class="form-control" ></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">价格</label>
+                        <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
                             <textarea name="bookPrice"  rows="3" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">借阅人数(最低)</label>
+                        <label for="" class="control-label col-sm-2">借阅人数(最低)</label>
                         <div class="col-sm-8">
                             <textarea name="bookBorrowingNumber"  rows="3" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">评论星级</label>
+                        <label for="" class="control-label col-sm-2">评论星级</label>
                         <div class="col-sm-8">
                          <textarea name="bookStar"  rows="3" class="form-control"></textarea>
                         </div>
                      </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">评论人数</label>
+                        <label for="" class="control-label col-sm-2">评论人数</label>
                         <div class="col-sm-8">
                             <textarea name="bookCommentNumber"  rows="3" class="form-control"></textarea>
                         </div>
@@ -128,7 +134,7 @@
 
 <!-- 添加图书模态框 -->
 <div class="modal animated fadeInUp" id="bookAdd">
-    <form action="/demo01/book/add" class="form-horizontal" id="bookAddForm" method="post" enctype="multipart/form-data">
+    <form action="/demo01/book/addBook" class="form-horizontal" id="bookAddForm" method="post" enctype="multipart/form-data">
         <!-- 隐藏域用于请求后台指定的方法 -->
         <%--<input type="hidden" name="add" />--%>
         <div class="modal-dialog modal-lg">
@@ -139,54 +145,66 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">书籍名称</label>
+                        <label for="" class="control-label col-sm-2">书籍名称</label>
                         <div class="col-sm-8">
                             <textarea name="bookName" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">作者</label>
+                        <label for="" class="control-label col-sm-2">作者</label>
                         <div class="col-sm-8">
                             <textarea name="bookAuthor" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">版号</label>
+                        <label for="" class="control-label col-sm-2">版号</label>
                         <div class="col-sm-8">
                             <textarea name="bookPublishedInformation" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书数量</label>
+                        <label for="" class="control-label col-sm-2">图书数量</label>
                         <div class="col-sm-8">
                             <textarea name="bookCount" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书简介</label>
+                        <label for="" class="control-label col-sm-2">图书简介</label>
                         <div class="col-sm-8">
                             <textarea name="bookDescription"  rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图片</label>
+                        <label for="" class="control-label col-sm-2">图片</label>
                         <div class="col-sm-8">
                             选择文件:<input type="file" name="file"> 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">上下架</label>
-                        <div class="col-sm-8">
-                            <textarea name="bookTag"  rows="3" class="form-control" required></textarea>
-                        </div>
+                        <label for="" class="control-label col-sm-2">上下架</label>
+                        <input type="radio" name="bookTag" value="1" checked />上架
+                        <input type="radio" name="bookTag" value="2"  />下架
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">价格</label>
+                        <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
                             <textarea name="bookPrice"  rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label col-sm-2">分类</label>
+                    <form id="form1" runat="server">
+                        <div>
+                            <select id="pro_c" name="pro_c" >
+                                <option>---请选择---</option>
+                            </select>
+                            <select id="city_c" name="city_c">
+                                <option>---请选择---</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal">取消</button>
@@ -248,7 +266,7 @@
 
 <!-- 图书修改模态框 -->
 <div class="modal animated pulse" id="bookEdit">
-    <form action="/demo01/book/update" class="form-horizontal" id="bookUpdateForm" method="post">
+    <form action="/demo01/book/updateBook" class="form-horizontal" id="bookUpdateForm" method="post">
         <!-- 		<input type="hidden" name="fid" value="" /> -->
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -258,55 +276,50 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书序号</label>
+                        <label for="" class="control-label col-sm-2">图书序号</label>
                         <div class="col-sm-8">
                             <textarea name="bookId" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">图书名</label>
+                        <label for="" class="control-label col-sm-2">图书名</label>
                         <div class="col-sm-8">
                             <textarea name="bookName" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">作者</label>
+                        <label for="" class="control-label col-sm-2">作者</label>
                         <div class="col-sm-8">
                             <textarea name="bookAuthor" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">版号</label>
+                        <label for="" class="control-label col-sm-2">版号</label>
                         <div class="col-sm-8">
                             <textarea name="bookPublishedInformation" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">图书数量</label>
+                        <label for="" class="control-label col-sm-2">图书数量</label>
                         <div class="col-sm-8">
                             <textarea name="bookCount" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">图书简介</label>
+                        <label for="" class="control-label col-sm-2">图书简介</label>
                         <div class="col-sm-8">
                             <textarea name="bookDescription" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="control-label col-sm-2">图片</label>
-                        <div class="col-sm-8">
-                            <textarea name="bookImage" rows="3" class="form-control" required></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">上下架</label>
+                        <label for="" class="control-label col-sm-2">上下架</label>
                         <div class="col-sm-8">
                             <textarea name="bookTag" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label col-sm-2">价格</label>
+                        <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
                             <textarea name="bookPrice" rows="3" class="form-control" required></textarea>
                         </div>
@@ -339,7 +352,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎你，${user.username}<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎你，${userLogin.user_name}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
 
                             <li><a href="javascript:void(0)" id="logout">安全退出</a></li>
@@ -359,11 +372,11 @@
 
         <!-- 		按钮组 -->
         <div class="btn-group">
-            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookAdd"><span class="glyphicon glyphicon-cloud-upload"></span>添加图书</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookAdd"><span class="glyphicon "></span>添加图书</button>
             <!-- 			用户禁止删除操作 -->
-            <button class="btn btn-danger volumeDel" type="submit"><span class="glyphicon glyphicon-remove"></span>批量删除</button>
+            <button class="btn btn-danger volumeDel" type="submit"><span class="glyphicon "></span>上架/下架</button>
 
-            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookSelect"><span class="glyphicon glyphicon-cloud-upload"></span>查找图书</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookSelect"><span class="glyphicon "></span>查找图书</button>
         </div>
         <br /><br />
         <div class="data-container">
@@ -383,6 +396,7 @@
                     <th>借阅量</th>
                     <th>总星星数</th>
                     <th>评论人数</th>
+                    <th>操作</th>
                 </tr>
                 <c:forEach items="${pu.list}" var="book" >
                     <tr>
@@ -394,19 +408,25 @@
                         <td title="${book.bookCount}">${book.bookCount}</td>
                         <td title="${book.bookDescription}">${book.bookDescription}</td>
                         <td title="${book.bookImage}">${book.bookImage}</td>
-                        <td title="${book.bookTag}">${book.bookTag}</td>
+                        <td >
+                            <c:if test="${book.bookTag==1}">上架</c:if>
+                            <c:if test="${book.bookTag==2}">下架</c:if>
+                        </td>
                         <td title="${book.bookPrice}">${book.bookPrice}</td>
                         <td title="${book.bookBorrowingNumber}">${book.bookBorrowingNumber}</td>
                         <td title="${book.bookStar}">${book.bookStar}</td>
                         <td title="${book.bookCommentNumber}">${book.bookCommentNumber}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm btnInfo" data-book-id="${book}" data-toggle="modal" data-target="#bookInfo"><span class="glyphicon glyphicon-info-sign"></span>详情</button>
-                            <button class="btn btn-info btn-sm btnEdit" data-book-id="${book}" data-toggle="modal" data-target="#bookEdit"><span class="glyphicon glyphicon-edit"></span>修改</button>
+                            <button class="btn btn-primary btn-sm btnInfo" data-book-id="${book}" data-toggle="modal" data-target="#bookInfo"><span class="glyphicon"></span>详情</button>
+                            <button class="btn btn-info btn-sm btnEdit" data-book-id="${book}" data-toggle="modal" data-target="#bookEdit"><span class="glyphicon "></span>修改</button>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
             <%--分页标签 -->--%>
+
+
+
             <div class="text-right">
                 <ul class="pagination">
                     <c:choose>
@@ -439,17 +459,59 @@
                     </c:choose>
                 </ul>
             </div>
+        </div>
     </div>
 </div>
-<%@ include file="sourceJs.jsp" %>
+
+
+<%@ include file="../sourceJs.jsp" %>
 
 <script>
-    $(function(){
+
 
         //根据是否返回消息，在页面提示信息
-        <%--if('${msg}'){--%>
-            <%--layer.msg('${msg}');--%>
-        <%--}--%>
+        if('${msg}'){
+            layer.msg('${msg}');
+        }
+
+
+        $(document).ready(function () {
+               $.ajax({
+                   timeout: 3000,
+                   async: false,
+                   type: "POST",
+                   url: "/demo01/type/getAllType",
+                   dataType: "json",
+                   data: {},
+                   success: function (data) {
+                       for (var i = 0; i < data.length; i++) {
+                           $("#pro_c").append("<option value='"+data[i].type_id+"'>" + data[i].type_name + "</option>");
+                       }
+                   }
+               });
+               $("#pro_c").change(function () {
+                   $("#city_c").empty();
+                   $("#city_c").append("<option>---请选择---</option>");
+                   var pro = document.getElementById("pro_c").value;
+                   console.log(pro);
+                   $.ajax({
+                       timeout: 3000,
+                       async: false,
+                       type: "POST",
+                       url: "/demo01/second/selectType2ById",
+                       dataType: "json",
+                       data: {
+                           type_id: pro,
+                       },
+                       success: function (data) {
+                           for (var i = 0; i < data.length; i++) {
+                               $("#city_c").append("<option value='"+data[i].secondType_id+"'>" + data[i].secondType_name + "</option>");
+                           }
+                       }
+                   });
+               })
+        });
+
 
 
 
@@ -496,15 +558,15 @@
                 $.each(cks,function(i,n){
                     ids.push($(n).val());
                 })
-                layer.confirm('确定删除这 '+ids.length+' 条数据？',{
+                layer.confirm('确定修改这 '+ids.length+' 条数据？',{
                     btn:['确认','取消'],
                     icon:0
                 },function(){
                     //ids = ids.join(',');
-                    location.href='/demo01/book/delete?bookId='+ids;
+                    location.href='/demo01/book/deleteBook?bookId='+ids;
                 })
             }else{
-                layer.alert('请至少选择一项删除!');
+                layer.alert('请至少选择一项修改!');
             }
         })
 
@@ -518,7 +580,7 @@
         $('#logout').on('click',function(){
             location.replace('stu?method=logout');
         })
-    })
+
 </script>
 </body>
 </html>

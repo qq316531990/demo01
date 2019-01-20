@@ -19,6 +19,13 @@
     book_id, book_name, book_author, book_published_Information, book_count, book_description, 
     book_image, book_tag, book_price, book_borrowing_number, book_star, book_comment_number
   </sql>
+<!--根据id查-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
   <!-- 查询所有图书 -->
   <select id="selectAll" resultMap="BaseResultMap">
     select 
@@ -46,18 +53,18 @@
     count(*) from book
   </select>
 
-  <!--查询上架的图书数量-->
-  <select id="selectAllByTag1Count" resultMap="BaseResultMap">
-    select
-    count(*)
-    from book where book_tag = 1
-  </select>
-  <!--查询未上架的图书数量-->
-  <select id="selectAllByTag0Count" resultMap="BaseResultMap">
-    select
-    count(*)
-    from book where book_tag = 0
-  </select>
+  <!--&lt;!&ndash;查询上架的图书数量&ndash;&gt;-->
+  <!--<select id="selectAllByTag1Count" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--count(*)-->
+    <!--from book where book_tag = 1-->
+  <!--</select>-->
+  <!--&lt;!&ndash;查询未上架的图书数量&ndash;&gt;-->
+  <!--<select id="selectAllByTag0Count" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--count(*)-->
+    <!--from book where book_tag = 0-->
+  <!--</select>-->
 
 
 
@@ -68,28 +75,28 @@
       <when test="book !=null and book.bookId != null">
         and book_id=#{book.bookId, jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookName !=null">
+      <when test="book !=null and book.bookName !=null and book.bookName !=''">
         and book_name like '%${book.bookName}%'
       </when>
-      <when test="book !=null and book.bookAuthor !=null">
+      <when test="book !=null and book.bookAuthor !=null and book.bookAuthor !=''">
         and book_author=#{book.bookAuthor, jdbcType=VARCHAR}
       </when>
-      <when test="book !=null and book.bookPublishedInformation !=null">
+      <when test="book !=null and book.bookPublishedInformation !=null and book.bookPublishedInformation !=''">
         and book_published_Information like '%${book.bookPublishedInformation}%'
       </when>
-      <when test="book !=null and book.bookCount !=null">
+      <when test="book !=null and book.bookCount !=null and book.bookCount !=''">
         and book_count &lt;= #{book.bookCount , jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookTag !=null">
+      <when test="book !=null and book.bookTag !=null and book.bookTag !=''">
         and book_tag = #{book.bookTag , jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookPrice !=null">
+      <when test="book !=null and book.bookPrice !=null and book.bookPrice !=''">
         and book_price &lt;= #{book.bookPrice , jdbcType=DECIMAL}
       </when>
-      <when test="book !=null and book.bookBorrowingNumber !=null">
+      <when test="book !=null and book.bookBorrowingNumber !=null and book.bookBorrowingNumber !=''">
         and book_borrowing_number &gt;= #{book.bookBorrowingNumber, jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookStar !=null">
+      <when test="book !=null and book.bookStar !=null and book.bookStar !=''">
         and book_star &gt;= #{book.bookStar, jdbcType=DECIMAL}
       </when>
     </choose>
@@ -103,28 +110,28 @@
       <when test="book !=null and book.bookId != null">
         and book_id=#{book.bookId, jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookName !=null">
+      <when test="book !=null and book.bookName !=null and book.bookName !='' ">
         and book_name like '%${book.bookName}%'
       </when>
-      <when test="book !=null and book.bookAuthor !=null">
+      <when test="book !=null and book.bookAuthor !=null and book.bookAuthor !=''">
         and book_author=#{book.bookAuthor, jdbcType=VARCHAR}
       </when>
-      <when test="book !=null and book.bookPublishedInformation !=null">
+      <when test="book !=null and book.bookPublishedInformation !=null and book.bookPublishedInformation !='' ">
         and book_published_Information like '%${book.bookPublishedInformation}%'
       </when>
-      <when test="book !=null and book.bookCount !=null">
+      <when test="book !=null and book.bookCount !=null and book.bookCount !=''">
         and book_count &lt;= #{book.bookCount , jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookTag !=null">
+      <when test="book !=null and book.bookTag !=null and book.bookTag !=''">
         and book_tag = #{book.bookTag , jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookPrice !=null">
+      <when test="book !=null and book.bookPrice !=null and book.bookPrice !=''">
         and book_price &lt;= #{book.bookPrice , jdbcType=DECIMAL}
       </when>
-      <when test="book !=null and book.bookBorrowingNumber !=null">
+      <when test="book !=null and book.bookBorrowingNumber !=null and book.bookBorrowingNumber !=''">
         and book_borrowing_number &gt;= #{book.bookBorrowingNumber, jdbcType=INTEGER}
       </when>
-      <when test="book !=null and book.bookStar !=null">
+      <when test="book !=null and book.bookStar !=null and book.bookStar !=''">
         and book_star &gt;= #{book.bookStar, jdbcType=DECIMAL}
       </when>
     </choose>

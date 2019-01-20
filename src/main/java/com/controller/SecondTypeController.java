@@ -6,9 +6,11 @@ import com.pojo.SecondTypeVO;
 import com.pojo.Type;
 import com.service.SecondTypeService;
 import com.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,9 @@ public class SecondTypeController {
     SecondTypeService secondTypeService;
     @Resource
     TypeService typeService;
+
+    @Autowired
+    BookController bookController;
     /**
      * @Author tangxiangan
      * @Description //TODO 二级分类管理分页
@@ -40,7 +45,8 @@ public class SecondTypeController {
     }
 
     @RequestMapping("/getTypesForUser" ) //映射路径
-    public String listTypes(HttpServletRequest request) throws Exception{
+    public ModelAndView listTypes(HttpServletRequest request) throws Exception{
+        ModelAndView mav=new ModelAndView();
         List<SecondType> secondTypeList=secondTypeService.listAllTypes();
         List<Type> typeList=typeService.getList();
         Map map = new HashMap();
@@ -48,9 +54,20 @@ public class SecondTypeController {
         map.put("secondTypeList",secondTypeList);
         request.getSession().setAttribute("typeList",typeList);
         request.getSession().setAttribute("secondTypeList",secondTypeList);
-        return "jsp/user_index";
+        mav=bookController.listToUser(request);
+        return mav;
     }
 
+    @RequestMapping("/selectType2ById")
+    @ResponseBody
+    public  List<SecondTypeVO> getType2ByTypeId(HttpServletRequest request,String  type_id) {
+        List<SecondTypeVO> list=secondTypeService.getType2ByTypeId(Integer.parseInt(type_id));
+        if(list.size()==0){
+            return null;
+        }
+        request.getSession().setAttribute("list2", list);
+        return list;
+    }
 
     @RequestMapping("/deleteTypes")
     @ResponseBody

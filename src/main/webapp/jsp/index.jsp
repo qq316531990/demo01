@@ -74,6 +74,24 @@
             </li>
             <li>
                 <h4 class="M2">
+                    <span></span>图书管理
+                </h4>
+                <div class="list-item none">
+                    <a href='<%=path %>/book/selectBook' target="main">图书管理</a>
+
+                </div>
+            </li>
+            <li>
+                <h4 class="M2">
+                    <span></span>消息管理
+                </h4>
+                <div class="list-item none">
+                    <a href='<%=path %>/message/selectMessageForManege' target="main">消息管理</a>
+                    <a href='<%=path%>/message/selectMessageForUser' target="main">我的消息<span class="badge">${sessionScope.unRead}</span></a>
+                </div>
+            </li>
+            <li>
+                <h4 class="M2">
                     <span></span>统计
                 </h4>
                 <div class="list-item none">

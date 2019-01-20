@@ -38,6 +38,10 @@ public interface BorrowDao {
      **/
     int countBorrows(Map map);
 
-
+    /**
+     * 查询未归还图书
+     * @return
+     */
+    List<Borrow> queryAllUnReturn();
 
 }

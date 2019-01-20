@@ -23,8 +23,7 @@
 <div>
 <div id="type" style="width: 600px;height:400px; position: absolute;" > </div>
 <div id="secondType" style="width: 600px;height:420px;position:absolute;margin-left:600px" > </div>
-    <select ><option>本月</option><option>上月</option><option>前三月</option></select>
-    <div id="lastMonthTypeChart" style="width: 600px;height:500px; position:absolute;margin-top: 450px" > </div>
+      <div id="lastMonthTypeChart" style="width: 600px;height:500px; position:absolute;margin-top: 450px" > </div>
 <div id="lastMonthBookChart" style="width: 600px;height:500px;position:absolute;margin-left:600px;margin-top: 450px" ></div></div>
 <script type="text/javascript">
   var myChart = echarts.init(document.getElementById('type'));

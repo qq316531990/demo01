@@ -16,6 +16,13 @@
         where borrow_id=#{borrow.borrow_id}
     </update>
 
+  <select id="queryAllUnReturn" resultType="com.pojo.Borrow">
+    select
+    *
+    from borrow
+    where actual_return_time is null
+  </select>
+
     <select id="listBorrows" resultType="com.pojo.ReturnBookVO" parameterType="map">
         select * from (select borrow.*,book.book_name,book.book_price,`user`.user_name,book.book_author,book.book_image FROM borrow
         LEFT JOIN book on book.book_id=borrow.book_id

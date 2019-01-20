@@ -4,6 +4,7 @@ import com.pojo.*;
 
 import com.service.BookService;
 import com.service.BorrowService;
+import com.service.MessageService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -26,7 +27,10 @@ public class BorrowController {
     UserService userService;
     @Autowired
     BookService bookService;
-
+    @Autowired
+    MessageService messageService;
+    @Autowired
+    MessageController messageController;
     /**
      * @Author tangxiangan
      * @Description //TODO 如果卡号正确，借阅后插入向图书借阅表插入信息，同时更新库存，否则返回-1
@@ -35,8 +39,9 @@ public class BorrowController {
      * @return java.lang.Integer
      **/
     @RequestMapping("/insertBorrow") //映射路径
-    public @ResponseBody Integer insertBorrow(Borrow borrow) {
-
+    public @ResponseBody Integer insertBorrow(Borrow borrow,HttpServletRequest request) {
+        request.getSession().setAttribute("borrow",borrow);
+        messageController.addMessage(request,"1");
       return  borrowService.insertBorrow(borrow);
 
     }

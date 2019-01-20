@@ -6,6 +6,8 @@ import com.pojo.ReturnBookVO;
 import com.pojo.Type;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public interface BorrowService {
@@ -26,7 +28,7 @@ public interface BorrowService {
        * @return int
        **/
       int returnBook (Borrow borrow);
-
+      List<Borrow> queryAllUnReturn();
       /**
        * @Author tangxiangan
        * @Description //TODO 分页查询

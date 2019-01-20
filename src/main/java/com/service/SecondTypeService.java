@@ -12,6 +12,7 @@ public interface SecondTypeService {
     PageBean<SecondTypeVO> listTypes(PageBean<SecondTypeVO> pageBean, SecondTypeVO type);
     int deleteTypes(Integer[] secondType_id);
     List<SecondTypeVO> getTypeByTypeId(Integer type_id);
+    List<SecondTypeVO> getType2ByTypeId(Integer type_id);
     int updateType(SecondType type);
     List<SecondTypeVO> getTypeByTypeName (String type_name);
 }

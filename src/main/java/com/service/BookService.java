@@ -34,9 +34,8 @@ public interface BookService {
      */
     List<Book> queryAll(int begin,int pageSize );
 
-    List<Book> queryAllByTag1(int begin,int pageSize);
 
-    List<Book> queryAllByTag0(int begin,int pageSize);
+
 
     /**
      * 查询总记录条数
@@ -44,9 +43,6 @@ public interface BookService {
      */
     int countAll();
 
-    int countByTag1();
-
-    int countByTag0();
 
     /**
      * 选择性模糊查询
@@ -61,6 +57,7 @@ public interface BookService {
      */
     int countByCondition(Book book);
 
+    Book queryById(int bookId);
     int updateBookCount(int i,int bookId);
 
 }

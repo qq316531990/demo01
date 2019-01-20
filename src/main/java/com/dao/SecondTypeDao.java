@@ -54,6 +54,7 @@ public interface  SecondTypeDao {
      * @return int
      **/
     List<SecondTypeVO> getTypeByTypeId(Integer type_id);
+    List<SecondTypeVO> getType2ByTypeId(Integer type_id);
     /**
     *
      * @Author tangxiangan

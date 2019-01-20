@@ -43,6 +43,9 @@ public class SecondTypeServiceImpl implements SecondTypeService {
     public List<SecondTypeVO> getTypeByTypeId(Integer type_id) {
         return secondTypeDao.getTypeByTypeId(type_id);
     }
+    public List<SecondTypeVO> getType2ByTypeId(Integer type_id) {
+        return secondTypeDao.getType2ByTypeId(type_id);
+    }
 
     public int updateType(SecondType type) {
         return secondTypeDao.updateType(type);

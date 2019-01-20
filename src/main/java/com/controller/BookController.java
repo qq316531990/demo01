@@ -1,6 +1,11 @@
 package com.controller;
+
+
+
 import com.pojo.Book;
+import com.pojo.BookType;
 import com.service.BookService;
+import com.service.BookTypeService;
 import com.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -28,10 +31,12 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookTypeService bookTypeService;
+    String msg=null;
 
-    int i=0;
     public String msg(int j){
-        String msg=null;
+
         if(j==0){
             msg="失败";
         }else if(j>0){
@@ -39,13 +44,17 @@ public class BookController {
         }
         return msg;
     }
-    public Book getBook(MultipartFile file,HttpServletRequest request,String k){
+    public Book getBook(MultipartFile file,HttpServletRequest request,String k,HttpSession session){
         Book book=new Book();
         if(k!="add"){
             String bookId=request.getParameter("bookId").trim();
             if(bookId !=""){
                 book.setBookId(Integer.parseInt(bookId));
             }
+
+        }
+        if(k=="add"){
+            book.setBookImage(upload(file,request));
         }
 
         String bookName=request.getParameter("bookName").trim();
@@ -79,13 +88,6 @@ public class BookController {
 
         }
 
-
-            //String bookImage=request.getParameter("bookImage").trim();
-            book.setBookImage(upload(file,request));
-
-
-
-
         book.setBookName(bookName);
         book.setBookAuthor(bookAuthor);
         book.setBookPublishedInformation(bookPublishedInformation);
@@ -99,23 +101,51 @@ public class BookController {
            book.setBookPrice(Double.parseDouble(bookPrice));
        }
 
-
+       session.setAttribute("book1",book);
         return book;
     }
 
 
-    @RequestMapping("/add")
-    public ModelAndView bookAdd(MultipartFile file,HttpServletRequest request){
+    @RequestMapping("/addBook")
+    public ModelAndView bookAdd(MultipartFile file,HttpServletRequest request,HttpSession session){
 
-        i=bookService.addBook(getBook(file,request,"add"));
-        return list(file,request);
+        Book book=getBook(file,request,"add",session);
+        msg(bookService.addBook(book));
+        Book book1=new Book();
+        book1.setBookAuthor(book.getBookAuthor());
+        book1.setBookName(book.getBookName());
+        List<Book> list0=bookService.queryByCondition(book1,0,1);
+        int bookId=list0.get(0).getBookId();
+        int secondTypeId =Integer.parseInt(request.getParameter("city_c"));
+        BookType bookType=new BookType(bookId,secondTypeId);
+        bookTypeService.insert(bookType);
+        return list(file,request,session);
     }
 
-    @RequestMapping("/delete")
-    public ModelAndView bookDelete(MultipartFile file,HttpServletRequest request){
-        String bookId=request.getParameter("bookId");
-        i=bookService.deleteBook(Integer.parseInt(bookId));
-        return list(file,request);
+
+
+    @RequestMapping("/deleteBook")
+    public ModelAndView bookDelete(MultipartFile file,HttpServletRequest request,HttpSession session){
+
+        Book book=new Book();
+        String[] bookId=request.getParameter("bookId").split(",");
+        if(bookId.length>0){
+            for(int i=0;i<bookId.length;i++){
+
+                int bookTag=bookService.queryById(Integer.parseInt(bookId[i])).getBookTag();
+                book.setBookTag(bookTag);
+                book.setBookId(Integer.parseInt(bookId[i]));
+                if(bookTag==1){
+                    book.setBookTag(2);
+                }else if(bookTag==2){
+                    book.setBookTag(1);
+                }
+
+                msg(bookService.updateBook(book));
+            }
+            return list(file,request,session);
+        }
+        return  null;
     }
 
     /**
@@ -123,45 +153,90 @@ public class BookController {
      * @param
      * @return
      */
-    @RequestMapping("/update")
-    public ModelAndView bookUpdate(MultipartFile file,HttpServletRequest request){
+    @RequestMapping("/updateBook")
+    public ModelAndView bookUpdate(MultipartFile file,HttpServletRequest request ,HttpSession session){
 
-        i=bookService.updateBook(getBook(file,request,"update"));
-        return list(file,request);
+
+        msg(bookService.updateBook(getBook(file,request,"update",session)));
+        return list(file,request,session);
     }
+
+    @ResponseBody
+    @RequestMapping("/selectBookToUser")
+    public ModelAndView listToUser(HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
+        String cp = request.getParameter("cp");
+        int currentPage = cp != null ? Integer.parseInt(cp) : 1;
+        PageUtils<Book> pu;
+        List<Book> list2 =new ArrayList<Book>();
+        String tab=request.getParameter("tab");
+        System.out.println(tab);
+        if(tab ==null) {
+            int totalNum=bookService.countAll();
+            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+        }else if(tab.equals("3")){
+            System.out.println(tab);
+            Book book1=new Book();
+            if(request.getParameter("bookName")!=null){
+                book1.setBookName(request.getParameter("bookName"));
+            }
+
+            int totalNum=bookService.countByCondition(book1);
+            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            list2 = bookService.queryByCondition(book1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+        }else if(tab.equals("2")){
+            int secondTypeId=Integer.parseInt(request.getParameter("typeId"));
+            List<Integer> list0=bookTypeService.selectBookByType(secondTypeId);
+            for(Integer list:list0){
+                list2.add(bookService.queryById(list));
+            }
+            pu= new PageUtils<Book>(currentPage, 10, 0);
+        }else{
+            System.out.println(tab);
+            return  null;
+        }
+        pu.setList(list2);
+
+        mav.setViewName("jsp/user_index");
+            mav.addObject("pu", pu);
+        return mav;
+}
 
 
     @ResponseBody
     @RequestMapping("/selectBook")
-    public ModelAndView list(MultipartFile file,HttpServletRequest request){
+    public ModelAndView list(MultipartFile file,HttpServletRequest request,HttpSession session){
         ModelAndView mav = new ModelAndView();
 
         List<Book> list2;
-        int pageSize = 2;		//每页大小
+        int pageSize = 5;		//每页大小
         int currentPage =1;    //当前页
         int totalNum=0;   //总条数
         String cp = request.getParameter("cp");
         String tab=request.getParameter("tab");
-
+        Book book1=new Book();
 
         currentPage = cp != null ? Integer.parseInt(cp) : 1;
         PageUtils<Book> pu;
         if(tab ==null) {
-            totalNum=bookService.countAll();
-            pu= new PageUtils<Book>(currentPage, pageSize, totalNum);
-            list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+
+            book1=(Book) request.getSession().getAttribute("book1");
 
         }else{
-             totalNum=bookService.countByCondition(getBook(file,request,"select"));
-            pu= new PageUtils<Book>(currentPage, pageSize, totalNum);
-            list2 = bookService.queryByCondition(getBook(file,request,"select"), (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
+            book1=getBook(file,request,"select",session);
+
         }
+        totalNum=bookService.countByCondition(book1);
+        pu= new PageUtils<Book>(currentPage, pageSize, totalNum);
+        list2 = bookService.queryByCondition(book1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         pu.setList(list2);
 
         mav.setViewName("jsp/book");
         mav.addObject("pu", pu);
-        mav.addObject("msg",msg(i));
-        return mav;
+       mav.addObject("msg",msg);
+       msg=null;
+       return mav;
     }
 
     /**
@@ -174,13 +249,11 @@ public class BookController {
     @RequestMapping(value="/upload",method= RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam(value="file",required=false)MultipartFile file, HttpServletRequest request){
-        String basePath = "demo01/src/main/webapp/images/upload/";
+        String basePath = "D:\\图书管理系统\\demo01\\src\\main\\webapp\\images\\upload";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSS");
         String res = sdf.format(new Date());
 
-        // uploads文件夹位置
-        String rootPath = request.getSession().getServletContext().getRealPath(basePath);
-        // 原始名称
+
         String originalFileName = file.getOriginalFilename();
         // 新文件名
         String newFileName = "sliver" + res + originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -189,7 +262,7 @@ public class BookController {
         File dateDirs = new File(date.get(Calendar.YEAR) + File.separator + (date.get(Calendar.MONTH)+1));
 
         // 新文件
-        File newFile = new File(rootPath + File.separator + dateDirs + File.separator + newFileName);
+        File newFile = new File(basePath + File.separator + dateDirs + File.separator + newFileName);
         // 判断目标文件所在目录是否存在
         if( !newFile.getParentFile().exists()) {
             // 如果目标文件所在的目录不存在，则创建父目录
@@ -197,7 +270,7 @@ public class BookController {
         }
         System.out.println(newFile);
         // 将内存中的数据写入磁盘
-        try {
+         try {
             file.transferTo(newFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -237,35 +310,9 @@ public class BookController {
         }
         pu.setList(list2);
         request.getSession().setAttribute("pu",pu);
-        request.getSession().setAttribute("msg",msg(i));
+
             return  pu;
     }
-//    /**
-//     * 文件下载
-//     */
-//    @RequestMapping("/down")
-//    @ResponseBody
-//    public void down(HttpServletRequest request, HttpServletResponse response) throws Exception{
-//    //模拟文件，myfile.txt为需要下载的文件  
-//    String fileName = request.getSession().getServletContext().getRealPath("upload")+"/myfile.txt";
-//    //获取输入流  
-//    InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
-//    //假如以中文名下载的话  
-//    String filename = "下载文件.txt";
-//    //转码，免得文件名中文乱码  
-//    filename = URLEncoder.encode(filename,"UTF-8");
-//    //设置文件下载头  
-//    response.addHeader("Content-Disposition", "attachment;filename=" + filename);
-//    //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型    
-//    response.setContentType("multipart/form-data");
-//    BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
-//    int len = 0;
-//    while((len = bis.read()) != -1){
-//        out.write(len);
-//        out.flush();
-//    }
-//    out.close();
-//    }
 
 
 

@@ -18,8 +18,13 @@
     <title></title>
     <!-- Bootstrap core CSS -->
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
         window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
@@ -67,7 +72,7 @@
                     <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                         <c:forEach var="secondType" items="${secondTypeList}">
                             <c:if test="${type.type_id==secondType.type_id}">
-                                <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                                <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
                             </c:if>
                         </c:forEach>
                     </ul>
@@ -92,6 +97,7 @@
                 <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                 <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
                 <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
             </ul>
             </li>
         </ul>
@@ -148,41 +154,33 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="container marketing">
-        <!-- START THE FEATURETTES -->
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
+    <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
+        <div class="form-group">
+            <label for="exampleInputName2">书名</label>
+            <input type="text" name="bookName" class="form-control" id="exampleInputName2" placeholder="1">
+        </div>
+        <button type="submit" class="btn btn-default">查找</button>
+
+    </form>
+    <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+        <c:forEach items="${pu.list}" var="book" >
+        <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
+            <div class="card card-inverse card-info" >
+                <img class="card-img-top"  style="width:200px;height:200px; vertical-align:middle;" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:100%;height:40px;text-align: center" >
+                    <h4 class="card-title">${book.bookName}</h4>
+                </div>
+                <div class="card-footer">
+                    <small>价格:${book.bookPrice}</small>
+                    <button class="btn btn-info float-right btn-sm">详情</button>
+                </div>
             </div>
         </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
-            </div>
-        </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="" alt="Generic placeholder image">
-            </div>
-        </div>
-        <hr class="featurette-divider">
-        <!-- /END THE FEATURETTES -->
-    </div><!-- /.container -->
+        </c:forEach>
+    </div>
+
+
+    </div>
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
