@@ -1,7 +1,10 @@
 package com.controller;
 
 
-import com.pojo.*;
+import com.pojo.Book;
+import com.pojo.Comment;
+import com.pojo.CommentCha;
+import com.pojo.Message;
 import com.service.BookService;
 import com.service.CommentService;
 import com.service.MessageService;
@@ -12,11 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -31,7 +30,8 @@ public class CommentController {
     @Autowired
     MessageService messageService;
 
-     @RequestMapping("/find")
+
+    @RequestMapping("/find")
    public String find(ModelMap map,Integer index,Integer size){
                 if (index==null){
                     index=1;
@@ -179,7 +179,7 @@ public class CommentController {
        }
 
        @RequestMapping("/huiFu")
-       public void huiFu(int user_id, int book_id, int parent_comment_id, String comment_content, HttpServletRequest request){
+       public void huiFu(int user_id,int book_id,int parent_comment_id,String comment_content){
            Comment c=new Comment();
            c.setUser_id(user_id);
            c.setBook_id(book_id);
@@ -189,16 +189,12 @@ public class CommentController {
            /**
             * 将获取的回复消息发送给被回复人
             */
-           User user = (User) request.getSession().getAttribute("userLogin");
-
-           Message msg = new Message();
-           msg.setMessageTime(new Date());
-           msg.setBookId(book_id);
            List<Comment> parent =commentService.findComment_id(parent_comment_id);
            Comment parentComment=parent.get(0);
            String commentContent=comment_content;
            int parentUserId=parentComment.getUser_id();
-           String userName=userService.getUserByUserId(user.getUser_id()).get(0).getUser_name();
+           String userName=userService.getUserByUserId(parentUserId).get(0).getUser_name();
+           Message msg = new Message();
            msg.setUserId(parentUserId);
            msg.setMessageContent(parentComment.getComment_content()+ " //  " +userName+"  //  " +commentContent);
            msg.setMessageType(4);
@@ -206,10 +202,13 @@ public class CommentController {
            messageService.addMessage(msg);
        }
 
+
        @RequestMapping("/plList")
     public String plList(ModelMap map,int user_id){
-         List<Comment> plList=commentService.plList(user_id);
+         List<CommentCha> plList=commentService.plList(user_id);
          map.put("plList",plList);
          return "jsp/myComment";
        }
+
+
 }

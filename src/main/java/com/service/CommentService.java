@@ -2,6 +2,7 @@ package com.service;
 
 import com.pojo.Book;
 import com.pojo.Comment;
+import com.pojo.CommentCha;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,8 @@ public interface CommentService {
     public void update(Comment c);
     public void huiFu(Comment c);
     public List<Comment> huiFuList(int book_id);
-    public List<Comment> plList(int user_id);
+    public List<CommentCha> plList(int user_id);
     public double avg();
+    public List<Book> bList();
 
 }

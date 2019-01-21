@@ -2,6 +2,7 @@ package com.dao;
 
 import com.pojo.Book;
 import com.pojo.Comment;
+import com.pojo.CommentCha;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public interface CommentDao {
     public Book findBook_id(Integer book_id);
     public void huiFu(Comment c);
     public List<Comment> huiFuList(int book_id);
-    public List<Comment> plList(int user_id);
+    public List<CommentCha> plList(int user_id);
     public double avg();
+    public List<Book> bList();
 }

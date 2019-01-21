@@ -41,9 +41,9 @@
     <table class="table table-hover text-center">
         <tr>
             <th width="120"></th>
-            <th>评论id</th>
-            <th style='width: 100px'>用户id</th>
-            <th>图书id</th>
+          <%--  <th>评论id</th>--%>
+            <th style='width: 100px'>书名</th>
+           <%-- <th>书名</th>--%>
             <th>评论内容</th>
             <th>回复时间</th>
             <th>点赞数量</th>
@@ -56,9 +56,7 @@
                 <td>
                     <input type="checkbox" name="id[]" value="${pl.comment_id}" />
                 </td>
-                <td>${pl.comment_id}</td>
-                <td>${pl.user_id}</td>
-                <td>${pl.book_id}</td>
+                <td>${pl.book_name}</td>
                 <td>${pl.comment_content}</td>
                 <td><f:formatDate value="${pl.comment_time}" pattern="yyyy-MM-dd HH:mm:ss"></f:formatDate></td>
                 <td>${pl.comment_great_number}</td>
