@@ -23,5 +23,6 @@ public interface CommentService {
     public void huiFu(Comment c);
     public List<Comment> huiFuList(int book_id);
     public List<Comment> plList(int user_id);
+    public double avg();
 
 }
