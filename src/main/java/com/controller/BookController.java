@@ -132,6 +132,7 @@ public class BookController {
 
         Book book=new Book();
         String[] bookId=request.getParameter("bookId").split(",");
+        System.out.println("bookid="+bookId[0]);
         if(bookId.length>0){
             for(int i=0;i<bookId.length;i++){
 
