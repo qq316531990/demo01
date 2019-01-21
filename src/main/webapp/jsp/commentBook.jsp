@@ -79,7 +79,7 @@
             </tr>
             <tr style="height: 40px">
                 <td><a href="<%=path%>/second/getTypesForUser">返回</a></td>
-                <td><a href="#">借阅</a></td>
+                <td><a id="addBorrow" name="addBorrow" href="#">借阅</a></td>
             </tr>
 
         </table>
@@ -344,9 +344,47 @@ $(document).ready(function(){
     });
 
 });
+    </script>
+<script type="text/javascript">
+    function getUrl(name)
+    {
+        var query=window.location.search.substring(1);
+        var varr=query.split("&");
+        for (var i=0;i<varr.length;i++) {
+            var pare = varr[i].split("=");
+            if(pare[0] == name){return pare[1];}
+        }
+        return(false);
+    }
+    $('#addBorrow').click(function () {
+        var book_id = getUrl("book_id");
+        var user_id = ${userLogin.user_id};;
+        $.ajax({
+            url: '<%=path%>/borrow/insertBorrow',
+            data: {"book_id": book_id, "user_id": user_id},
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if(data === -2){
+                    alert("库存不足！");
+                    return;
+                }
+                else if(data === -1){
+                    alert("卡号不存在！");
+                    return;
+                } else
+                {
+                    window.event.returnValue=false;
+                    window.location.href="<%=path%>//borrow/listBorrowsForUsers?currPage=1";
+                    alert("借阅成功!");
+                }
+            }
+        });
 
-
+    })
 </script>
+
+
 
 </body>
 </html>
