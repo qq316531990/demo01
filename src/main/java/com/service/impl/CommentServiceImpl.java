@@ -4,6 +4,7 @@ package com.service.impl;
 import com.dao.CommentDao;
 import com.pojo.Book;
 import com.pojo.Comment;
+import com.pojo.CommentCha;
 import com.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,12 +106,17 @@ public class CommentServiceImpl implements CommentService{
         return huiFuList;
     }
 
-    public List<Comment> plList(int user_id) {
-        List<Comment> plList=commentDao.plList(user_id);
+    public List<CommentCha> plList(int user_id) {
+        List<CommentCha> plList=commentDao.plList(user_id);
         return plList;
     }
 
     public double avg() {
         return commentDao.avg();
+    }
+
+    public List<Book> bList() {
+        List<Book> bList=commentDao.bList();
+        return bList;
     }
 }

@@ -3,6 +3,7 @@ package com.controller;
 
 import com.pojo.Book;
 import com.pojo.Comment;
+import com.pojo.CommentCha;
 import com.pojo.Message;
 import com.service.BookService;
 import com.service.CommentService;
@@ -204,7 +205,7 @@ public class CommentController {
 
        @RequestMapping("/plList")
     public String plList(ModelMap map,int user_id){
-         List<Comment> plList=commentService.plList(user_id);
+         List<CommentCha> plList=commentService.plList(user_id);
          map.put("plList",plList);
          return "jsp/myComment";
        }
