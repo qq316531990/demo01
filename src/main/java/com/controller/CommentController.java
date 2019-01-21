@@ -149,6 +149,15 @@ public class CommentController {
              c.setComment_content(comment_content);
              c.setComment_state(comment_state);
              commentService.add(c);
+
+            double avg = commentService.avg();
+            System.out.println(avg);
+            System.out.println("11111");
+             Book book=new Book();
+             book.setBookId(book_id);
+             book.setBookStar(avg);
+             bookService.updateBook(book);
+
              return c;
        }
 
