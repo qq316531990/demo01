@@ -60,7 +60,7 @@ public class MessageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
         String d1 = sdf.format(new Date());
-
+        msg.setBookId(bookId);
         //消息产生时设置时间
         try {
             msg.setMessageTime(sdf.parse(d1));
