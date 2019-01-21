@@ -12,7 +12,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ page isELIgnored="false" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -288,7 +288,7 @@
 <div class="fenYe">
     <a href="<%=path %>/comment/findBook?book_id=${book1.bookId}&index=1">首页</a>
     <c:if test="${index>1}">
-        <a href="<%=path %>/comment/findBook?book_id=${book1.bookId}}&index=${index-1}">上页</a>
+        <a href="<%=path %>/comment/findBook?book_id=${book1.bookId}&index=${index-1}">上页</a>
     </c:if>
     <span>第${index}页</span>
     <c:if test="${index<total}">

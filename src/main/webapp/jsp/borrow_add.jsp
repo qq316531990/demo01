@@ -64,7 +64,11 @@
        async: false,
        dataType: 'json',
        success: function (data) {
-         if(data === -1){
+         if(data === -2){
+           alert("库存不足！");
+           return;
+         }
+         else if(data === -1){
            alert("卡号不存在！");
            return;
          } else
