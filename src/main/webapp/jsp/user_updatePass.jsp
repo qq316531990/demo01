@@ -60,7 +60,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto" >
                 <li class="nav-item active">
-                    <a class="nav-link" href="<%=path%>/jsp/user_index.jsp">首页<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<%=path%>/second/getTypesForUser">首页<span class="sr-only">(current)</span></a>
                 </li>
                 <c:forEach var="type" items="${typeList}">
                     <li class="dropdown">
@@ -69,7 +69,7 @@
                         <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                             <c:forEach var="secondType" items="${secondTypeList}">
                                 <c:if test="${type.type_id==secondType.type_id}">
-                                    <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                                    <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
@@ -80,19 +80,21 @@
             <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
         </div>
         <c:if test="${adminIsLogin!='OK'}">
-            <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp" > 登陆</a>&nbsp; &nbsp;</span>
+            <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
         </c:if>
         <c:if test="${adminIsLogin=='OK'}">
             <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
             <ul class="navbar-nav mr-auto">
                 <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown"> <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
+
+                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                         <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
                         <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                         <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
                         <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
                     </ul>
                 </li>
             </ul>
