@@ -105,7 +105,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto" >
                 <li class="nav-item active">
-                    <a class="nav-link" href="<%=path%>/jsp/user_index.jsp">首页<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<%=path%>/second/getTypesForUser">首页<span class="sr-only">(current)</span></a>
                 </li>
                 <c:forEach var="type" items="${typeList}">
                     <li class="dropdown">

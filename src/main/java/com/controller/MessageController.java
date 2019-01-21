@@ -46,17 +46,16 @@ public class MessageController {
     int i=0;
 
     public Message getMessage(HttpServletRequest request,  String s, String tag) {
-        User user = (User) request.getSession().getAttribute("userLogin");
+        Message msg = new Message();
         int bookId=0;
-        if((Borrow) request.getSession().getAttribute("borrow")!=null){
+        if(request.getSession().getAttribute("borrow")!=null){
             Borrow borrow=(Borrow) request.getSession().getAttribute("borrow");
             bookId=borrow.getBook_id();
+            msg.setUserId(borrow.getUser_id());
         }else{
             bookId=Integer.parseInt(request.getParameter("bookId"));
         }
 
-        //String userId = request.getParameter("userId");
-        Message msg = new Message();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
         String d1 = sdf.format(new Date());
@@ -86,7 +85,7 @@ public class MessageController {
 
         //借书成功消息
         if (s == "add" && tag.equals("1") ) {
-            msg.setUserId(user.getUser_id());
+
 
             Date date=new Date();
             Calendar calendar = Calendar.getInstance();
@@ -94,11 +93,11 @@ public class MessageController {
             calendar.add(Calendar.DAY_OF_MONTH, 30);
             date = calendar.getTime();
             String ralTime=sdf2.format(date);
-            msg.setMessageContent(bookService.queryById(bookId).getBookName()+"  您于"
+            msg.setMessageContent(bookService.queryById(bookId).getBookName()+":       您于"
                     + d1
-                    + "在我馆成功借得"
+                    + "在我馆成功借得《"
                     + bookService.queryById(bookId).getBookName()
-                    + ", 请于"
+                    + "》, 请于"
                     +ralTime
                     +" 21:00 之前还书, 未按时还书将影响您的信誉 ,且逾期当天开始每天将扣除1%押金,敬请留意."
                     + "/n"
