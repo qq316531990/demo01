@@ -60,7 +60,7 @@ public class MessageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
         String d1 = sdf.format(new Date());
-
+        msg.setBookId(bookId);
         //消息产生时设置时间
         try {
             msg.setMessageTime(sdf.parse(d1));
@@ -112,21 +112,7 @@ public class MessageController {
         }
 
 
-        /**
-         * 评论提醒
-         */
 
-        if(s=="add"&&tag=="4"){
-            //通过获取被评论ID发消息给被评论人
-            Comment parentComment =commentService.queryById(Integer.parseInt(request.getParameter("parentCommentId")));
-            String commentContent=request.getParameter("commentContent");
-            int parentUserId=parentComment.getUserId();
-            String userName=userService.getUserByUserId(parentUserId).get(0).getUser_name();
-            msg.setUserId(parentUserId);
-            msg.setMessageContent(parentComment.getCommentContent()+ " //  " +userName+"  //  " +commentContent);
-            msg.setMessageType(4);
-            msg.setMessageState(0);
-        }
         return msg;
     }
 
@@ -291,10 +277,10 @@ public class MessageController {
 
 
         }else{
-            if(request.getParameter("bookId")!=null){
+            if(request.getParameter("bookId")!=""){
                 message1.setBookId(Integer.parseInt(request.getParameter("bookId")));
             }
-            if(request.getParameter("userId")!=null){
+            if(request.getParameter("userId")!=""){
                 message1.setUserId(Integer.parseInt(request.getParameter("userId")));
             }
             totalNum=messageService.selectCountByCondition(message1);

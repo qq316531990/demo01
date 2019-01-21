@@ -95,8 +95,8 @@
                 <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
                 <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                 <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
-                <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
                 <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
+                <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
             </ul>
             </li>
         </ul>
@@ -179,7 +179,7 @@
                                     <td title="${book.bookPrice}">价格:${book.bookPrice}</td>
                                 </tr>
                                 <div class="caption text-center">
-                                    <a href="">详情</a>
+                                    <a href="<%=path %>/comment/findBook?book_id=${book.bookId}">详情</a>
                                 </div>
                             </div>
                         </div>

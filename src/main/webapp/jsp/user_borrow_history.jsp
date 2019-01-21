@@ -132,6 +132,7 @@
                         <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
                         <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
                         <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
+                        <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
                     </ul>
                 </li>
             </ul>
@@ -222,7 +223,7 @@
                             </a>
                             </c:if>
                             <c:if test="${not empty vo.actual_return_time}">
-                                <a href="#" class="btn btn-info" >
+                                <a href="<%=path%>/jsp/commentPingLun.jsp?vo_book_id=${vo.book_id}" class="btn btn-info" >
                                     评论
                                 </a>
                             </c:if>

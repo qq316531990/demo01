@@ -96,10 +96,18 @@
                 </h4>
                 <div class="list-item none">
                     <a href='<%=path %>/jsp/countTypesByBorrow.jsp' target="main">书籍分类借阅统计</a>
-
                 </div>
             </li>
 
+            <li>
+                <h4 class="M1">
+                    <span></span>评论管理
+                </h4>
+                <div class="list-item none">
+                    <a href='<%=path %>/comment/find' target="main">书籍评论管理</a>
+                    <a href='<%=path %>/comment/findHuiFu' target="main">评论回复管理</a>
+                </div>
+            </li>
 
 
 
