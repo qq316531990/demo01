@@ -64,7 +64,6 @@ public class BookController {
         String bookAuthor=request.getParameter("bookAuthor").trim();
         String bookPublishedInformation=request.getParameter("bookPublishedInformation").trim();
         String bookCount=request.getParameter("bookCount").trim();
-        String bookTag=request.getParameter("bookTag").trim();
         String bookPrice=request.getParameter("bookPrice").trim();
         if(k =="select"){
             String bookBorrowingNumber=request.getParameter("bookBorrowingNumber").trim();
@@ -97,9 +96,7 @@ public class BookController {
         if(bookCount !=""){
             book.setBookCount(Integer.parseInt(bookCount));
         }
-        if(bookTag !=""){
-            book.setBookTag(Integer.parseInt(bookTag));
-        }
+       
        if(bookPrice !=""){
            book.setBookPrice(Double.parseDouble(bookPrice));
        }

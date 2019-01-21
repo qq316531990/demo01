@@ -53,11 +53,13 @@
     <form action="/demo01/book/selectBook" class="form-horizontal" id="bookSelectForm" method="get">
         <!-- 隐藏域用于请求后台指定的方法 -->
         <input type="hidden" name="tab" value="1"/>
+
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
                     <h4>输入条件</h4>
+                    <button class="btn btn-primary" type="submit">全部图书</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -312,12 +314,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="control-label col-sm-2">上下架</label>
-                        <div class="col-sm-8">
-                            <textarea name="bookTag" rows="3" class="form-control" required></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
                             <textarea name="bookPrice" rows="3" class="form-control" required></textarea>
@@ -428,6 +424,7 @@
 
             <div class="text-right">
                 <ul class="pagination">
+                    共 ${pu.totalNum} 条
                     <c:choose>
                         <c:when test="${pu.currentPage == 1}">
                             <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
