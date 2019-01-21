@@ -80,9 +80,15 @@ public class BorrowServiceImpl implements BorrowService {
      **/
     public int insertBorrow(Borrow borrow) {
         List<User> list=userDao.getUserByUserId(borrow.getUser_id());
-        if(list.size()==0){
+        Book book=new Book();
+        book.setBookId(borrow.getBook_id());
+        List<Book> bookList=bookMapper.findByCondition(book,0,1);
+        if(bookList.get(0).getBookCount()<1){
+            return -2;
+        }
+        else if(list.size()==0){
             return -1;
-        }else{
+        }else {
             Calendar current = Calendar.getInstance();//
             current.add(Calendar.MONTH, 1);
             Date return_time = current.getTime();//

@@ -32,6 +32,7 @@
     $.ajax({
     url:'<%=path%>/book/selectBookForBorrow',
     data:{"bookName":bookName,"currPage":currPage,"pageSize":pageSize},
+    async:false,
     dataType:'json',
     success:function(data){
         loadData(data);
@@ -55,7 +56,7 @@
             var $bookImage=$(' <td ><img src="<%=path%>/images/upload/'+list[i].bookImage+'" STYLE="width:100px; height: 100px" alt=""></td>');
             var $bookCount=$('<td >'+list[i].bookCount+'</td>');
             var $bookPrice=$('<td >'+list[i].bookPrice+'</td>');
-            var $do=$(' <td  class="borrow"><div class="button-group"> <a class="button border-main"  ><span class="icon-edit"></span>借阅</a> </div></td>');
+            var $do=$(' <td class="borrow"><div class="button-group"> <a class="button border-main"  ><span class="icon-edit"></span>借阅</a> </div></td>');
             var $tr=$("<tr></tr>").append($bookId).append($bookName).append($bookAuthor).append($bookDescription).append($bookImage).append($bookCount).append($bookPrice).append($do);
             $("#tbody").append($tr);
         }
@@ -119,8 +120,20 @@
 
 
 <script type="text/javascript">
-    $(".borrow").each(function () {
+    $(document).on("click",".borrow",function(){
+
+            var count=$(this).prev().prev().text();
+            var bookId=$(this).prev().prev().prev().prev().prev().prev().prev().text();
+            if(count==0){
+                alert("库存不足！");
+            }else{
+                window.location.href="<%=path %>/jsp/borrow_add.jsp?book_id="+bookId;
+            }
+
+    });
+    $(".borrow1").each(function () {
         $(this).click(function(){
+            alert("1111");
             var count=$(this).prev().prev().text();
             var bookId=$(this).prev().prev().prev().prev().prev().prev().prev().text();
              if(count==0){
@@ -128,8 +141,6 @@
             }else{
                 window.location.href="<%=path %>/jsp/borrow_add.jsp?book_id="+bookId;
             }
-
-
         });
 
     })

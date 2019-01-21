@@ -161,9 +161,9 @@ public class MessageController {
                 else if(three_days_ago.before(date)){
                     msg.setUserId(borrow1.getUser_id());
                     msg.setBookId(borrow1.getBook_id());
-                    msg.setMessageContent("  您借阅的"
+                    msg.setMessageContent("  您借阅的《"
                             + bookService.queryById(borrow1.getBook_id()).getBookName()
-                            + "即将到期, 为了不产生费用及影响您今后的使用,请尽快归还"
+                            + "》即将到期, 为了不产生费用及影响您今后的使用,请尽快归还"
                             + "By 某潜伏的书虫");
                     //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
                     msg.setMessageType(2);

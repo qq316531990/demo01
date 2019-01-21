@@ -64,13 +64,17 @@
        async: false,
        dataType: 'json',
        success: function (data) {
-         if(data === -1){
+         if(data === -2){
+           alert("库存不足！");
+           return;
+         }
+         else if(data === -1){
            alert("卡号不存在！");
            return;
          } else
          {
            window.event.returnValue=false;
-           window.location.href="<%=path%>/book/selectBookForBorrow";
+           window.location.href="<%=path%>/jsp/borrow_manager.jsp";
            alert("借阅成功!");
          }
        }
