@@ -109,4 +109,8 @@ public class CommentServiceImpl implements CommentService{
         List<Comment> plList=commentDao.plList(user_id);
         return plList;
     }
+
+    public double avg() {
+        return commentDao.avg();
+    }
 }

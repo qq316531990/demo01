@@ -6,6 +6,7 @@ import com.pojo.Book;
 import com.pojo.BookType;
 import com.service.BookService;
 import com.service.BookTypeService;
+import com.service.CommentService;
 import com.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    CommentService commentService;
     @Autowired
     private BookTypeService bookTypeService;
     String msg=null;
@@ -158,6 +161,7 @@ public class BookController {
 
 
         msg(bookService.updateBook(getBook(file,request,"update",session)));
+
         return list(file,request,session);
     }
 
