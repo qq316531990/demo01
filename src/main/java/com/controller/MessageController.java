@@ -46,21 +46,20 @@ public class MessageController {
     int i=0;
 
     public Message getMessage(HttpServletRequest request,  String s, String tag) {
-        User user = (User) request.getSession().getAttribute("userLogin");
+        Message msg = new Message();
         int bookId=0;
-        if((Borrow) request.getSession().getAttribute("borrow")!=null){
+        if(request.getSession().getAttribute("borrow")!=null){
             Borrow borrow=(Borrow) request.getSession().getAttribute("borrow");
             bookId=borrow.getBook_id();
+            msg.setUserId(borrow.getUser_id());
         }else{
             bookId=Integer.parseInt(request.getParameter("bookId"));
         }
 
-        //String userId = request.getParameter("userId");
-        Message msg = new Message();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
         String d1 = sdf.format(new Date());
-
+        msg.setBookId(bookId);
         //消息产生时设置时间
         try {
             msg.setMessageTime(sdf.parse(d1));
@@ -86,7 +85,7 @@ public class MessageController {
 
         //借书成功消息
         if (s == "add" && tag.equals("1") ) {
-            msg.setUserId(user.getUser_id());
+
 
             Date date=new Date();
             Calendar calendar = Calendar.getInstance();
@@ -94,11 +93,11 @@ public class MessageController {
             calendar.add(Calendar.DAY_OF_MONTH, 30);
             date = calendar.getTime();
             String ralTime=sdf2.format(date);
-            msg.setMessageContent(bookService.queryById(bookId).getBookName()+"  您于"
+            msg.setMessageContent(bookService.queryById(bookId).getBookName()+":       您于"
                     + d1
-                    + "在我馆成功借得"
+                    + "在我馆成功借得《"
                     + bookService.queryById(bookId).getBookName()
-                    + ", 请于"
+                    + "》, 请于"
                     +ralTime
                     +" 21:00 之前还书, 未按时还书将影响您的信誉 ,且逾期当天开始每天将扣除1%押金,敬请留意."
                     + "/n"
@@ -112,22 +111,7 @@ public class MessageController {
         }
 
 
-        /**
-         * 评论提醒
-         */
 
-        if(s=="add"&&tag=="4"){
-            //通过获取被评论ID发消息给被评论人
-            List<Comment> parent =commentService.findComment_id(Integer.parseInt(request.getParameter("parentCommentId")));
-            Comment parentComment=parent.get(0);
-            String commentContent=request.getParameter("commentContent");
-            int parentUserId=parentComment.getUser_id();
-            String userName=userService.getUserByUserId(parentUserId).get(0).getUser_name();
-            msg.setUserId(parentUserId);
-            msg.setMessageContent(parentComment.getComment_content()+ " //  " +userName+"  //  " +commentContent);
-            msg.setMessageType(4);
-            msg.setMessageState(0);
-        }
         return msg;
     }
 
@@ -158,32 +142,35 @@ public class MessageController {
         calendar1.add(Calendar.DATE, -3);
         Date three_days_ago =calendar1.getTime();
         //String three_days_ago = sdf1.format(calendar1.getTime());
-        for (Borrow borrow1: list1 ) {
-            //当前时间晚与应归还时间,已逾期
-            if(borrow1.getReturn_time().before(date)){
-                msg.setUserId(borrow1.getUser_id());
-                msg.setBookId(borrow1.getBook_id());
-                msg.setMessageContent("  您借阅的《"
-                        + bookService.queryById(borrow1.getBook_id()).getBookName()
-                        + "》已超时,为了不产生更多的费用,请尽快归还"
-                        + "By 某潜伏的书虫");
-                //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
-                msg.setMessageType(3);
+        if(list1.size()>0){
+            for (Borrow borrow1: list1 ) {
+                //当前时间晚与应归还时间,已逾期
+                if(borrow1.getReturn_time().before(date)){
+                    msg.setUserId(borrow1.getUser_id());
+                    msg.setBookId(borrow1.getBook_id());
+                    msg.setMessageContent("  您借阅的《"
+                            + bookService.queryById(borrow1.getBook_id()).getBookName()
+                            + "》已超时,为了不产生更多的费用,请尽快归还"
+                            + "By 某潜伏的书虫");
+                    //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
+                    msg.setMessageType(3);
 
 
-            }//当前时间晚于要归还前三天,即将到期
-            else if(three_days_ago.before(date)){
-                msg.setUserId(borrow1.getUser_id());
-                msg.setBookId(borrow1.getBook_id());
-                msg.setMessageContent("  您借阅的"
-                        + bookService.queryById(borrow1.getBook_id()).getBookName()
-                        + "即将到期, 为了不产生费用及影响您今后的使用,请尽快归还"
-                        + "By 某潜伏的书虫");
-                //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
-                msg.setMessageType(2);
+                }//当前时间晚于要归还前三天,即将到期
+                else if(three_days_ago.before(date)){
+                    msg.setUserId(borrow1.getUser_id());
+                    msg.setBookId(borrow1.getBook_id());
+                    msg.setMessageContent("  您借阅的《"
+                            + bookService.queryById(borrow1.getBook_id()).getBookName()
+                            + "》即将到期, 为了不产生费用及影响您今后的使用,请尽快归还"
+                            + "By 某潜伏的书虫");
+                    //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
+                    msg.setMessageType(2);
+                }
             }
+            messageService.addMessage(msg);
         }
-        messageService.addMessage(msg);
+
     }
 
     /**
@@ -289,10 +276,10 @@ public class MessageController {
 
 
         }else{
-            if(request.getParameter("bookId")!=null){
+            if(request.getParameter("bookId")!=""){
                 message1.setBookId(Integer.parseInt(request.getParameter("bookId")));
             }
-            if(request.getParameter("userId")!=null){
+            if(request.getParameter("userId")!=""){
                 message1.setUserId(Integer.parseInt(request.getParameter("userId")));
             }
             totalNum=messageService.selectCountByCondition(message1);

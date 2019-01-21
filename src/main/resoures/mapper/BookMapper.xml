@@ -79,7 +79,7 @@
         and book_name like '%${book.bookName}%'
       </when>
       <when test="book !=null and book.bookAuthor !=null and book.bookAuthor !=''">
-        and book_author=#{book.bookAuthor, jdbcType=VARCHAR}
+        and book_author like '%${book.bookAuthor}%'
       </when>
       <when test="book !=null and book.bookPublishedInformation !=null and book.bookPublishedInformation !=''">
         and book_published_Information like '%${book.bookPublishedInformation}%'

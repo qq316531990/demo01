@@ -57,7 +57,7 @@
         where secondType_id=#{0}
     </select>
 
-    <select id="getType2ByTypeId" resultType="com.pojo.SecondTypeView">
+    <select id="getType2ByTypeId" resultType="com.pojo.SecondTypeVO">
         SELECT *
         FROM  SecondTypeView  where type_id=#{0}
     </select>

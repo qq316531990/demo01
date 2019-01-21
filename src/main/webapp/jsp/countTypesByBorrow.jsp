@@ -14,13 +14,16 @@
 <title></title>
 <script src="<%=path%>/js/echarts.js"></script>
  <script type="text/javascript" src="<%=path%>/js/jquery-1.8.2.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/multiple-select.min.css">
+    <script src="../js/multiple-select.min.js"></script>
 
 </head>
 <body>
 <div>
 <div id="type" style="width: 600px;height:400px; position: absolute;" > </div>
 <div id="secondType" style="width: 600px;height:420px;position:absolute;margin-left:600px" > </div>
-<div id="lastMonthTypeChart" style="width: 600px;height:500px; position:absolute;margin-top: 450px" > </div>
+      <div id="lastMonthTypeChart" style="width: 600px;height:500px; position:absolute;margin-top: 450px" > </div>
 <div id="lastMonthBookChart" style="width: 600px;height:500px;position:absolute;margin-left:600px;margin-top: 450px" ></div></div>
 <script type="text/javascript">
   var myChart = echarts.init(document.getElementById('type'));
@@ -259,9 +262,9 @@
 
   $.ajax({
       type : "post",
-      async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-      url : "<%=path%>/type/listLastMonthBorrowStatistics",    //请求发送到TestServlet处
-      data : {},
+      async : true,
+      url : "<%=path%>/type/listLastMonthBorrowStatistics",
+  data : {},
       dataType : "json",        //返回数据形式为json
       success : function(result) {
           //请求成功时执行该函数内容，result即为服务器返回的json对象
@@ -304,7 +307,6 @@
 
   })
 </script>
-
 
 
 </body></html>

@@ -7,6 +7,7 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>

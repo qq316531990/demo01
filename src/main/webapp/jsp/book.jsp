@@ -6,7 +6,7 @@
 <!-- 格式化标签 -->
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 
 <html>
@@ -240,8 +240,7 @@
                     <dd id="d5"></dd>
                     <dt>图书简介:</dt>
                     <dd id="d6"></dd>
-                    <dt>图片:</dt>
-                    <dd id="d7"></dd>
+
                     <dt>上下架:</dt>
                     <dd id="d8"></dd>
                     <dt>价格:</dt>
@@ -372,11 +371,11 @@
 
         <!-- 		按钮组 -->
         <div class="btn-group">
-            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookAdd"><span class="glyphicon glyphicon-cloud-upload"></span>添加图书</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookAdd"><span class="glyphicon "></span>添加图书</button>
             <!-- 			用户禁止删除操作 -->
-            <button class="btn btn-danger volumeDel" type="submit"><span class="glyphicon glyphicon-remove"></span>上架/下架</button>
+            <button class="btn btn-danger volumeDel" type="submit"><span class="glyphicon "></span>上架/下架</button>
 
-            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookSelect"><span class="glyphicon glyphicon-cloud-upload"></span>查找图书</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#bookSelect"><span class="glyphicon "></span>查找图书</button>
         </div>
         <br /><br />
         <div class="data-container">
@@ -407,7 +406,7 @@
                         <td title="${book.bookPublishedInformation}">${book.bookPublishedInformation}</td>
                         <td title="${book.bookCount}">${book.bookCount}</td>
                         <td title="${book.bookDescription}">${book.bookDescription}</td>
-                        <td title="${book.bookImage}">${book.bookImage}</td>
+                        <td title="${book.bookImage}"><img src="<%=path%>/images/upload/${book.bookImage}" width=50px height=80px alt="" /></td>
                         <td >
                             <c:if test="${book.bookTag==1}">上架</c:if>
                             <c:if test="${book.bookTag==2}">下架</c:if>
@@ -417,8 +416,8 @@
                         <td title="${book.bookStar}">${book.bookStar}</td>
                         <td title="${book.bookCommentNumber}">${book.bookCommentNumber}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm btnInfo" data-book-id="${book}" data-toggle="modal" data-target="#bookInfo"><span class="glyphicon glyphicon-info-sign"></span>详情</button>
-                            <button class="btn btn-info btn-sm btnEdit" data-book-id="${book}" data-toggle="modal" data-target="#bookEdit"><span class="glyphicon glyphicon-edit"></span>修改</button>
+                            <button class="btn btn-primary btn-sm btnInfo" data-book-id="${book}" data-toggle="modal" data-target="#bookInfo"><span class="glyphicon"></span>详情</button>
+                            <button class="btn btn-info btn-sm btnEdit" data-book-id="${book}" data-toggle="modal" data-target="#bookEdit"><span class="glyphicon "></span>修改</button>
                         </td>
                     </tr>
                 </c:forEach>

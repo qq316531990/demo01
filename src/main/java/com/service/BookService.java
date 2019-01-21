@@ -58,6 +58,6 @@ public interface BookService {
     int countByCondition(Book book);
 
     Book queryById(int bookId);
-    int updateBookCount(@Param("i")int i, @Param("bookId")int bookId);
+    int updateBookCount(int i,int bookId);
 
 }
