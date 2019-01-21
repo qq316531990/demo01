@@ -153,14 +153,19 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="aa">
     <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
         <div class="form-group">
-            <label for="exampleInputName2">书名</label>
-            <input type="text" name="bookName" class="form-control" id="exampleInputName2" placeholder="1">
-        </div>
-        <button type="submit" class="btn btn-default">查找</button>
+            <label for="exampleInputName2" class="control-label col-sm-2">书名</label>
 
+            <div class="col-sm-8">
+                <input type="text" name="bookName" rows="3" class="form-control" id="exampleInputName2" placeholder="1">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-default">查找</button>
     </form>
+    </div>
     <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
         <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
@@ -178,6 +183,38 @@
         </c:forEach>
     </div>
 
+    <div class="text-right">
+        <ul class="pagination">
+            <c:choose>
+                <c:when test="${pu.currentPage == 1}">
+                    <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach begin="${pu.start}" end="${pu.end}"  var="i">
+                <c:choose>
+                    <c:when test="${i == pu.currentPage}">
+                        <li class="active"><a href="#">${i}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="/demo01/book/selectBookToUser?cp=${i}">${i}</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${pu.currentPage == pu.last}">
+                    <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.next}"><span>&raquo;</span></a></li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
 
     </div>
     <!-- FOOTER -->

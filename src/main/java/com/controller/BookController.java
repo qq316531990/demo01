@@ -177,7 +177,7 @@ public class BookController {
         System.out.println(tab);
         if(tab ==null) {
             int totalNum=bookService.countAll();
-            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            pu= new PageUtils<Book>(currentPage, 12, totalNum);
             list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }else if(tab.equals("3")){
             System.out.println(tab);
@@ -187,7 +187,7 @@ public class BookController {
             }
 
             int totalNum=bookService.countByCondition(book1);
-            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            pu= new PageUtils<Book>(currentPage, 12, totalNum);
             list2 = bookService.queryByCondition(book1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }else if(tab.equals("2")){
             int secondTypeId=Integer.parseInt(request.getParameter("typeId"));
@@ -195,7 +195,7 @@ public class BookController {
             for(Integer list:list0){
                 list2.add(bookService.queryById(list));
             }
-            pu= new PageUtils<Book>(currentPage, 10, 0);
+            pu= new PageUtils<Book>(currentPage, 12, 0);
         }else{
             System.out.println(tab);
             return  null;

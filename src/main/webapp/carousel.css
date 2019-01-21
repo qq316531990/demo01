@@ -3,6 +3,40 @@
 /* Padding below the footer and lighter body text */
 
 
+.choose{
+  width :20%;
+  height:4%;
+}
+.aa{
+  width:85%;
+  display:inline-block;
+  margin-top:0;
+  position:fixed;
+}
+.navbar{
+  border-radius:0;
+}
+.table td{
+  vertical-align: middle;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.table td:last-child{
+  text-align:center;
+}
+.btn-group{
+  margin-bottom:10px;
+}
+textarea{
+  resize:none;/*禁止改变大小*/
+}
+dl>dt,dl>dd{
+  padding:5px 0;
+}
+
+
 
 body {
   padding-top: 3rem;
