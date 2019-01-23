@@ -267,7 +267,7 @@
 
 <!-- 图书修改模态框 -->
 <div class="modal animated pulse" id="bookEdit">
-    <form action="/demo01/book/updateBook" class="form-horizontal" id="bookUpdateForm" method="post">
+    <form action="/demo01/book/updateBook" class="form-horizontal" id="bookUpdateForm" method="post" enctype="multipart/form-data">
         <!-- 		<input type="hidden" name="fid" value="" /> -->
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -314,6 +314,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="" class="control-label col-sm-2">图片</label>
+                        <div class="col-sm-8">
+                            选择文件:<input type="file" name="file"> 
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
                             <textarea name="bookPrice" rows="3" class="form-control" required></textarea>
@@ -350,7 +357,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎你，${userLogin.user_name}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
 
-                            <li><a href="javascript:void(0)" id="logout">安全退出</a></li>
+                            <%--<li><a href="javascript:void(0)" id="logout">安全退出</a></li>--%>
                         </ul>
                     </li>
                 </ul>
@@ -372,6 +379,7 @@
             <button class="btn btn-danger volumeDel" type="submit"><span class="glyphicon "></span>上架/下架</button>
 
             <button class="btn btn-primary"  data-toggle="modal" data-target="#bookSelect"><span class="glyphicon "></span>查找图书</button>
+
         </div>
         <br /><br />
         <div class="data-container">
@@ -389,7 +397,7 @@
                     <th>上下架</th>
                     <th>价格</th>
                     <th>借阅量</th>
-                    <th>总星星数</th>
+                    <th>评价</th>
                     <th>评论人数</th>
                     <th>操作</th>
                 </tr>
@@ -402,7 +410,7 @@
                         <td title="${book.bookPublishedInformation}">${book.bookPublishedInformation}</td>
                         <td title="${book.bookCount}">${book.bookCount}</td>
                         <td title="${book.bookDescription}">${book.bookDescription}</td>
-                        <td title="${book.bookImage}"><img src="<%=path%>/images/upload/${book.bookImage}" width=50px height=80px alt="" /></td>
+                        <td title="${book.bookImage}"><img src="<%=path%>/images/upload/${book.bookImage}" width=80px height=100px alt="" /></td>
                         <td >
                             <c:if test="${book.bookTag==1}">上架</c:if>
                             <c:if test="${book.bookTag==2}">下架</c:if>

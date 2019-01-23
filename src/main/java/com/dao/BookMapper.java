@@ -8,10 +8,11 @@ import java.util.List;
 
 public interface BookMapper {
     /**
-     * 根据图书id删除图书(逻辑)
+     * 根据图书id删除图书(物理,慎用)
      * @param bookId
      * @return
      */
+    @Deprecated
     int deleteByPrimaryKey(Integer bookId);
 
     /**
@@ -34,6 +35,11 @@ public interface BookMapper {
      */
     List<Book> selectAll(@Param("begin") int begin ,@Param("pageSize") int pageSize);
 
+    /**
+     * 查询热门书籍
+     * @return
+     */
+    List<Book> selectHotBook();
 
     /**
      * 查询总记录条数

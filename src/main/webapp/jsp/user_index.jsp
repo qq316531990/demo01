@@ -19,11 +19,21 @@
     <!-- Bootstrap core CSS -->
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
 
+    <style>
+        .table td{
+            vertical-align: middle;
+            white-space:nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50px;
+        }
+
+    </style>
+     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
-    <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
@@ -96,8 +106,8 @@
                 <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
                 <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                 <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
-                <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
                 <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
+                <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
             </ul>
             </li>
         </ul>
@@ -154,21 +164,18 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
-        <div class="form-group">
-            <label for="exampleInputName2">书名</label>
-            <input type="text" name="bookName" class="form-control" id="exampleInputName2" placeholder="1">
-        </div>
-        <button type="submit" class="btn btn-default">查找</button>
 
-    </form>
-    <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+    <div class="row mt-2" id="card-2" style="width: 80%;margin-left: 10%">
+    </div>
+    <div class="row">
+
+    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
+        <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:200px;height:200px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:100%;height:40px;text-align: center" >
-                    <h4 class="card-title">${book.bookName}</h4>
+                <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:100%;height:40px;text-align: center;" >
+                    <h6 class="card-title">${book.bookName}</h6>
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
@@ -178,8 +185,32 @@
         </div>
         </c:forEach>
     </div>
+        <div class="col-sm-1"></div>
 
+    <div class="col-sm-2">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <p class="h" style="font-size: 20px;">热门推荐</p>
+            </div>
+
+
+            <div class="col-sm-12 tab">
+                <c:forEach  items="${hotBook}" var="book" varStatus="i">
+                    <div class="row">
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
+                        <span class="col-sm-3 num">${book.bookStar}</span>
+                    </div>
+                    <p></p>
+                </c:forEach>
+
+
+            </div>
+        </div>
     </div>
+    </div>
+
+
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>

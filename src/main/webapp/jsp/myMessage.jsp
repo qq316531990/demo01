@@ -91,6 +91,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
                 <h4>消息详情</h4>
             </div>
             <div class="modal-body">
@@ -173,6 +174,19 @@
             <li><a href="#">我的消息</a></li>
            </ol>
 
+
+        <%--<form action="/demo01/message/selectMessageForUser" class="form-horizontal" id="" method="post">--%>
+            <%--<div class="form-group">--%>
+                <%--<label for="exampleInputName2">用户ID</label>--%>
+                <%--<input type="text" name="userId" class="form-control" id="exampleInputName2" placeholder="1">--%>
+            <%--</div>--%>
+            <%--<div class="form-group">--%>
+                <%--<label for="exampleInputEmail2">图书ID</label>--%>
+                <%--<input type="text" name="bookId" class="form-control" id="exampleInputEmail2" placeholder="1">--%>
+            <%--</div>--%>
+            <%--<button type="submit" class="btn btn-default">查找</button>--%>
+        <%--</form>--%>
+        <br /><br />
         <div class="data-container">
             <table class="table table-striped table-bordered table-hover">
                 <tr>
@@ -246,7 +260,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>

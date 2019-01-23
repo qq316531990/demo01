@@ -26,6 +26,8 @@
         <property name="defaultEncoding" value="utf_8" />
         <!--上传图片最大5M-->
         <property name="maxUploadSize" value="5242440" />
+        <property name="maxInMemorySize" value="1638400" />
+
     </bean>
 
     <!-- 3.配置jsp 显示ViewResolver -->
