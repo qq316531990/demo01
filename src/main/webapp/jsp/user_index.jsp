@@ -172,13 +172,12 @@
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook?book_id=${book.bookId}">详情</a></button>
+                    <button class="btn btn-info float-right btn-sm" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
                 </div>
             </div>
         </div>
         </c:forEach>
     </div>
-
 
     </div>
     <!-- FOOTER -->

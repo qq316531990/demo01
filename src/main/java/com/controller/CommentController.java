@@ -3,6 +3,7 @@ package com.controller;
 
 import com.pojo.Book;
 import com.pojo.Comment;
+import com.pojo.CommentCha;
 import com.pojo.Message;
 import com.service.BookService;
 import com.service.CommentService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -147,6 +149,7 @@ public class CommentController {
              c.setBook_id(book_id);
              c.setComment_content(comment_content);
              c.setComment_state(comment_state);
+             c.setComment_time(new Date());
              commentService.add(c);
 
             double avg = commentService.avg();
@@ -204,10 +207,34 @@ public class CommentController {
 
        @RequestMapping("/plList")
     public String plList(ModelMap map,int user_id){
-         List<Comment> plList=commentService.plList(user_id);
+         List<CommentCha> plList=commentService.plList(user_id);
          map.put("plList",plList);
          return "jsp/myComment";
        }
+
+
+    @RequestMapping("/findBook1")
+    public String findBook1(ModelMap map,int book_id,Integer index,Integer size){
+        if(index==null){
+            index=1;
+        }
+        size=5;
+        Integer page=(index-1)*size;
+        List<Comment> list=commentService.findBook(book_id,page,size);
+        int count=commentService.countComment();
+        int total=count%size==0?count/size:count/size+1;
+        List<Comment> huiFuList=commentService.huiFuList(book_id);
+        Book book1=bookService.queryById(book_id);
+        System.out.println("1231");
+        System.out.println(book1.getBookName());
+        map.put("book1",book1);
+        map.put("huiFuList",huiFuList);
+        map.put("list",list);
+        map.put("page",page);
+        map.put("index",index);
+        map.put("total",total);
+        return "jsp/book_detail";
+    }
 
 
 }

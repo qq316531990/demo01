@@ -53,11 +53,13 @@
     <form action="/demo01/book/selectBook" class="form-horizontal" id="bookSelectForm" method="get">
         <!-- 隐藏域用于请求后台指定的方法 -->
         <input type="hidden" name="tab" value="1"/>
+
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
                     <h4>输入条件</h4>
+                    <button class="btn btn-primary" type="submit">全部图书</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -240,8 +242,7 @@
                     <dd id="d5"></dd>
                     <dt>图书简介:</dt>
                     <dd id="d6"></dd>
-                    <dt>图片:</dt>
-                    <dd id="d7"></dd>
+
                     <dt>上下架:</dt>
                     <dd id="d8"></dd>
                     <dt>价格:</dt>
@@ -312,12 +313,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="" class="control-label col-sm-2">上下架</label>
-                        <div class="col-sm-8">
-                            <textarea name="bookTag" rows="3" class="form-control" required></textarea>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-2">价格</label>
                         <div class="col-sm-8">
@@ -407,7 +402,7 @@
                         <td title="${book.bookPublishedInformation}">${book.bookPublishedInformation}</td>
                         <td title="${book.bookCount}">${book.bookCount}</td>
                         <td title="${book.bookDescription}">${book.bookDescription}</td>
-                        <td title="${book.bookImage}">${book.bookImage}</td>
+                        <td title="${book.bookImage}"><img src="<%=path%>/images/upload/${book.bookImage}" width=50px height=80px alt="" /></td>
                         <td >
                             <c:if test="${book.bookTag==1}">上架</c:if>
                             <c:if test="${book.bookTag==2}">下架</c:if>
@@ -429,6 +424,7 @@
 
             <div class="text-right">
                 <ul class="pagination">
+                    共 ${pu.totalNum} 条
                     <c:choose>
                         <c:when test="${pu.currentPage == 1}">
                             <li class="disabled"><a href="#"><span>&laquo;</span></a></li>

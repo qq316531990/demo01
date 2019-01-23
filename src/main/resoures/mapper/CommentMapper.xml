@@ -63,12 +63,17 @@
         select * from book where book_id=#{bookId}
     </select>
 
-    <select id="plList" resultType="com.pojo.Comment">
-        select * from comment where user_id=#{user_id}
+    <select id="plList" resultType="com.pojo.CommentCha">
+        select comment.*,book.book_name from comment left join book on comment.book_id=book.book_id where user_id=#{user_id}
+
     </select>
 
     <select id="avg" resultType="double">
         select avg(comment_state) from comment
+    </select>
+
+    <select id="bList" resultType="com.pojo.Book">
+        select * from book;
     </select>
 
 </mapper>

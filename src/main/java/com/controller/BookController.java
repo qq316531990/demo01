@@ -64,7 +64,6 @@ public class BookController {
         String bookAuthor=request.getParameter("bookAuthor").trim();
         String bookPublishedInformation=request.getParameter("bookPublishedInformation").trim();
         String bookCount=request.getParameter("bookCount").trim();
-        String bookTag=request.getParameter("bookTag").trim();
         String bookPrice=request.getParameter("bookPrice").trim();
         if(k =="select"){
             String bookBorrowingNumber=request.getParameter("bookBorrowingNumber").trim();
@@ -97,9 +96,7 @@ public class BookController {
         if(bookCount !=""){
             book.setBookCount(Integer.parseInt(bookCount));
         }
-        if(bookTag !=""){
-            book.setBookTag(Integer.parseInt(bookTag));
-        }
+       
        if(bookPrice !=""){
            book.setBookPrice(Double.parseDouble(bookPrice));
        }
@@ -178,7 +175,7 @@ public class BookController {
         System.out.println(tab);
         if(tab ==null) {
             int totalNum=bookService.countAll();
-            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            pu= new PageUtils<Book>(currentPage, 12, totalNum);
             list2 = bookService.queryAll((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }else if(tab.equals("3")){
             System.out.println(tab);
@@ -188,7 +185,7 @@ public class BookController {
             }
 
             int totalNum=bookService.countByCondition(book1);
-            pu= new PageUtils<Book>(currentPage, 10, totalNum);
+            pu= new PageUtils<Book>(currentPage, 12, totalNum);
             list2 = bookService.queryByCondition(book1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }else if(tab.equals("2")){
             int secondTypeId=Integer.parseInt(request.getParameter("typeId"));
@@ -196,7 +193,7 @@ public class BookController {
             for(Integer list:list0){
                 list2.add(bookService.queryById(list));
             }
-            pu= new PageUtils<Book>(currentPage, 10, 0);
+            pu= new PageUtils<Book>(currentPage, 12, 0);
         }else{
             System.out.println(tab);
             return  null;
