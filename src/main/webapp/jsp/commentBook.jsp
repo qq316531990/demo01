@@ -28,7 +28,6 @@
     <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -40,16 +39,14 @@
             padding: 0px;
             margin: 0px;
         }
-        body{
 
-        }
     </style>
 
 </head>
 <body>
 <div class="book">
     <div class="bookpicture">
-        <img src="<%=path%>/images/upload/${book1.bookImage}" alt="">
+        <img src="<%=path%>/images/upload/${book1.bookImage}" alt="" style="height:100%; weight:100%;">
     </div>
     <div class="bookword">
         <table>
