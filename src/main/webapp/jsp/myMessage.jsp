@@ -78,6 +78,9 @@
         dl>dt,dl>dd{
             padding:5px 0;
         }
+        h4{
+
+        }
     </style>
 </head>
 <body>
@@ -87,8 +90,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h4>消息详情</h4>
+                <h4 style="text-align:left">消息详情</h4>
+                <%--<button class="close" style="width: 20px"  data-dismiss="modal">&times;</button>--%>
+
             </div>
             <div class="modal-body">
                 <dl class="dl-horizontal">

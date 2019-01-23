@@ -19,6 +19,16 @@
     <!-- Bootstrap core CSS -->
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
 
+    <style>
+        .table td{
+            vertical-align: middle;
+            white-space:nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50px;
+        }
+
+    </style>
     <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
@@ -166,13 +176,20 @@
         <button type="submit" class="btn btn-default">查找</button>
     </form>
     </div>
-    <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+    <div class="row">
+
+    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
+        <div class="col-sm-6 col-md-4 col-lg-3 ">
             <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:200px;height:200px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:100%;height:40px;text-align: center" >
-                    <h4 class="card-title">${book.bookName}</h4>
+                <img class="card-img-top"  style="width:150px;height:160px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:151px;height:40px;text-align: center" >
+                    <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <td>${book.bookName}</td>
+                    </tr>
+                    </table>
+                    <%--<h4 class="card-title"></h4>--%>
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
@@ -182,8 +199,31 @@
         </div>
         </c:forEach>
     </div>
+        <div class="col-sm-1"></div>
 
-    <div class="text-right">
+    <div class="col-sm-2">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <p class="h" style="font-size: 20px;">热门推荐</p>
+            </div>
+
+
+            <div class="col-sm-12 tab">
+                <c:forEach  items="${hotBook}" var="book" varStatus="i">
+                    <div class="row">
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
+                        <span class="col-sm-3 num">${book.bookStar}</span>
+                    </div>
+                    <p></p>
+                </c:forEach>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+        <div class="text-right" style="margin-right: 20%">
         <ul class="pagination">
             <c:choose>
                 <c:when test="${pu.currentPage == 1}">
@@ -216,7 +256,6 @@
         </ul>
     </div>
 
-    </div>
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>

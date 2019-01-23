@@ -34,8 +34,11 @@ public interface BookService {
      */
     List<Book> queryAll(int begin,int pageSize );
 
-
-
+    /**
+     * 查询热门书籍
+     * @return
+     */
+    List<Book> queryHotBook();
 
     /**
      * 查询总记录条数
