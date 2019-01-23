@@ -33,39 +33,20 @@
     from book
     limit #{begin},#{pageSize}
   </select>
-<!--查询上架的图书-->
-  <select id="selectAllByTag1" resultMap="BaseResultMap">
-  select
-  <include refid="Base_Column_List" />
-  from book where book_tag = 1
-    limit #{begin},#{pageSize}
-</select>
-<!--查询未上架的图书-->
-  <select id="selectAllByTag0" resultMap="BaseResultMap">
+<!--查询热门书籍-->
+  <select id="selectHotBook" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from book where book_tag = 0
-    limit #{begin},#{pageSize}
+    from book
+    where book_tag = 1
+    Order by book_borrowing_number desc
+    limit 0,10
   </select>
 
   <select id="selectAllCount" resultType="Integer">
     select
     count(*) from book
   </select>
-
-  <!--&lt;!&ndash;查询上架的图书数量&ndash;&gt;-->
-  <!--<select id="selectAllByTag1Count" resultMap="BaseResultMap">-->
-    <!--select-->
-    <!--count(*)-->
-    <!--from book where book_tag = 1-->
-  <!--</select>-->
-  <!--&lt;!&ndash;查询未上架的图书数量&ndash;&gt;-->
-  <!--<select id="selectAllByTag0Count" resultMap="BaseResultMap">-->
-    <!--select-->
-    <!--count(*)-->
-    <!--from book where book_tag = 0-->
-  <!--</select>-->
-
 
 
   <select id="selectCountByCondition" resultType="Integer" parameterType="com.pojo.Book">

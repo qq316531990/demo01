@@ -4,15 +4,19 @@
 <!-- 格式化标签 -->
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <%@ include file="../sourceCss.jsp" %>
+
     <link rel="stylesheet" href="/demo01/css/pintuer.css">
-    <link rel="stylesheet" href="/demo01/css/admin.css">
+
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
@@ -161,26 +165,14 @@
     </nav>
 </header>
 <div class="aa">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="" class="navbar-brand">我的消息</a>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#userInfo">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-
-        </div>
-    </nav>
-    <!-- 	内容区 -->
+      <!-- 	内容区 -->
     <div class="container-fluid">
         <!-- 		路径导航 -->
+        <br /><br />
         <ol class="breadcrumb">
+
             <li><a href="#">我的消息</a></li>
-            <li class="active">消息列表</li>
-        </ol>
+           </ol>
 
 
         <%--<form action="/demo01/message/selectMessageForUser" class="form-horizontal" id="" method="post">--%>
@@ -269,7 +261,6 @@
     </div>
 </div>
 
-<%@ include file="../sourceJs.jsp" %>
 
 <script>
 

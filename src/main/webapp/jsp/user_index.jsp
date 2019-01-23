@@ -19,11 +19,22 @@
     <!-- Bootstrap core CSS -->
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+    <style>
+        .table td{
+            vertical-align: middle;
+            white-space:nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50px;
+        }
+
+    </style>
+     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
         window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
@@ -153,70 +164,53 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="aa">
-    <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-sm-2">书名</label>
 
-            <div class="col-sm-8">
-                <input type="text" name="bookName" rows="3" class="form-control" id="exampleInputName2" placeholder="1">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-default">查找</button>
-    </form>
+    <div class="row mt-2" id="card-2" style="width: 80%;margin-left: 10%">
     </div>
-    <div class="row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+    <div class="row">
+
+    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 " style="width: 300px">
+        <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:200px;height:200px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:100%;height:40px;text-align: center" >
-                    <h4 class="card-title">${book.bookName}</h4>
+                <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:100%;height:40px;text-align: center;" >
+                    <h6 class="card-title">${book.bookName}</h6>
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm"><a href="<%=path %>/comment/findBook?book_id=${book.bookId}">详情</a></button>
+                    <button class="btn btn-info float-right btn-sm" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
                 </div>
             </div>
         </div>
         </c:forEach>
     </div>
+        <div class="col-sm-1"></div>
 
-    <div class="text-right">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${pu.currentPage == 1}">
-                    <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
-                </c:otherwise>
-            </c:choose>
+    <div class="col-sm-2">
+        <div class="row">
 
-            <c:forEach begin="${pu.start}" end="${pu.end}"  var="i">
-                <c:choose>
-                    <c:when test="${i == pu.currentPage}">
-                        <li class="active"><a href="#">${i}</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="/demo01/book/selectBookToUser?cp=${i}">${i}</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
+            <div class="col-sm-12">
+                <p class="h" style="font-size: 20px;">热门推荐</p>
+            </div>
 
-            <c:choose>
-                <c:when test="${pu.currentPage == pu.last}">
-                    <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.next}"><span>&raquo;</span></a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+
+            <div class="col-sm-12 tab">
+                <c:forEach  items="${hotBook}" var="book" varStatus="i">
+                    <div class="row">
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
+                        <span class="col-sm-3 num">${book.bookStar}</span>
+                    </div>
+                    <p></p>
+                </c:forEach>
+
+
+            </div>
+        </div>
+    </div>
     </div>
 
-    </div>
+
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
