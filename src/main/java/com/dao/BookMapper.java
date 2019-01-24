@@ -42,6 +42,18 @@ public interface BookMapper {
     List<Book> selectHotBook();
 
     /**
+     * 查询新书
+     * @return
+     */
+    List<Book> selectNewBook();
+
+    /**
+     * 多评书籍
+     * @return
+     */
+    List<Book> selectMultiple();
+
+    /**
      * 查询总记录条数
      * @return
      */

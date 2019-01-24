@@ -29,7 +29,7 @@
         }
 
     </style>
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
@@ -76,7 +76,7 @@
                 </li>
            <c:forEach var="type" items="${typeList}">
                 <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name} <b class="caret"></b>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
                     </a>
                     <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                         <c:forEach var="secondType" items="${secondTypeList}">
@@ -89,7 +89,10 @@
            </c:forEach>
             </ul>
             </ul>
-            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
+            <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline my-2 my-lg-0" method="post">
+                <input class="form-control mr-sm-2" type="text" name="bookName" placeholder="书名">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
+            </form>
         </div>
         <c:if test="${adminIsLogin!='OK'}">
         <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
@@ -99,7 +102,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="dropdown">
 
-            <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
+            <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心
             </a>
             <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                 <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
@@ -164,17 +167,6 @@
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="aa">
-    <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline" id="" method="post">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-sm-2">书名</label>
-
-            <div class="col-sm-8">
-                <input type="text" name="bookName" rows="3" class="form-control" id="exampleInputName2" placeholder="1">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-default">查找</button>
-    </form>
     </div>
     <div class="row">
 
@@ -212,7 +204,7 @@
             <div class="col-sm-12 tab">
                 <c:forEach  items="${hotBook}" var="book" varStatus="i">
                     <div class="row">
-                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span><a href="<%=path %>/comment/findBook?book_id=${book.bookId}">${book.bookName}</a></span>
                         <span class="col-sm-3 num">${book.bookStar}</span>
                     </div>
                     <p></p>
