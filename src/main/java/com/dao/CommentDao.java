@@ -13,6 +13,7 @@ public interface CommentDao {
     public int count();
     public int countComment();
     public int countHuiFu(int comment_id);
+    public int countP(int book_id);
     public int delete(int comment_id);
     public List<Comment> findOne(Map<String,Object> map);
     public List<Comment> findTwo(Map<String,Object> map);

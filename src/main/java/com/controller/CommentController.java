@@ -226,14 +226,19 @@ public class CommentController {
         int total=count%size==0?count/size:count/size+1;
         List<Comment> huiFuList=commentService.huiFuList(book_id);
         Book book1=bookService.queryById(book_id);
-        System.out.println("1231");
-        System.out.println(book1.getBookName());
         map.put("book1",book1);
         map.put("huiFuList",huiFuList);
         map.put("list",list);
         map.put("page",page);
         map.put("index",index);
         map.put("total",total);
+
+        int countP=commentService.countP(book_id);
+        Book book=new Book();
+        book.setBookId(book_id);
+        book.setBookCommentNumber(countP);
+        bookService.updateBook(book);
+
         return "jsp/book_detail";
     }
 
