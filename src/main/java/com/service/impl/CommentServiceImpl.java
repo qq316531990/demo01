@@ -44,6 +44,10 @@ public class CommentServiceImpl implements CommentService{
         return count;
     }
 
+    public int countHuiFu(int comment_id) {
+        return commentDao.countHuiFu(comment_id);
+    }
+
     public int delete(int comment_id){
         int count=commentDao.delete(comment_id);
         return count;
@@ -76,12 +80,21 @@ public class CommentServiceImpl implements CommentService{
         return commentDao.findBook_id(book_id);
     }
 
-    public List<Comment> findBook(int book_id,Integer page,Integer size) {
+    public List<CommentCha> findBook(int book_id,Integer page,Integer size) {
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("page",page);
         map.put("size",size);
         map.put("book_id",book_id);
-        List<Comment> list=commentDao.findBook(map);
+        List<CommentCha> list=commentDao.findBook(map);
+        return list;
+    }
+
+    public List<CommentCha> findBook1(int book_id) {
+        List<CommentCha> list=commentDao.findBook1(book_id);
+        for(CommentCha count: list){
+           int count1= commentDao.countHuiFu(count.getComment_id());
+           count.setCount(count1);
+        }
         return list;
     }
 

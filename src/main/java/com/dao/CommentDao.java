@@ -12,10 +12,12 @@ public interface CommentDao {
     public List<Comment> findHuiFu(Map<String,Object> map);
     public int count();
     public int countComment();
+    public int countHuiFu(int comment_id);
     public int delete(int comment_id);
     public List<Comment> findOne(Map<String,Object> map);
     public List<Comment> findTwo(Map<String,Object> map);
-    public List<Comment> findBook(Map<String,Object> map);
+    public List<CommentCha> findBook(Map<String,Object> map);
+    public List<CommentCha> findBook1(int book_id);
     public void add(Comment c);
     public void dianZan(Comment c);
     public void update(Comment c);

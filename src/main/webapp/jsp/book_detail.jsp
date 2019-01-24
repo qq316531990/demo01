@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </style>
 
 <title></title>
+    <link type="text/css" rel="stylesheet" href="<%=path %>/css/dianZan1.css"/>
     <!-- Bootstrap core CSS -->
      <link href="<%=path%>/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -115,9 +116,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </c:if>
     </nav>
 </header>
-
-
-
 
 <div class="banner" >
     <div class="wrapper clearfix">
@@ -235,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                    <i class="half-star left "></i><i class="half-star right "></i>    </li>
                                                                <li>
                                                            </c:if>
-                                                               <c:if test="${c.comment_state==2}">
+                                                           <c:if test="${c.comment_state==2}">
                                                                <li>
                                                                    <i class="half-star left active"></i><i class="half-star right active"></i>    </li>
                                                                <li>
@@ -252,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                    <i class="half-star left "></i><i class="half-star right "></i>    </li>
                                                                <li>
                                                                    </c:if>
-                                                                       <c:if test="${c.comment_state==3}">
+                                                           <c:if test="${c.comment_state==3}">
                                                                <li>
                                                                    <i class="half-star left active"></i><i class="half-star right active"></i>    </li>
                                                                <li>
@@ -269,7 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                    <i class="half-star left "></i><i class="half-star right "></i>    </li>
                                                                <li>
                                                                    </c:if>
-                                                                       <c:if test="${c.comment_state==4}">
+                                                           <c:if test="${c.comment_state==4}">
                                                                <li>
                                                                    <i class="half-star left active"></i><i class="half-star right active"></i>    </li>
                                                                <li>
@@ -286,7 +284,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                    <i class="half-star left "></i><i class="half-star right "></i>    </li>
                                                                <li>
                                                                    </c:if>
-                                                                       <c:if test="${c.comment_state==5}">
+                                                           <c:if test="${c.comment_state==5}">
                                                                <li>
                                                                    <i class="half-star left active"></i><i class="half-star right active"></i>    </li>
                                                                <li>
@@ -303,21 +301,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                    <i class="half-star left active"></i><i class="half-star right active"></i>    </li>
                                                                <li>
                                                                    </c:if>
-
-
                                                         </ul>
 
                                                     </div>
                                                     <div class="approve " data-id="1051001593">
-                                                        <i data-act="comment-approve-click" class="approve-icon"></i><span class="num">
-                                                            ${c.comment_great_number}
-                          </span>
+                                                        <i data-act="comment-approve-click" class="approve-icon"></i>
+                                                        <div class="feed" id="feed">
+                                                            <div class="heart" id="like${c.comment_id}" rel="like"></div>
+                                                            <div class="likeCount" id="likeCount${c.comment_id}">${c.comment_great_number}</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="comment-content">${c.comment_content}
-                                                    <div style="margin-left: 90%"><img src="<%=path%>/images/com.jpg" alt="" width="25" height="18" style="cursor:pointer" onclick="showCom(${c.comment_id})" ><span class="num">
-                                                            ${c.comment_great_number}
-                                                    </span></div>
+                                                <div class="comment-content">
+                                                        ${c.comment_content}
+                                                            <div style="width:50px;margin-left: 535px;margin-top:70px;">
+                                                                <input type="hidden" id="huiFu1" value="${c.comment_id}">
+                                                                <button data-toggle="modal" data-target="#myModalHuiFu" onclick="com_id(${c.comment_id})">
+                                                                    回复
+                                                                </button>
+                                                            </div>
+                                                    <div style="margin-left: 90%;margin-top: -30px;">
+                                                        <img src="<%=path%>/images/com.jpg" alt="" width="25" height="18" style="cursor:pointer" onclick="showCom(${c.comment_id})" >
+                                                        <span class="num" id="count_comment">
+                                                            ${c.count}
+                                                        </span>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -465,9 +473,96 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </div>
 
+<div class="modal fade" id="myModalHuiFu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabe2" style="text-indent: -420px">
+                    回复评论
+                </h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="comm_id" value="">
+                <textarea name="comment_contentHuiFu" id="comment_contentHuiFu" cols="40" rows="5" style="font-size: 18px"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="huiFu()">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div id="qb-sougou-search" style="display: none; opacity: 0;">
+    <p>搜索</p>
+    <p class="last-btn">复制</p>
+    <iframe src="cid:frame-791-b25072f1-9bdf-4eb6-9b61-63a7bebcac16@mhtml.blink"></iframe>
+</div>
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script>
+
+    /*点赞*/
+    $(document).ready(function(){
+        $('body').on("click",'.heart',function(){
+            var comment_great_number;
+            var A=$(this).attr("id");
+            var B=A.split("like");
+            var messageID=B[1];
+            var C=parseInt($("#likeCount"+messageID).html());
+            $(this).css("background-position","")
+            var D=$(this).attr("rel");
+            if(D === 'like') {
+                $("#likeCount"+messageID).html(C+1);
+                $(this).addClass("heartAnimation").attr("rel","unlike");
+                comment_great_number=parseInt($("#likeCount"+messageID).html());
+            }
+            else{
+                $("#likeCount"+messageID).html(C-1);
+                $(this).removeClass("heartAnimation").attr("rel","like");
+                $(this).css("background-position","left");
+                comment_great_number=parseInt($("#likeCount"+messageID).html());
+            }
+            $.ajax({
+                type:'post',
+                url:'<%=path %>/comment/updateDianZan',
+                dataType:'json',
+                async: true,
+                data:{comment_id: messageID,great_number:comment_great_number},
+            });
+        });
+
+    });
 
 
-
-
-
-<div id="qb-sougou-search" style="display: none; opacity: 0;"><p>搜索</p><p class="last-btn">复制</p><iframe src="cid:frame-791-b25072f1-9bdf-4eb6-9b61-63a7bebcac16@mhtml.blink"></iframe></div></body></html>
+    $("#myModalHuiFu").modal("hide");
+    function com_id(comment_id) {
+        $("#comm_id").val(comment_id);
+    }
+    function huiFu() {
+        var comment_id;
+        var user_id;
+        var book_id;
+        var comment_content;
+        comment_id=$("#comm_id").val();
+        user_id=${userLogin.user_id};
+        book_id=${book1.bookId};
+        comment_content=$('#comment_contentHuiFu').val();
+        $.ajax({
+            type:'post',
+            url:'<%=path %>/comment/huiFu',
+            dataType:'json',
+            async: true,
+            data:{user_id: user_id, book_id: book_id,parent_comment_id:comment_id,comment_content:comment_content},
+        });
+        alert("回复成功");
+        window.location.href='<%=path %>/comment/findBook1?book_id=${book1.bookId}';
+    }
+</script>
+</body>
+</html>
