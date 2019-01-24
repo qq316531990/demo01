@@ -17,20 +17,24 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title></title>
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="<%=path%>/css/myPagination.css">
-  <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="<%=path%>/css/carousel.css" rel="stylesheet">
-  <link rel="stylesheet" href="<%=path%>/css/reset.css">
-  <link rel="stylesheet" href="<%=path%>/css/carts.css">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
         window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
     </script>
     <script src="<%=path%>/asserts/js/vendor/popper.min.js"></script>
     <script src="<%=path%>/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../css/admin.css">
+  <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%=path%>/css/carts.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
     <script>
         $(function(){
@@ -88,7 +92,6 @@
   }
 </script>
 
-
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
         <a class="navbar-brand" href="#">WondersLibrary</a>
@@ -107,7 +110,7 @@
                         <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                             <c:forEach var="secondType" items="${secondTypeList}">
                                 <c:if test="${type.type_id==secondType.type_id}">
-                                    <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                                    <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
@@ -127,7 +130,8 @@
             <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
             <ul class="navbar-nav mr-auto">
                 <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown"><img src="../images/user.jpg" style="width: 30px;height: 30px"> 个人中心 <b class="caret"></b>
+
+                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                         <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
@@ -135,8 +139,7 @@
                         <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
                         <li><a href="#"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
                         <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
-                        <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
-                    </ul>
+                     </ul>
                 </li>
             </ul>
         </c:if>

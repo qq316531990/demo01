@@ -29,7 +29,7 @@
         }
 
     </style>
-
+    <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
@@ -167,25 +167,22 @@
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="aa">
+
+    <div class="row mt-2" id="card-2" style="width: 80%;margin-left: 10%">
     </div>
     <div class="row">
 
     <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 ">
+        <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:150px;height:160px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:151px;height:40px;text-align: center" >
-                    <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <td>${book.bookName}</td>
-                    </tr>
-                    </table>
-                    <%--<h4 class="card-title"></h4>--%>
+                <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:100%;height:40px;text-align: center;" >
+                    <h6 class="card-title">${book.bookName}</h6>
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm"><a href="<%=path %>/comment/findBook?book_id=${book.bookId}">详情</a></button>
+                    <button class="btn btn-info float-right btn-sm" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
                 </div>
             </div>
         </div>
@@ -215,38 +212,7 @@
         </div>
     </div>
     </div>
-        <div class="text-right" style="margin-right: 20%">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${pu.currentPage == 1}">
-                    <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
-                </c:otherwise>
-            </c:choose>
 
-            <c:forEach begin="${pu.start}" end="${pu.end}"  var="i">
-                <c:choose>
-                    <c:when test="${i == pu.currentPage}">
-                        <li class="active"><a href="#">${i}</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="/demo01/book/selectBookToUser?cp=${i}">${i}</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${pu.currentPage == pu.last}">
-                    <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.next}"><span>&raquo;</span></a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
-    </div>
 
     <!-- FOOTER -->
     <footer class="container">

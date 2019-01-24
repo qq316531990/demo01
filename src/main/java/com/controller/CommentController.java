@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import com.dao.CommentDao;
 import com.pojo.Book;
 import com.pojo.Comment;
 import com.pojo.CommentCha;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -125,7 +127,7 @@ public class CommentController {
             }
            size=5;
            Integer page=(index-1)*size;
-           List<Comment> list=commentService.findBook(book_id,page,size);
+           List<CommentCha> list=commentService.findBook(book_id,page,size);
            int count=commentService.countComment();
            int total=count%size==0?count/size:count/size+1;
            List<Comment> huiFuList=commentService.huiFuList(book_id);
@@ -148,6 +150,7 @@ public class CommentController {
              c.setBook_id(book_id);
              c.setComment_content(comment_content);
              c.setComment_state(comment_state);
+             c.setComment_time(new Date());
              commentService.add(c);
 
             double avg = commentService.avg();
@@ -157,6 +160,12 @@ public class CommentController {
              book.setBookId(book_id);
              book.setBookStar(avg);
              bookService.updateBook(book);
+
+           int countP=commentService.countP(book_id);
+           Book book1=new Book();
+           book1.setBookId(book_id);
+           book1.setBookCommentNumber(countP);
+           bookService.updateBook(book1);
 
              return c;
        }
@@ -210,5 +219,34 @@ public class CommentController {
          return "jsp/myComment";
        }
 
+
+    @RequestMapping("/findBook1")
+    public String findBook1(ModelMap map,int book_id,Integer index,Integer size){
+        if(index==null){
+            index=1;
+        }
+        size=5;
+        Integer page=(index-1)*size;
+        List<CommentCha> list=commentService.findBook1(book_id);
+        int count=commentService.countComment();
+        int total=count%size==0?count/size:count/size+1;
+        List<Comment> huiFuList=commentService.huiFuList(book_id);
+        Book book1=bookService.queryById(book_id);
+        map.put("book1",book1);
+        map.put("huiFuList",huiFuList);
+        map.put("list",list);
+        map.put("page",page);
+        map.put("index",index);
+        map.put("total",total);
+
+        return "jsp/book_detail";
+    }
+
+    @RequestMapping("/countHuiFu")
+    public int countHuiFu(int comment_id){
+        int count=0;
+        count=commentService.countHuiFu(comment_id);
+        return count;
+    }
 
 }

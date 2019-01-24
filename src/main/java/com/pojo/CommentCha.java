@@ -12,11 +12,12 @@ public class CommentCha {
     private int comment_great_number;
     private int comment_state;
     private String book_name;
+    private int count;
 
     public CommentCha() {
     }
 
-    public CommentCha(int comment_id, int user_id, int book_id, int parent_comment_id, String comment_content, Date comment_time, int comment_great_number, int comment_state, String book_name) {
+    public CommentCha(int comment_id, int user_id, int book_id, int parent_comment_id, String comment_content, Date comment_time, int comment_great_number, int comment_state, String book_name,int count) {
         this.comment_id = comment_id;
         this.user_id = user_id;
         this.book_id = book_id;
@@ -26,6 +27,7 @@ public class CommentCha {
         this.comment_great_number = comment_great_number;
         this.comment_state = comment_state;
         this.book_name = book_name;
+        this.count=count;
     }
 
     public int getComment_id() {
@@ -98,5 +100,13 @@ public class CommentCha {
 
     public void setBook_name(String book_name) {
         this.book_name = book_name;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -8,6 +8,14 @@
         select count(1) from comment where comment_state is null
     </select>
 
+    <select id="countHuiFu" resultType="int">
+        select count(1) from comment where parent_comment_id=#{comment_id}
+    </select>
+
+    <select id="countP" resultType="int">
+        select count(1) from comment where comment_state is not null and book_id=#{book_id}
+    </select>
+
     <select id="find" resultType="com.pojo.Comment" parameterType="map">
          select * from comment where comment_state is not null limit #{page},#{size}
     </select>
@@ -30,9 +38,14 @@
           select * from comment where (user_id=#{cx_id} or parent_comment_id=#{cx_id}) and comment_state is null limit #{page},#{size}
     </select>
 
-    <select id="findBook" resultType="com.pojo.Comment">
+    <select id="findBook" resultType="com.pojo.CommentCha">
         select * from comment where book_id=#{book_id} and comment_state is not null limit #{page},#{size}
     </select>
+
+    <select id="findBook1" resultType="com.pojo.CommentCha">
+        select * from comment where book_id=#{book_id} and comment_state is not null
+    </select>
+
     <insert id="add" parameterType="com.pojo.Comment">
         insert into comment(user_id,book_id,comment_content,comment_state)
         value (#{user_id},#{book_id},#{comment_content},#{comment_state})
