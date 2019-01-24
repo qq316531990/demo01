@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </c:if>
         <c:if test="${adminIsLogin=='OK'}">
             <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
-            <ul class="navbar-nav mr-auto">
+            <ul clas navbar-nav mr-auto">
                 <li class="dropdown">
 
                     <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>

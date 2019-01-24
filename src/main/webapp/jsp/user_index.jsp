@@ -59,6 +59,9 @@
 
                 }
             })}
+            function  findBook(obj){
+             window.location.href="<%=path%>/comment/findBook1?book_id="+obj;
+            }
 
     </script>
 </head>
@@ -77,7 +80,7 @@
                 </li>
            <c:forEach var="type" items="${typeList}">
                 <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name} <b class="caret"></b>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
                     </a>
                     <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
                         <c:forEach var="secondType" items="${secondTypeList}">
@@ -119,6 +122,7 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -165,7 +169,8 @@
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="row mt-2" id="card-2" style="width: 80%;margin-left: 10%">
+    <div class="row mt-2" id="card-2" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
+    <h3 > 最新书籍</h3>
     </div>
     <div class="row">
 
@@ -179,13 +184,13 @@
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
+                    <button class="btn btn-info float-right btn-sm" onclick="findBook(${book.bookId})" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
                 </div>
             </div>
         </div>
         </c:forEach>
     </div>
-        <div class="col-sm-1"></div>
+        <div class="col-sm-1"> </div>
 
     <div class="col-sm-2">
         <div class="row">
@@ -198,8 +203,8 @@
             <div class="col-sm-12 tab">
                 <c:forEach  items="${hotBook}" var="book" varStatus="i">
                     <div class="row">
-                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
-                        <span class="col-sm-3 num">${book.bookStar}</span>
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> <a style="color: black" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">${book.bookName}</a></span>
+                        <span class  ="col-sm-3 num">${book.bookStar*2}</span>
                     </div>
                     <p></p>
                 </c:forEach>

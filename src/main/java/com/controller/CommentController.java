@@ -187,6 +187,7 @@ public class CommentController {
            c.setBook_id(book_id);
            c.setParent_comment_id(parent_comment_id);
            c.setComment_content(comment_content);
+           c.setComment_time(new Date());
            commentService.huiFu(c);
            /**
             * 将获取的回复消息发送给被回复人
@@ -197,10 +198,12 @@ public class CommentController {
            int parentUserId=parentComment.getUser_id();
            String userName=userService.getUserByUserId(parentUserId).get(0).getUser_name();
            Message msg = new Message();
+           msg.setBookId(book_id);
            msg.setUserId(parentUserId);
            msg.setMessageContent(parentComment.getComment_content()+ " //  " +userName+"  //  " +commentContent);
            msg.setMessageType(4);
            msg.setMessageState(0);
+           msg.setMessageTime(new Date());
            messageService.addMessage(msg);
        }
 
