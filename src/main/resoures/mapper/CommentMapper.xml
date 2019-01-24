@@ -12,6 +12,10 @@
         select count(1) from comment where parent_comment_id=#{comment_id}
     </select>
 
+    <select id="countP" resultType="int">
+        select count(1) from comment where comment_state is not null and book_id=#{book_id}
+    </select>
+
     <select id="find" resultType="com.pojo.Comment" parameterType="map">
          select * from comment where comment_state is not null limit #{page},#{size}
     </select>
