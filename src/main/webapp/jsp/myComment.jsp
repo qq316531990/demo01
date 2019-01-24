@@ -18,12 +18,18 @@
     <title></title>
     <link rel="stylesheet" href="<%=path%>/css/Comment.css">
 
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <link type="text/css" rel="stylesheet" href="<%=path %>/css/dianZan.css"/>
+    <link rel="stylesheet" href="<%=path %>/css/pingfen.css">
+    <script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
+    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+    <script src="<%=path%>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+    <script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/jquery.js"></script>
@@ -39,8 +45,60 @@
     </style>
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <a class="navbar-brand" href="#">WondersLibrary</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="panel admin-panel">
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%=path%>/second/getTypesForUser">首页<span class="sr-only">(current)</span></a>
+                </li>
+                <c:forEach var="type" items="${typeList}">
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
+                        </a>
+                        <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
+                            <c:forEach var="secondType" items="${secondTypeList}">
+                                <c:if test="${type.type_id==secondType.type_id}">
+                                    <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" > <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
+
+        <c:if test="${adminIsLogin!='OK'}">
+            <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
+        </c:if>
+        <c:if test="${adminIsLogin=='OK'}">
+            <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
+            <ul class="navbar-nav mr-auto">
+                <li class="dropdown">
+
+                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
+                        <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
+                        <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
+                        <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
+                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
+                        <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </c:if>
+        </div>
+    </nav>
+</header>
+
+<div class="panel admin-panel" style="margin-top: 3%">
     <div class="panel-head"><strong class="icon-reorder"> 评论管理</strong></div>
     <div class="padding border-bottom">
 
@@ -107,7 +165,7 @@
             <div class="modal-body">
                 <div class="col-md-5 p-lg-5 mx-auto my-5" style="width: 320px">
                     <div class="rating-stars block">
-                        <div class="rating-stars-container">
+                        <div class="rating-stars-container" >
                             <div class="rating-star">
                                 <i class="fa fa-star"></i>
                             </div>
@@ -140,8 +198,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
-<script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
+
+<
 <script type="text/javascript">
 
     function tiaoZhuan() {
