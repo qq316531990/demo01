@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="action-buyBtn" style=" width: 250px; height: 40px;text-align: center;
                background-color: #df2d2d;">
-                <a   style="color: white" target="_blank">立即借阅</a>
+                <a   style="color: white" target="_blank" id="addBorrow">立即借阅</a>
             </div>
 
             <div class="movie-stats-container">
@@ -563,6 +563,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         alert("回复成功");
         window.location.href='<%=path %>/comment/findBook1?book_id=${book1.bookId}';
     }
+</script>
+<script type="text/javascript">
+    function getUrl(name)
+    {
+        var query=window.location.search.substring(1);
+        var varr=query.split("&");
+        for (var i=0;i<varr.length;i++) {
+            var pare = varr[i].split("=");
+            if(pare[0] == name){return pare[1];}
+        }
+        return(false);
+    }
+    $('#addBorrow').click(function () {
+        var book_id = getUrl("book_id");
+        var user_id = ${userLogin.user_id};;
+        $.ajax({
+            url: '<%=path%>/borrow/insertBorrow',
+            data: {"book_id": book_id, "user_id": user_id},
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if(data === -2){
+                    alert("库存不足！");
+                    return;
+                }
+                else if(data === -1){
+                    alert("卡号不存在！");
+                    return;
+                } else
+                {
+                    window.event.returnValue=false;
+                    window.location.href="<%=path%>//borrow/listBorrowsForUsers?currPage=1";
+                    alert("借阅成功!");
+                }
+            }
+        });
+
+    })
 </script>
 </body>
 </html>
