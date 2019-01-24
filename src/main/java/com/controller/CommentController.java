@@ -161,6 +161,12 @@ public class CommentController {
              book.setBookStar(avg);
              bookService.updateBook(book);
 
+           int countP=commentService.countP(book_id);
+           Book book1=new Book();
+           book1.setBookId(book_id);
+           book1.setBookCommentNumber(countP);
+           bookService.updateBook(book1);
+
              return c;
        }
 
@@ -232,12 +238,6 @@ public class CommentController {
         map.put("page",page);
         map.put("index",index);
         map.put("total",total);
-
-        int countP=commentService.countP(book_id);
-        Book book=new Book();
-        book.setBookId(book_id);
-        book.setBookCommentNumber(countP);
-        bookService.updateBook(book);
 
         return "jsp/book_detail";
     }
