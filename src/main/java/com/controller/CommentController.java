@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import com.dao.CommentDao;
 import com.pojo.Book;
 import com.pojo.Comment;
 import com.pojo.CommentCha;
@@ -126,7 +127,7 @@ public class CommentController {
             }
            size=5;
            Integer page=(index-1)*size;
-           List<Comment> list=commentService.findBook(book_id,page,size);
+           List<CommentCha> list=commentService.findBook(book_id,page,size);
            int count=commentService.countComment();
            int total=count%size==0?count/size:count/size+1;
            List<Comment> huiFuList=commentService.huiFuList(book_id);
@@ -220,7 +221,7 @@ public class CommentController {
         }
         size=5;
         Integer page=(index-1)*size;
-        List<Comment> list=commentService.findBook(book_id,page,size);
+        List<CommentCha> list=commentService.findBook1(book_id);
         int count=commentService.countComment();
         int total=count%size==0?count/size:count/size+1;
         List<Comment> huiFuList=commentService.huiFuList(book_id);
@@ -236,5 +237,11 @@ public class CommentController {
         return "jsp/book_detail";
     }
 
+    @RequestMapping("/countHuiFu")
+    public int countHuiFu(int comment_id){
+        int count=0;
+        count=commentService.countHuiFu(comment_id);
+        return count;
+    }
 
 }
