@@ -128,6 +128,13 @@ public class BookController {
     }
 
 
+    /**
+     * 逻辑删除(上下架)
+     * @param file
+     * @param request
+     * @param session
+     * @return
+     */
     @RequestMapping("/deleteBook")
     public ModelAndView bookDelete(MultipartFile file, HttpServletRequest request, HttpSession session) {
 
@@ -179,15 +186,34 @@ public class BookController {
         System.out.println(tab);
         Book book1 = new Book();
         book1.setBookTag(1);
-        List<Book> hotBook=bookService.queryHotBook();
+        /**
+         * 查询热门/新/多评书籍
+         */
+        List<Book> hotBook1=bookService.queryHotBook(10);
+        List<Book> hotBook2=bookService.queryHotBook(6);
+        List<Book> newBook=bookService.queryNewBook();
+        List<Book> multipleBook=bookService.queryMultiple();
+        System.out.println("tab="+tab);
         if (tab == null) {
 
 
         } else if (tab.equals("3")) {
-            System.out.println(tab);
+            System.out.println("tab 3="+tab);
             if (request.getParameter("bookName") != null) {
                 book1.setBookName(request.getParameter("bookName"));
             }
+            if(request.getParameter("authorName") !=null){
+                book1.setBookAuthor(request.getParameter("authorName"));
+            }
+            int totalNum = bookService.countByCondition(book1);
+            pu = new PageUtils<Book>(currentPage, 12, totalNum);
+            list2 = bookService.queryByCondition(book1, (pu.getCurrentPage() - 1) * pu.getPageSize(), pu.getPageSize());
+            pu.setList(list2);
+
+            mav.setViewName("jsp/user_index_newWorld");
+            mav.addObject("hotBook",hotBook1);
+            mav.addObject("pu", pu);
+            return mav;
 
 
         } else if (tab.equals("2")) {
@@ -205,7 +231,7 @@ public class BookController {
             pu = new PageUtils<Book>(currentPage, 12, 0);
             pu.setList(list2);
 
-            mav.setViewName("jsp/user_index");
+            mav.setViewName("jsp/user_index_newWorld");
             mav.addObject("pu", pu);
             return mav;
 
@@ -219,7 +245,10 @@ public class BookController {
         pu.setList(list2);
 
         mav.setViewName("jsp/user_index");
-        mav.addObject("hotBook",hotBook);
+        mav.addObject("newBook",newBook);
+        mav.addObject("mBook",multipleBook);
+        mav.addObject("hotBook1",hotBook1);
+        mav.addObject("hotBook2",hotBook2);
         mav.addObject("pu", pu);
         return mav;
     }
@@ -262,7 +291,7 @@ public class BookController {
 
     /**
      * 文件上传
-     *
+     *其中注释代码为防止图片未加载入服务器...
      * @param file
      * @param request
      * @return
@@ -272,7 +301,7 @@ public class BookController {
     @ResponseBody
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         String basePath = "D:\\图书管理系统\\demo01\\src\\main\\webapp\\images\\upload";
-        String basePath2="D:\\图书管理系统\\demo01\\target\\demo01\\images\\upload";
+        //String basePath2="D:\\图书管理系统\\demo01\\target\\demo01\\images\\upload";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSS");
         String res = sdf.format(new Date());
 
@@ -289,16 +318,16 @@ public class BookController {
 
         // 新文件
         File newFile = new File(basePath + File.separator + dateDirs + File.separator + newFileName);
-        File newFile2 = new File(basePath2 + File.separator + dateDirs + File.separator + newFileName);
+        //File newFile2 = new File(basePath2 + File.separator + dateDirs + File.separator + newFileName);
         // 判断目标文件所在目录是否存在
         if (!newFile.getParentFile().exists()) {
             // 如果目标文件所在的目录不存在，则创建父目录
             newFile.getParentFile().mkdirs();
         }
-        if (!newFile2.getParentFile().exists()) {
-            // 如果目标文件所在的目录不存在，则创建父目录
-            newFile2.getParentFile().mkdirs();
-        }
+//        if (!newFile2.getParentFile().exists()) {
+//            // 如果目标文件所在的目录不存在，则创建父目录
+//            newFile2.getParentFile().mkdirs();
+//        }
         System.out.println(newFile);
         // 将内存中的数据写入磁盘
         try {
@@ -306,11 +335,11 @@ public class BookController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            file.transferTo(newFile2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            file.transferTo(newFile2);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         // 完整的url
         String fileUrl = date.get(Calendar.YEAR) + "/" + (date.get(Calendar.MONTH) + 1) + "/" + newFileName;
         return fileUrl;

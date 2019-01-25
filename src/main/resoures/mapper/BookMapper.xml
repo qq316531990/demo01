@@ -14,6 +14,7 @@
     <result column="book_borrowing_number" property="bookBorrowingNumber" jdbcType="INTEGER" />
     <result column="book_star" property="bookStar" jdbcType="DECIMAL" />
     <result column="book_comment_number" property="bookCommentNumber" jdbcType="INTEGER" />
+    <result column="book_add_time" property="bookAddTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     book_id, book_name, book_author, book_published_Information, book_count, book_description, 
@@ -40,7 +41,25 @@
     from book
     where book_tag = 1
     Order by book_borrowing_number desc
-    limit 0,10
+    limit 0,#{pageSize}
+  </select>
+  <!--查询新书-->
+  <select id="selectNewBook" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+    where book_tag = 1
+    Order by book_add_time desc
+    limit 0,8
+  </select>
+<!--查询多评书籍-->
+  <select id="selectMultiple" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+    where book_tag = 1
+    Order by book_comment_number desc
+    limit 0,8
   </select>
 
   <select id="selectAllCount" resultType="Integer">

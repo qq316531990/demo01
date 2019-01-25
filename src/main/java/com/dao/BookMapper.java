@@ -39,7 +39,19 @@ public interface BookMapper {
      * 查询热门书籍
      * @return
      */
-    List<Book> selectHotBook();
+    List<Book> selectHotBook(@Param("pageSize") int pageSize);
+
+    /**
+     * 查询新书
+     * @return
+     */
+    List<Book> selectNewBook();
+
+    /**
+     * 多评书籍
+     * @return
+     */
+    List<Book> selectMultiple();
 
     /**
      * 查询总记录条数

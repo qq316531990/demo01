@@ -43,8 +43,16 @@ public class BookServiceImpl implements BookService {
      * 查询热门书籍
      * @return
      */
-    public List<Book> queryHotBook() {
-        return bookMapper.selectHotBook();
+    public List<Book> queryHotBook(int pageSize) {
+        return bookMapper.selectHotBook(pageSize);
+    }
+
+    public List<Book> queryNewBook() {
+        return bookMapper.selectNewBook();
+    }
+
+    public List<Book> queryMultiple() {
+        return bookMapper.selectMultiple();
     }
 
 

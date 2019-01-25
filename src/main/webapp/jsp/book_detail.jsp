@@ -366,102 +366,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             <div class="module">
                 <div class="mod-title">
-                    <h3>相关电影</h3>
+                    <h3>热门推荐</h3>
                 </div>
                 <div class="mod-content">
                     <div class="related-movies">
                         <dl class="movie-list">
                             <dd>
+                                <c:forEach items="${hotBook2}" var="book">
                                 <div class="movie-item">
-                                    <a href="https://maoyan.com/films/1250634" target="_blank" data-act="movie-click" data-val="{movieid:1250634}">
+                                    <a href="<%=path%>/comment/findBook1?book_id=${book.bookId}" target="_blank" data-act="movie-click" data-val="{movieid:1250634}">
                                         <div class="movie-poster">
                                             <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                            <img src="https://p1.meituan.net/movie/ee58fe45d4c9b8a6745348458663225a3604840.jpg@106w_145h_1e_1c">
+                                            <img src="<%=path%>/images/upload/${book.bookImage}">
                                         </div>
                                     </a>
                                     <div class="movie-ver"></div>
                                 </div>
-                                <div class="channel-detail movie-item-title" title="如珠如宝的人生">
-                                    <a href="https://maoyan.com/films/1250634" target="_blank" data-act="movies-click" data-val="{movieId:1250634}">如珠如宝的人生</a>
+                                <div class="channel-detail movie-item-title" title="${book.bookName}">
+                                    <a href="<%=path%>/comment/findBook1?book_id=${book.bookId}" target="_blank" data-act="movies-click" data-val="{movieId:1250634}">${book.bookName}</a>
                                 </div>
-                                <div class="channel-detail channel-detail-orange">暂无评分</div>
+                                <div class="channel-detail channel-detail-orange">${book.bookStar}</div>
 
                             </dd><dd>
-                            <div class="movie-item">
-                                <a href="https://maoyan.com/films/343455" target="_blank" data-act="movie-click" data-val="{movieid:343455}">
-                                    <div class="movie-poster">
-                                        <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                        <img src="https://p0.meituan.net/movie/c9ab3960cb0ce3b3ffdf7f71fb88d9532170517.jpg@106w_145h_1e_1c">
-                                    </div>
-                                </a>
-                                <div class="movie-ver"></div>
-                            </div>
-                            <div class="channel-detail movie-item-title" title="五十米之恋">
-                                <a href="https://maoyan.com/films/343455" target="_blank" data-act="movies-click" data-val="{movieId:343455}">五十米之恋</a>
-                            </div>
-                            <div class="channel-detail channel-detail-orange">暂无评分</div>
 
-                        </dd><dd>
-                            <div class="movie-item">
-                                <a href="https://maoyan.com/films/1240159" target="_blank" data-act="movie-click" data-val="{movieid:1240159}">
-                                    <div class="movie-poster">
-                                        <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                        <img src="https://p1.meituan.net/movie/a596474c1c29118d908d1eff0fd4293f1017066.jpg@106w_145h_1e_1c">
-                                    </div>
-                                </a>
-                                <div class="movie-ver"></div>
-                            </div>
-                            <div class="channel-detail movie-item-title" title="来电狂响">
-                                <a href="https://maoyan.com/films/1240159" target="_blank" data-act="movies-click" data-val="{movieId:1240159}">来电狂响</a>
-                            </div>
-                            <div class="channel-detail channel-detail-orange"><i class="integer">8.</i><i class="fraction">6</i></div>
-
-                        </dd><dd>
-                            <div class="movie-item">
-                                <a href="https://maoyan.com/films/1200486" target="_blank" data-act="movie-click" data-val="{movieid:1200486}">
-                                    <div class="movie-poster">
-                                        <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                        <img src="https://p0.meituan.net/movie/238e2dc36beae55a71cabfc14069fe78236351.jpg@106w_145h_1e_1c">
-                                    </div>
-                                </a>
-                                <div class="movie-ver"></div>
-                            </div>
-                            <div class="channel-detail movie-item-title" title="我不是药神">
-                                <a href="https://maoyan.com/films/1200486" target="_blank" data-act="movies-click" data-val="{movieId:1200486}">我不是药神</a>
-                            </div>
-                            <div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">6</i></div>
-
-                        </dd><dd>
-                            <div class="movie-item">
-                                <a href="https://maoyan.com/films/344649" target="_blank" data-act="movie-click" data-val="{movieid:344649}">
-                                    <div class="movie-poster">
-                                        <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                        <img src="https://p1.meituan.net/movie/19efcfbf1a98c02cb5efd69a2edf766e2421917.jpg@106w_145h_1e_1c">
-                                    </div>
-                                </a>
-                                <div class="movie-ver"></div>
-                            </div>
-                            <div class="channel-detail movie-item-title" title="天气预爆">
-                                <a href="https://maoyan.com/films/344649" target="_blank" data-act="movies-click" data-val="{movieId:344649}">天气预爆</a>
-                            </div>
-                            <div class="channel-detail channel-detail-orange"><i class="integer">6.</i><i class="fraction">6</i></div>
-
-                        </dd><dd>
-                            <div class="movie-item">
-                                <a href="https://maoyan.com/films/1212192" target="_blank" data-act="movie-click" data-val="{movieid:1212192}">
-                                    <div class="movie-poster">
-                                        <img class="poster-default" src="https://s0.meituan.net/bs/?f=myfe/mywww:/image/loading_2.e3d934bf.png">
-                                        <img src="https://p0.meituan.net/movie/6674a3e556f559f72167646aad3ac3611602818.jpg@106w_145h_1e_1c">
-                                    </div>
-                                </a>
-                                <div class="movie-ver"></div>
-                            </div>
-                            <div class="channel-detail movie-item-title" title="差等生乔曦">
-                                <a href="https://maoyan.com/films/1212192" target="_blank" data-act="movies-click" data-val="{movieId:1212192}">差等生乔曦</a>
-                            </div>
-                            <div class="channel-detail channel-detail-orange">暂无评分</div>
-
-                        </dd></dl>
+                            </c:forEach>
+                            </dl>
 
                     </div>
 
