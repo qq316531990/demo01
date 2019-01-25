@@ -189,7 +189,8 @@ public class BookController {
         /**
          * 查询热门/新/多评书籍
          */
-        List<Book> hotBook=bookService.queryHotBook();
+        List<Book> hotBook1=bookService.queryHotBook(10);
+        List<Book> hotBook2=bookService.queryHotBook(6);
         List<Book> newBook=bookService.queryNewBook();
         List<Book> multipleBook=bookService.queryMultiple();
         System.out.println("tab="+tab);
@@ -210,7 +211,7 @@ public class BookController {
             pu.setList(list2);
 
             mav.setViewName("jsp/user_index_newWorld");
-            mav.addObject("hotBook",hotBook);
+            mav.addObject("hotBook",hotBook1);
             mav.addObject("pu", pu);
             return mav;
 
@@ -246,7 +247,8 @@ public class BookController {
         mav.setViewName("jsp/user_index");
         mav.addObject("newBook",newBook);
         mav.addObject("mBook",multipleBook);
-        mav.addObject("hotBook",hotBook);
+        mav.addObject("hotBook1",hotBook1);
+        mav.addObject("hotBook2",hotBook2);
         mav.addObject("pu", pu);
         return mav;
     }
