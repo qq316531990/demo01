@@ -16,32 +16,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title></title>
-    <link rel="stylesheet" href="<%=path%>/css/Comment.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link type="text/css" rel="stylesheet" href="<%=path %>/css/dianZan.css"/>
-    <link rel="stylesheet" href="<%=path %>/css/pingfen.css">
+
     <script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
-    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
-    <script src="<%=path%>/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
+
+    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="<%=path%>/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/pintuer.js"></script>
     <script src="../js/jquery-1.8.2.min.js"></script>
-
     <style type="text/css">
         *{
             padding: 0px;
             margin: 0px;
         }
+        .rating-stars {
+            width: 270px;
+            text-align: center;
+        }
 
+        .rating-stars .rating-stars-container {
+            font-size: 0px;
+        }
+
+        .rating-stars .rating-stars-container .rating-star {
+            display: inline-block;
+            font-size: 32px;
+            color: #555555;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .rating-stars .rating-stars-container .rating-star.is--active,
+        .rating-stars .rating-stars-container .rating-star.is--hover {
+            color: #f1c40f;
+        }
+
+        .rating-stars .rating-stars-container .rating-star.is--no-hover {
+            color: #555555;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +85,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
                         </a>
                         <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
+                            <li><a href="<%=path%>/book/selectBookToUser?tab=4&typeId=${type.type_id}" style="color:#35ff4c;font-size: large">${type.type_name}</a></li>
+
                             <c:forEach var="secondType" items="${secondTypeList}">
                                 <c:if test="${type.type_id==secondType.type_id}">
                                     <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
@@ -72,8 +97,9 @@
                 </c:forEach>
             </ul>
             </ul>
-            <form class="form-inline my-2 my-lg-0" > <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
-
+            <div style="margin-left: 26%">
+                <form class="form-inline my-2 my-lg-0" action="<%=path%>/book/selectBookToUser?tab=3" method="post"> <input class="form-control mr-sm-2" type="text" placeholder="书名"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查询</button> </form>
+            </div>
         <c:if test="${adminIsLogin!='OK'}">
             <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
         </c:if>
@@ -82,23 +108,25 @@
             <ul class="navbar-nav mr-auto">
                 <li class="dropdown">
 
-                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
+                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown" >   <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心
                     </a>
                     <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                         <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
                         <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                         <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
-                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
                         <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
                     </ul>
+
                 </li>
             </ul>
         </c:if>
+
         </div>
     </nav>
 </header>
 
-<div class="panel admin-panel" style="margin-top: 3%">
+<div class="panel admin-panel" style="margin-top: 4%">
     <div class="panel-head"><strong class="icon-reorder"> 评论管理</strong></div>
     <div class="padding border-bottom">
 
@@ -156,17 +184,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" id="myModalLabel"  style="text-indent: -420px">
                     修改评论
                 </h4>
             </div>
             <div class="modal-body">
-                <div class="col-md-5 p-lg-5 mx-auto my-5" style="width: 320px">
                     <div class="rating-stars block">
-                        <div class="rating-stars-container" >
-                            <div class="rating-star">
+                        <div class="rating-stars-container">
+                           <div class="rating-star">
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="rating-star">
@@ -184,7 +210,7 @@
                         </div>
                         <input type="number" readonly class="form-control rating-value" name="rating-stars-value" id="rating-stars-value" style="width: 50px">
                     </div>
-                </div>
+
                 <input type="hidden" id="comm_id_xg" value="">
                 <textarea name="comment_content1" id="comment_content1" cols="40" rows="5" style="font-size: 18px"></textarea>
             </div>
@@ -199,7 +225,8 @@
     </div><!-- /.modal -->
 </div>
 
-<
+<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
 <script type="text/javascript">
 
     function tiaoZhuan() {
@@ -302,4 +329,5 @@
         window.location.href='<%=path%>/comment/plList?user_id=${userLogin.user_id}';
     }
 </script>
-</body></html>
+</body>
+</html>

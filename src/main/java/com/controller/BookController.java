@@ -39,6 +39,11 @@ public class BookController {
     private BookTypeService bookTypeService;
     String msg = null;
 
+    /**
+     * 发送操作成功或失败消息
+     * @param j
+     * @return
+     */
     public String msg(int j) {
 
         if (j == 0) {
@@ -49,6 +54,14 @@ public class BookController {
         return msg;
     }
 
+    /**
+     * 从前台获取book对象的总方法
+     * @param file
+     * @param request
+     * @param k
+     * @param session
+     * @return
+     */
     public Book getBook(MultipartFile file, HttpServletRequest request, String k, HttpSession session) {
         Book book = new Book();
         if (k != "add") {
@@ -111,6 +124,13 @@ public class BookController {
     }
 
 
+    /**
+     * 添加图书
+     * @param file
+     * @param request
+     * @param session
+     * @return
+     */
     @RequestMapping("/addBook")
     public ModelAndView bookAdd(MultipartFile file, HttpServletRequest request, HttpSession session) {
 
@@ -174,6 +194,11 @@ public class BookController {
         return list(file, request, session);
     }
 
+    /**
+     * 传递相关信息到用户相关界面(前台)
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/selectBookToUser")
     public ModelAndView listToUser(HttpServletRequest request) {
@@ -182,6 +207,9 @@ public class BookController {
         int currentPage = cp != null ? Integer.parseInt(cp) : 1;
         PageUtils<Book> pu;
         List<Book> list2 = new ArrayList<Book>();
+        /**
+         * 获取标记tab,以执行不同查询方法
+         */
         String tab = request.getParameter("tab");
         System.out.println(tab);
         Book book1 = new Book();
@@ -267,6 +295,13 @@ public class BookController {
     }
 
 
+    /**
+     * 查询图书(后台管理员界面)
+     * @param file
+     * @param request
+     * @param session
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/selectBook")
     public ModelAndView list(MultipartFile file, HttpServletRequest request, HttpSession session) {
