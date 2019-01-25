@@ -93,6 +93,8 @@
                 </li>
            </c:forEach>
             </ul>
+            </ul>
+
 
 
         </div>
@@ -173,7 +175,7 @@
                     <li class="disabled"><a href="#"><span>&laquo;</span></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.prev}"><span>&laquo;</span></a></li>
+                    <li><a href="/demo01/book/selectBookToUser?tab=3&cp=${pu.prev}"><span>&laquo;</span></a></li>
                 </c:otherwise>
             </c:choose>
 
@@ -183,7 +185,7 @@
                         <li class="active"><a href="#">${i}</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/demo01/book/selectBookToUser?cp=${i}">${i}</a></li>
+                        <li><a href="/demo01/book/selectBookToUser?tab=3&cp=${i}">${i}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -193,7 +195,7 @@
                     <li class="disabled"><a href="#"><span>&raquo;</span></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="/demo01/book/selectBookToUser?cp=${pu.next}"><span>&raquo;</span></a></li>
+                    <li><a href="/demo01/book/selectBookToUser?tab=3&cp=${pu.next}"><span>&raquo;</span></a></li>
                 </c:otherwise>
             </c:choose>
         </ul>

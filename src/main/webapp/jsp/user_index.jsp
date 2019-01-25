@@ -93,7 +93,7 @@
            </c:forEach>
             </ul>
             </ul>
-            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
+            <form class="form-inline my-2 my-lg-0" action="<%=path%>/book/selectBookToUser?tab=3" method="post"> <input class="form-control mr-sm-2" type="text" placeholder="书名"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查询</button> </form>
         </div>
         <c:if test="${adminIsLogin!='OK'}">
         <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
@@ -169,13 +169,13 @@
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="row mt-2" id="card-2" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
+    <div class="row mt-2" id="card-3" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
     <h3 > 最新书籍</h3>
     </div>
     <div class="row">
 
-    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
-        <c:forEach items="${pu.list}" var="book" >
+    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-4" style="width: 80%;margin-left: 10%">
+        <c:forEach items="${newBook}" var="book" >
         <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >
                 <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
@@ -201,7 +201,7 @@
 
 
             <div class="col-sm-12 tab">
-                <c:forEach  items="${hotBook}" var="book" varStatus="i">
+                <c:forEach  items="${hotBook1}" var="book" varStatus="i">
                     <div class="row">
                         <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> <a style="color: black" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">${book.bookName}</a></span>
                         <span class  ="col-sm-3 num">${book.bookStar*2}</span>
@@ -215,6 +215,31 @@
     </div>
     </div>
 
+    <div class="row mt-2" id="card-2" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
+        <h3 > 网友热议</h3>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+            <c:forEach items="${mBook}" var="book" >
+                <div class="col-sm-6 col-md-4 col-lg-3 " >
+                    <div class="card card-inverse card-info" >
+                        <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
+                        <div class="card-block" style="width:100%;height:40px;text-align: center;" >
+                            <h6 class="card-title">${book.bookName}</h6>
+                        </div>
+                        <div class="card-footer">
+                            <small>价格:${book.bookPrice}</small>
+                            <button class="btn btn-info float-right btn-sm" onclick="findBook(${book.bookId})" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="col-sm-1"> </div>
+
+
+    </div>
 
     <!-- FOOTER -->
     <footer class="container">

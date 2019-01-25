@@ -38,7 +38,7 @@ public interface BookService {
      * 查询热门/新/多评书籍
      * @return
      */
-    List<Book> queryHotBook();
+    List<Book> queryHotBook(int pageSize);
     List<Book> queryNewBook();
     List<Book> queryMultiple();
 

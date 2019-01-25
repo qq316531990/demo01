@@ -41,7 +41,7 @@
     from book
     where book_tag = 1
     Order by book_borrowing_number desc
-    limit 0,10
+    limit 0,#{pageSize}
   </select>
   <!--查询新书-->
   <select id="selectNewBook" resultMap="BaseResultMap">
