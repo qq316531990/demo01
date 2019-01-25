@@ -32,7 +32,7 @@ public class CommentController {
     @Autowired
     MessageService messageService;
 
-
+    /*查询出所有对书籍的评论内容，并且以分页的形式传给jsp页面*/
     @RequestMapping("/find")
    public String find(ModelMap map,Integer index,Integer size){
                 if (index==null){
@@ -50,6 +50,7 @@ public class CommentController {
          return "jsp/commentFindAll";
      }
 
+    /*查询出所有的回复评论*/
     @RequestMapping("/findHuiFu")
     public String findHuiFu(ModelMap map,Integer index,Integer size){
         if (index==null){
@@ -67,11 +68,13 @@ public class CommentController {
         return "jsp/commentFindHuiFu";
     }
 
+    /*删除指定的一条评论*/
       @RequestMapping("/delete")
      public void delete(int comment_id){
          commentService.delete(comment_id);
      }
 
+     /*批量删除评论*/
     @RequestMapping("/deleteComment")
     public void deleteComment(int[] comment_id) {
        for (int i=0;i<comment_id.length;i++){
@@ -79,6 +82,7 @@ public class CommentController {
        }
     }
 
+    /*根据user_id或book_id，查询出对书籍的评论*/
        @RequestMapping("/findOne")
      public String findOne(ModelMap map,int cx_id,Integer index,Integer size){
            if (index==null){
@@ -96,6 +100,7 @@ public class CommentController {
          return "jsp/commentChaXun1";
        }
 
+    /*根据user_id或parent_comment_id，查询出回复的评论*/
     @RequestMapping("/findTwo")
     public String findTwo(ModelMap map,int cx_id,Integer index,Integer size){
         if (index==null){
@@ -114,12 +119,14 @@ public class CommentController {
     }
 
 
+    /*查询对应的comment_id的信息*/
        @RequestMapping("/findComment_id")
        public void findComment_id(ModelMap map,int comment_id){
          List<Comment> findComment_id=commentService.findComment_id(comment_id);
          map.put("findComment_id",findComment_id);
        }
 
+       /*查询出该图书的所有信息，评论内容，回复内容，并且以分页的形式传给jsp页面*/
        @RequestMapping("/findBook")
        public String findBook(ModelMap map,int book_id,Integer index,Integer size){
             if(index==null){
@@ -145,6 +152,7 @@ public class CommentController {
 
        @RequestMapping("/add")
        public Comment add(int user_id,int book_id,String comment_content,int comment_state){
+        /*添加发表的评论内容*/
              Comment c=new Comment();
              c.setUser_id(user_id);
              c.setBook_id(book_id);
@@ -153,7 +161,8 @@ public class CommentController {
              c.setComment_time(new Date());
              commentService.add(c);
 
-            double avg = commentService.avg();
+             /*获取该图书的星星的平均值，并更新book表里的信息*/
+            double avg = commentService.avg(book_id);
             System.out.println(avg);
             System.out.println("11111");
              Book book=new Book();
@@ -161,6 +170,7 @@ public class CommentController {
              book.setBookStar(avg);
              bookService.updateBook(book);
 
+             /*获取该图书的评论数量，并更新到表中*/
            int countP=commentService.countP(book_id);
            Book book1=new Book();
            book1.setBookId(book_id);
@@ -170,6 +180,7 @@ public class CommentController {
              return c;
        }
 
+       /*修改点赞的数量*/
        @RequestMapping("/updateDianZan")
        public void dianZan(int comment_id,int great_number){
            Comment c=new Comment();
@@ -178,6 +189,7 @@ public class CommentController {
            commentService.dianZan(c);
        }
 
+       /*修改评论内容*/
        @RequestMapping("/update")
        public void update(int comment_id,String comment_content,int comment_state){
            Comment c=new Comment();
@@ -187,6 +199,7 @@ public class CommentController {
            commentService.update(c);
        }
 
+       /*添加回复的信息*/
        @RequestMapping("/huiFu")
        public void huiFu(int user_id,int book_id,int parent_comment_id,String comment_content){
            Comment c=new Comment();
@@ -214,7 +227,7 @@ public class CommentController {
            messageService.addMessage(msg);
        }
 
-
+       /*获得用户所发表的评论的信息*/
        @RequestMapping("/plList")
     public String plList(ModelMap map,int user_id){
          List<CommentCha> plList=commentService.plList(user_id);
@@ -222,29 +235,22 @@ public class CommentController {
          return "jsp/myComment";
        }
 
-
+/*查询出对应book_id的书籍信息，评论和回复信息*/
     @RequestMapping("/findBook1")
-    public String findBook1(ModelMap map,int book_id,Integer index,Integer size){
-        if(index==null){
-            index=1;
-        }
-        size=5;
-        Integer page=(index-1)*size;
+    public String findBook1(ModelMap map,int book_id){
+
         List<CommentCha> list=commentService.findBook1(book_id);
-        int count=commentService.countComment();
-        int total=count%size==0?count/size:count/size+1;
+
         List<Comment> huiFuList=commentService.huiFuList(book_id);
         Book book1=bookService.queryById(book_id);
         map.put("book1",book1);
         map.put("huiFuList",huiFuList);
         map.put("list",list);
-        map.put("page",page);
-        map.put("index",index);
-        map.put("total",total);
 
         return "jsp/book_detail";
     }
 
+    /*查询出对应的comment_id的回复的数量*/
     @RequestMapping("/countHuiFu")
     public int countHuiFu(int comment_id){
         int count=0;

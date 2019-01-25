@@ -16,32 +16,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title></title>
-    <link rel="stylesheet" href="<%=path%>/css/Comment.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link type="text/css" rel="stylesheet" href="<%=path %>/css/dianZan.css"/>
-    <link rel="stylesheet" href="<%=path %>/css/pingfen.css">
+
     <script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
-    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
-    <script src="<%=path%>/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/jquery-1.11.0.min.js"></script>
     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
+
+    <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="<%=path%>/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/pintuer.js"></script>
     <script src="../js/jquery-1.8.2.min.js"></script>
-
     <style type="text/css">
         *{
             padding: 0px;
             margin: 0px;
         }
+        .rating-stars {
+            width: 270px;
+            text-align: center;
+        }
 
+        .rating-stars .rating-stars-container {
+            font-size: 0px;
+        }
+
+        .rating-stars .rating-stars-container .rating-star {
+            display: inline-block;
+            font-size: 32px;
+            color: #555555;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .rating-stars .rating-stars-container .rating-star.is--active,
+        .rating-stars .rating-stars-container .rating-star.is--hover {
+            color: #f1c40f;
+        }
+
+        .rating-stars .rating-stars-container .rating-star.is--no-hover {
+            color: #555555;
+        }
     </style>
 </head>
 <body>
@@ -156,17 +179,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" id="myModalLabel"  style="text-indent: -420px">
                     修改评论
                 </h4>
             </div>
             <div class="modal-body">
-                <div class="col-md-5 p-lg-5 mx-auto my-5" style="width: 320px">
                     <div class="rating-stars block">
-                        <div class="rating-stars-container" >
-                            <div class="rating-star">
+                        <div class="rating-stars-container">
+                           <div class="rating-star">
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="rating-star">
@@ -184,7 +205,7 @@
                         </div>
                         <input type="number" readonly class="form-control rating-value" name="rating-stars-value" id="rating-stars-value" style="width: 50px">
                     </div>
-                </div>
+
                 <input type="hidden" id="comm_id_xg" value="">
                 <textarea name="comment_content1" id="comment_content1" cols="40" rows="5" style="font-size: 18px"></textarea>
             </div>
@@ -199,7 +220,8 @@
     </div><!-- /.modal -->
 </div>
 
-<
+<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery.rating-stars.min.js"></script>
 <script type="text/javascript">
 
     function tiaoZhuan() {
@@ -302,4 +324,5 @@
         window.location.href='<%=path%>/comment/plList?user_id=${userLogin.user_id}';
     }
 </script>
-</body></html>
+</body>
+</html>

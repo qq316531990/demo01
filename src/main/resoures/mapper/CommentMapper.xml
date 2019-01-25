@@ -3,90 +3,89 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CommentDao">
-
+    <!--/*统计回复评论的数量*/-->
     <select id="count" resultType="int">
         select count(1) from comment where comment_state is null
     </select>
-
+    <!--/*统计对应comment_id的回复评论数量*/-->
     <select id="countHuiFu" resultType="int">
         select count(1) from comment where parent_comment_id=#{comment_id}
     </select>
-
+<!--/*统计对应book_id的书籍评论数量*/-->
     <select id="countP" resultType="int">
         select count(1) from comment where comment_state is not null and book_id=#{book_id}
     </select>
 
+    <!--/*查询出所有对书籍的评论内容*/-->
     <select id="find" resultType="com.pojo.Comment" parameterType="map">
          select * from comment where comment_state is not null limit #{page},#{size}
     </select>
-
+    <!--/*查询出所有的回复评论*/-->
     <select id="findHuiFu" resultType="com.pojo.Comment" parameterType="map">
          select * from comment where comment_state is null limit #{page},#{size}
     </select>
 
-
+    <!--/*统计书籍评论的数量*/-->
     <select id="countComment" resultType="int">
         select count(1) from comment where comment_state is not null
     </select>
+    <!-- /*删除对应comment_id的评论*/-->
     <delete id="delete" parameterType="com.pojo.Comment">
            delete from comment where comment_id=#{comment_id}
        </delete>
+    <!-- /*根据user_id或book_id，查询出对书籍的评论*/-->
     <select id="findOne" resultType="com.pojo.Comment" parameterType="map">
           select * from comment where (user_id=#{cx_id} or book_id=#{cx_id}) and comment_state is not null limit #{page},#{size}
     </select>
+    <!--/*根据user_id或parent_comment_id，查询出回复的评论*/-->
     <select id="findTwo" resultType="com.pojo.Comment" parameterType="map">
           select * from comment where (user_id=#{cx_id} or parent_comment_id=#{cx_id}) and comment_state is null limit #{page},#{size}
     </select>
-
+<!--/*查询出对应book_id的所有对书籍的评论，分页*/-->
     <select id="findBook" resultType="com.pojo.CommentCha">
         select * from comment where book_id=#{book_id} and comment_state is not null limit #{page},#{size}
     </select>
-
+<!--/*查询出对应book_id的所有对书籍的评论*/-->
     <select id="findBook1" resultType="com.pojo.CommentCha">
         select * from comment where book_id=#{book_id} and comment_state is not null
     </select>
-
+<!--/*添加书籍评论*/-->
     <insert id="add" parameterType="com.pojo.Comment">
         insert into comment(user_id,book_id,comment_content,comment_state)
         value (#{user_id},#{book_id},#{comment_content},#{comment_state})
     </insert>
-
+<!--/*点赞后，更新点赞数量*/-->
     <update id="dianZan" parameterType="com.pojo.Comment">
        update comment set comment_great_number=#{comment_great_number} where comment_id=#{comment_id}
     </update>
-
+<!--/*更改评论信息*/-->
     <update id="update" parameterType="com.pojo.Comment">
         update comment set comment_content=#{comment_content},comment_state=#{comment_state} where comment_id=#{comment_id}
     </update>
-
+<!--/*查询对应的comment_id的信息*/-->
     <select id="findComment_id" resultType="com.pojo.Comment">
         select * from comment where comment_id=#{comment_id}
     </select>
-
+<!--/*添加回复信息*/-->
     <insert id="huiFu" parameterType="com.pojo.Comment">
         insert into comment(user_id,book_id,parent_comment_id,comment_content)
         value (#{user_id},#{book_id},#{parent_comment_id},#{comment_content})
     </insert>
-
+<!--/*查询出对应book_id的所有回复评论*/-->
     <select id="huiFuList" resultType="com.pojo.Comment">
          select * from comment where book_id=#{book_id} and comment_state is null
     </select>
-
+<!--/*查询对应book_id的图书信息*/-->
     <select id="findBook_id" resultType="com.pojo.Book">
         select * from book where book_id=#{bookId}
     </select>
-
+<!--/*查询出对应user_id的所有评论，和图书名字*/-->
     <select id="plList" resultType="com.pojo.CommentCha">
         select comment.*,book.book_name from comment left join book on comment.book_id=book.book_id where user_id=#{user_id}
-
     </select>
-
+<!--/*查询出对应book_id的平均星星数量*/-->
     <select id="avg" resultType="double">
-        select avg(comment_state) from comment
-    </select>
-
-    <select id="bList" resultType="com.pojo.Book">
-        select * from book;
+        select avg(comment_state) from comment where book_id=#{book_id}
     </select>
 
 </mapper>
