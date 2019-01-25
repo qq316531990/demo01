@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookTypeService {
 
     /**
-     * 根据类型差图书
+     * 根据二级分类差图书
      * @param type_id
      * @return
      */
@@ -19,4 +19,11 @@ public interface BookTypeService {
      * @return
      */
     int insert (BookType bookType);
+
+    /**
+     * 根据一级分类查图书
+     * @param type_id
+     * @return
+     */
+    List<Integer> selectSecondByType(int type_id);
 }

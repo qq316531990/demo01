@@ -45,6 +45,13 @@ public class MessageController {
 
     int i=0;
 
+    /**
+     * 从前台获取消息总方法
+     * @param request
+     * @param s
+     * @param tag
+     * @return
+     */
     public Message getMessage(HttpServletRequest request,  String s, String tag) {
         Message msg = new Message();
         int bookId=0;
@@ -199,6 +206,9 @@ public class MessageController {
         int msgId=Integer.parseInt(request.getParameter("messageId"));
         Message message=new Message();
         message.setMessageId(msgId);
+        /**
+         * 点击详情后将消息标记为已读
+         */
         message.setMessageState(1);
         i=messageService.updateMessage(message);
         User user = (User) request.getSession().getAttribute("userLogin");
@@ -273,6 +283,9 @@ public class MessageController {
         PageUtils<MessageAdmin> pu;
 
 
+        /**
+         * 查询所有
+         */
         if(tab ==null) {
 
             totalNum=messageService.queryAllCount();
@@ -280,7 +293,11 @@ public class MessageController {
             list = messageService.queryAllMessage((pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
 
 
-        }else{
+        }
+        /**
+         * 根据用户ID或关联图书查消息
+         */
+        else{
             if(request.getParameter("bookId")!=""){
                 message1.setBookId(Integer.parseInt(request.getParameter("bookId")));
             }
@@ -291,6 +308,9 @@ public class MessageController {
             pu= new PageUtils<MessageAdmin>(currentPage, pageSize, totalNum);
             list = messageService.selectByCondition(message1, (pu.getCurrentPage()-1)  * pu.getPageSize(), pu.getPageSize());
         }
+        /**
+         * 格式转换--将数据库中的(user等)id转换为对应的(user等)name
+         */
         for (int i=0;i<list.size();i++ ) {
             MessageAdmin msga=new MessageAdmin();
 //            List<MessageAdmin> list1=new ArrayList<MessageAdmin>();

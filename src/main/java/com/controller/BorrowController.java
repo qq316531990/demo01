@@ -40,6 +40,9 @@ public class BorrowController {
      **/
     @RequestMapping("/insertBorrow") //映射路径
     public @ResponseBody Integer insertBorrow(Borrow borrow,HttpServletRequest request) {
+        /**
+         * 将借阅信息放入session以产生消息
+         */
         request.getSession().setAttribute("borrow",borrow);
         messageController.addMessage(request,"1");
       return  borrowService.insertBorrow(borrow);

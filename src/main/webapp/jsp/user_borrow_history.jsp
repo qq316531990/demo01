@@ -108,7 +108,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name} <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
-                            <li><a href="<%=path%>/book/?tab=2&typeId=${type.type_id}" style="color:#35ff4c;font-size: large">${type.type_name}</a></li>
+                            <li><a href="<%=path%>/book/selectBookToUser?tab=4&typeId=${type.type_id}" style="color:#35ff4c;font-size: large">${type.type_name}</a></li>
 
                             <c:forEach var="secondType" items="${secondTypeList}">
                                 <c:if test="${type.type_id==secondType.type_id}">
