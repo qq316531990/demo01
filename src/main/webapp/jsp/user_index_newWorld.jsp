@@ -69,7 +69,7 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 4%;margin-top: 0%">
         <a class="navbar-brand" href="#">WondersLibrary</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -93,11 +93,8 @@
                 </li>
            </c:forEach>
             </ul>
-            </ul>
-            <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline my-2 my-lg-0" method="post">
-                <input class="form-control mr-sm-2" type="text" name="bookName" placeholder="书名">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
-            </form>
+
+
         </div>
         <c:if test="${adminIsLogin!='OK'}">
         <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>

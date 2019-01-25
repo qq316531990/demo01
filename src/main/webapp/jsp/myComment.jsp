@@ -72,8 +72,9 @@
                 </c:forEach>
             </ul>
             </ul>
+            <div style="margin-left: 15%">
             <form class="form-inline my-2 my-lg-0" > <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
-
+            </div>
         <c:if test="${adminIsLogin!='OK'}">
             <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
         </c:if>
@@ -82,7 +83,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="dropdown">
 
-                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
+                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown" >   <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心
                     </a>
                     <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                         <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
@@ -94,11 +95,12 @@
                 </li>
             </ul>
         </c:if>
+
         </div>
     </nav>
 </header>
 
-<div class="panel admin-panel" style="margin-top: 3%">
+<div class="panel admin-panel" style="margin-top: 4%">
     <div class="panel-head"><strong class="icon-reorder"> 评论管理</strong></div>
     <div class="padding border-bottom">
 
