@@ -235,6 +235,8 @@ public class CommentController {
         int total=count%size==0?count/size:count/size+1;
         List<Comment> huiFuList=commentService.huiFuList(book_id);
         Book book1=bookService.queryById(book_id);
+        List<Book> hotBook2=bookService.queryHotBook(6);
+        map.put("hotBook2",hotBook2);
         map.put("book1",book1);
         map.put("huiFuList",huiFuList);
         map.put("list",list);
