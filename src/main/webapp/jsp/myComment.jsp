@@ -62,6 +62,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
                         </a>
                         <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
+                            <li><a href="<%=path%>/book/?tab=2&typeId=${type.type_id}" style="color:#35ff4c;font-size: large">${type.type_name}</a></li>
+
                             <c:forEach var="secondType" items="${secondTypeList}">
                                 <c:if test="${type.type_id==secondType.type_id}">
                                     <li><a href="<%=path%>/book/selectBookToUser?tab=2&typeId=${secondType.secondType_id}" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
@@ -72,8 +74,8 @@
                 </c:forEach>
             </ul>
             </ul>
-            <div style="margin-left: 15%">
-            <form class="form-inline my-2 my-lg-0" > <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
+            <div style="margin-left: 26%">
+                <form class="form-inline my-2 my-lg-0" action="<%=path%>/book/selectBookToUser?tab=3" method="post"> <input class="form-control mr-sm-2" type="text" placeholder="书名"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查询</button> </form>
             </div>
         <c:if test="${adminIsLogin!='OK'}">
             <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
@@ -89,9 +91,10 @@
                         <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
                         <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
                         <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
-                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
                         <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
+                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
                     </ul>
+
                 </li>
             </ul>
         </c:if>

@@ -316,7 +316,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                         ${c.comment_content}
                                                             <div style="width:50px;margin-left: 535px;margin-top:70px;">
                                                                 <input type="hidden" id="huiFu1" value="${c.comment_id}">
-                                                                <button data-toggle="modal" data-target="#myModalHuiFu" onclick="com_id(${c.comment_id})">
+                                                                <button data-toggle="modal" data-target="#myModalHuiFu" onclick="com_id(${c.comment_id})" style="border:0;">
                                                                     回复
                                                                 </button>
                                                             </div>
