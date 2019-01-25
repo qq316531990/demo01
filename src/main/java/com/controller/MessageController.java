@@ -240,7 +240,12 @@ public class MessageController {
         //查询未读的消息数
         int unreadCount=messageService.selectUnreadCount(userId);
         pu.setList(list);
-        mav1.setViewName("jsp/myMessage");
+        if(user.getPermission_id()==6){
+            mav1.setViewName("jsp/myMessageForAdmin");
+        }else{
+            mav1.setViewName("jsp/myMessage");
+        }
+
         mav1.addObject("pu",pu);
         mav1.addObject("unreadCount",unreadCount);
         return mav1;

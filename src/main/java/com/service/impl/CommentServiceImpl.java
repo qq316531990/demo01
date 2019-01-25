@@ -53,6 +53,10 @@ public class CommentServiceImpl implements CommentService{
         return count;
     }
 
+    public int countP(int book_id) {
+        return commentDao.countP(book_id);
+    }
+
     public List<Comment> findOne(int cx_id,Integer page,Integer size) {
         Map<String,Object> map=new HashMap<String, Object>();
        map.put("cx_id",cx_id);

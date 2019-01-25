@@ -4,19 +4,15 @@
 <!-- 格式化标签 -->
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
+    <%@ include file="../sourceCss.jsp" %>
     <link rel="stylesheet" href="/demo01/css/pintuer.css">
-
+    <link rel="stylesheet" href="/demo01/css/admin.css">
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
@@ -82,6 +78,9 @@
         dl>dt,dl>dd{
             padding:5px 0;
         }
+        h4{
+
+        }
     </style>
 </head>
 <body>
@@ -91,8 +90,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h4>消息详情</h4>
+                <h4 style="text-align:left">消息详情</h4>
+                <%--<button class="close" style="width: 20px"  data-dismiss="modal">&times;</button>--%>
+
             </div>
             <div class="modal-body">
                 <dl class="dl-horizontal">
@@ -115,64 +115,28 @@
     </form>
 </div>
 
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
-        <a class="navbar-brand" href="#">WondersLibrary</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto" >
-                <li class="nav-item active">
-                    <a class="nav-link" href="<%=path%>/second/getTypesForUser">首页<span class="sr-only">(current)</span></a>
-                </li>
-                <c:forEach var="type" items="${typeList}">
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> ${type.type_name}
-                        </a>
-                        <ul class="dropdown-menu" style=" background-color:#5a5a5a;">
-                            <c:forEach var="secondType" items="${secondTypeList}">
-                                <c:if test="${type.type_id==secondType.type_id}">
-                                    <li><a href="#" style="color:#FFFFFF">${secondType.secondType_name} </a></li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </c:forEach>
-            </ul>
-            </ul>
-            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
-        </div>
-        <c:if test="${adminIsLogin!='OK'}">
-            <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp" > 登陆</a>&nbsp; &nbsp;</span>
-        </c:if>
-        <c:if test="${adminIsLogin=='OK'}">
-            <span class="navbar-text"><a href="#" onclick="loginOut()">&nbsp; &nbsp;退出&nbsp; &nbsp;</a></span>
-            <ul class="navbar-nav mr-auto">
-                <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown"> <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心
-                    </a>
-                    <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
-                        <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
-                        <li><a href="<%=path%>/jsp/user_updatePass.jsp"  class="navbar-text" style="color:#FFFFFF">修改密码</a></li>
-                        <li><a href="<%=path%>/jsp/user_update.jsp?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">个人信息</a></li>
-                        <li><a href="<%=path%>/comment/plList?user_id=${userLogin.user_id}"  class="navbar-text" style="color:#FFFFFF">我的评论</a></li>
-                        <li><a href="<%=path%>/message/selectMessageForUser"  class="navbar-text" style="color:#FFFFFF">我的消息<span class="badge">${sessionScope.unRead}</span></a></li>
-                    </ul>
-                </li>
-            </ul>
-        </c:if>
-    </nav>
-</header>
+
 <div class="aa">
-      <!-- 	内容区 -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="" class="navbar-brand">我的消息</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#userInfo">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+    <!-- 	内容区 -->
     <div class="container-fluid">
         <!-- 		路径导航 -->
-        <br /><br />
         <ol class="breadcrumb">
-
             <li><a href="#">我的消息</a></li>
-           </ol>
+            <li class="active">消息列表</li>
+        </ol>
 
 
         <%--<form action="/demo01/message/selectMessageForUser" class="form-horizontal" id="" method="post">--%>
@@ -261,6 +225,7 @@
     </div>
 </div>
 
+<%@ include file="../sourceJs.jsp" %>
 
 <script>
 

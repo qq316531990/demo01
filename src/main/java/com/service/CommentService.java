@@ -15,6 +15,7 @@ public interface CommentService {
     public int countComment();
     public int countHuiFu(int comment_id);
     public int delete(int comment_id);
+    public int countP(int book_id);
     public List<Comment> findOne(int cx_id,Integer page,Integer size);
     public List<Comment> findTwo(int cx_id,Integer page,Integer size);
     public List<Comment> findComment_id(int comment_id);

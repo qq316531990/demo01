@@ -47,6 +47,14 @@ public class BookServiceImpl implements BookService {
         return bookMapper.selectHotBook();
     }
 
+    public List<Book> queryNewBook() {
+        return bookMapper.selectNewBook();
+    }
+
+    public List<Book> queryMultiple() {
+        return bookMapper.selectMultiple();
+    }
+
 
     /**
      * 查询数量(..;..;..)
