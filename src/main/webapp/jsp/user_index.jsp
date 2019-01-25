@@ -29,11 +29,12 @@
         }
 
     </style>
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
+     <link rel="stylesheet" href="<%=path %>/asserts/bootstrapvalidator/css/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="<%=path %>/css/animate.css"/>
     <!-- Custom styles for this template -->
     <link href="<%=path%>/css/carousel.css" rel="stylesheet">
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
         window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
@@ -58,6 +59,9 @@
 
                 }
             })}
+            function  findBook(obj){
+             window.location.href="<%=path%>/comment/findBook1?book_id="+obj;
+            }
 
     </script>
 </head>
@@ -89,10 +93,7 @@
            </c:forEach>
             </ul>
             </ul>
-            <form action="/demo01/book/selectBookToUser?tab=3" class="form-inline my-2 my-lg-0" method="post">
-                <input class="form-control mr-sm-2" type="text" name="bookName" placeholder="书名">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
-            </form>
+            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form>
         </div>
         <c:if test="${adminIsLogin!='OK'}">
         <span class="navbar-text">&nbsp; &nbsp;<a href="<%=path%>/login.jsp"> 登陆</a>&nbsp; &nbsp;</span>
@@ -102,7 +103,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="dropdown">
 
-            <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心
+            <a href="#" class="nav-link dropdown-toggle navbar-text" data-toggle="dropdown">  <img src="../images/user.jpg" style="width: 30px;height: 30px">个人中心 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu " style=" background-color:#5a5a5a;">
                 <li><a href="<%=path%>/borrow/listBorrowsForUsers?currPage=1"  class="navbar-text" style="color:#FFFFFF">借阅历史查询</a></li>
@@ -121,6 +122,7 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -166,33 +168,29 @@
     <!-- Marketing messaging and featurettes
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="aa">
 
+    <div class="row mt-2" id="card-2" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
+    <h3 > 最新书籍</h3>
     </div>
     <div class="row">
 
     <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
         <c:forEach items="${pu.list}" var="book" >
-        <div class="col-sm-6 col-md-4 col-lg-3 ">
+        <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >
-                <img class="card-img-top"  style="width:150px;height:160px;text-align: center" src="<%=path%>/images/upload/${book.bookImage}">
-                <div class="card-block" style="width:151px;height:40px;text-align: center" >
-                    <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <td>${book.bookName}</td>
-                    </tr>
-                    </table>
-                    <%--<h4 class="card-title"></h4>--%>
+                <img class="card-img-top"  style="width:140px;height:140px;margin-left:10%" src="<%=path%>/images/upload/${book.bookImage}">
+                <div class="card-block" style="width:100%;height:40px;text-align: center;" >
+                    <h6 class="card-title">${book.bookName}</h6>
                 </div>
                 <div class="card-footer">
                     <small>价格:${book.bookPrice}</small>
-                    <button class="btn btn-info float-right btn-sm"><a href="<%=path %>/comment/findBook?book_id=${book.bookId}">详情</a></button>
+                    <button class="btn btn-info float-right btn-sm" onclick="findBook(${book.bookId})" ><a style="text-decoration:none;color:white" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">详情</a></button>
                 </div>
             </div>
         </div>
         </c:forEach>
     </div>
-        <div class="col-sm-1"></div>
+        <div class="col-sm-1"> </div>
 
     <div class="col-sm-2">
         <div class="row">
@@ -205,8 +203,8 @@
             <div class="col-sm-12 tab">
                 <c:forEach  items="${hotBook}" var="book" varStatus="i">
                     <div class="row">
-                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> ${book.bookName}</span>
-                        <span class="col-sm-3 num">${book.bookStar}</span>
+                        <span class="col-sm-9"><span style="color: red;">${i.index+1}</span> <a style="color: black" href="<%=path%>/comment/findBook1?book_id=${book.bookId}">${book.bookName}</a></span>
+                        <span class  ="col-sm-3 num">${book.bookStar*2}</span>
                     </div>
                     <p></p>
                 </c:forEach>
