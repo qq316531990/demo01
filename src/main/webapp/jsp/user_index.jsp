@@ -169,12 +169,12 @@
       ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="row mt-2" id="card-2" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
+    <div class="row mt-2" id="card-21" style="width:57%;margin-left: 10.6%;height: 50px;color: rgba(23, 162, 184, 0.5)">
     <h3 > 最新书籍</h3>
     </div>
     <div class="row">
 
-    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-1" style="width: 80%;margin-left: 10%">
+    <div class="col-sm-7 col-sm-offset-1 row mt-2" id="card-11" style="width: 80%;margin-left: 10%">
         <c:forEach items="${newBook}" var="book" >
         <div class="col-sm-6 col-md-4 col-lg-3 " >
             <div class="card card-inverse card-info" >

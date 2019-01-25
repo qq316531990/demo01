@@ -216,10 +216,23 @@ public class BookController {
             return mav;
 
 
-        } else if (tab.equals("2")) {
+        } else if (tab.equals("2")||tab.equals("4")) {
             int secondTypeId = Integer.parseInt(request.getParameter("typeId"));
             System.out.println("typeId=" + secondTypeId);
-            List<Integer> list0 = bookTypeService.selectBookByType(secondTypeId);
+            List<Integer> list0;
+            /**
+             * 根据二级分类查图书
+             */
+            if(tab.equals("2")){
+                list0 = bookTypeService.selectBookByType(secondTypeId);
+            }
+            /**
+             * 根据一级分类查图书
+             */
+            else{
+                list0 = bookTypeService.selectSecondByType(secondTypeId);
+            }
+
             System.out.println(list0);
             if (list0 != null && list0.size() != 0  ) {
                 for (Integer list : list0) {
