@@ -139,19 +139,24 @@ public class MessageController {
     @Transactional(rollbackFor = Exception.class)
     public void sendMessage(){
         List<Borrow> list1=borrowService.queryAllUnReturn();
-        Message msg = new Message();
-        msg.setMessageState(0);
+
+
         Date date=new Date();
-        msg.setMessageTime(date);
+
         //获取三天前的时间
         Calendar calendar1 = Calendar.getInstance();
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
         calendar1.add(Calendar.DATE, -3);
         Date three_days_ago =calendar1.getTime();
+
         //String three_days_ago = sdf1.format(calendar1.getTime());
+        System.out.println("三天前时间"+sdf1.format(three_days_ago));
         if(list1.size()>0){
             for (Borrow borrow1: list1 ) {
                 //当前时间晚与应归还时间,已逾期
+                Message msg = new Message();
+                msg.setMessageState(0);
+                msg.setMessageTime(date);
                 if(borrow1.getReturn_time().before(date)){
                     msg.setUserId(borrow1.getUser_id());
                     msg.setBookId(borrow1.getBook_id());
@@ -161,10 +166,11 @@ public class MessageController {
                             + "By 某潜伏的书虫");
                     //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
                     msg.setMessageType(3);
+                    messageService.addMessage(msg);
 
 
                 }//当前时间晚于要归还前三天,即将到期
-                else if(three_days_ago.before(date)){
+                else if(three_days_ago.after(borrow1.getReturn_time())){
                     msg.setUserId(borrow1.getUser_id());
                     msg.setBookId(borrow1.getBook_id());
                     msg.setMessageContent("  您借阅的《"
@@ -173,9 +179,12 @@ public class MessageController {
                             + "By 某潜伏的书虫");
                     //0:预约消息,1:借阅消息(预约成功等) 2:还书提醒消息 3:超时提醒 4:评论消息
                     msg.setMessageType(2);
+                    messageService.addMessage(msg);
                 }
+
+
             }
-            messageService.addMessage(msg);
+
         }
 
     }
