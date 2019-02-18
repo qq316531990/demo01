@@ -4,17 +4,14 @@
 <!-- 格式化标签 -->
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
+    <%@ include file="../sourceCss.jsp" %>
     <link rel="stylesheet" href="/demo01/css/pintuer.css">
 
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
@@ -91,7 +88,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
+                <%--<button class="close" data-dismiss="modal">&times;</button>--%>
                 <h4>消息详情</h4>
             </div>
             <div class="modal-body">
@@ -116,7 +113,7 @@
 </div>
 
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 6%">
         <a class="navbar-brand" href="#">WondersLibrary</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
