@@ -507,6 +507,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         return(false);
     }
     $('#addBorrow').click(function () {
+        var r=confirm("是否借阅该书？")
+        if (r==true)
+        {
         var book_id = getUrl("book_id");
         var user_id = ${userLogin.user_id};;
         $.ajax({
@@ -531,6 +534,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
         });
 
+        }
+        else
+        {
+            return;
+        }
     })
 </script>
 </body>

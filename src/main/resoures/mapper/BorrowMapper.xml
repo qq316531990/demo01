@@ -52,6 +52,10 @@
                 AND
                  a.user_id=#{borrow.user_id}
             </if>
+            <if test="isReturnBook==1">
+                AND
+                a.actual_return_time  IS NULL
+            </if>
         </trim>
     </select>
 

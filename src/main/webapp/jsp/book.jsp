@@ -340,30 +340,8 @@
 
 <!-- 	导航区 -->
 <div class="aa">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="" class="navbar-brand">图书管理</a>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#userInfo">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse" id="userInfo">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎你，${userLogin.user_name}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
 
-                            <%--<li><a href="javascript:void(0)" id="logout">安全退出</a></li>--%>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
     <!-- 	内容区 -->
     <div class="container-fluid">
         <!-- 		路径导航 -->
