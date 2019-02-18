@@ -32,11 +32,11 @@ public class BorrowServiceImpl implements BorrowService {
     public PageBean<ReturnBookVO> listBorrows(PageBean<ReturnBookVO> pageBean, Borrow borrow) {
         Map map=new HashMap();
         System.out.println(borrow);
+        map.put("isReturnBook",1);//如果是还书的话，查询来的信息是实际归还时间为空的数据（即尚未归还的书籍）
         map.put("borrow", borrow);
         pageBean.setCount(borrowDao.countBorrows(map));
         map.put("startIndex",pageBean.getStartIndex());
         map.put("pageSize",pageBean.getPageSize());
-        map.put("isReturnBook",1);//如果是还书的话，查询来的信息是实际归还时间为空的数据（即尚未归还的书籍）
         pageBean.setData(borrowDao.listBorrows(map));
         return pageBean;
     }
