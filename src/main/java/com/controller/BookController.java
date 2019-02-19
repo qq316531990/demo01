@@ -135,10 +135,13 @@ public class BookController {
     public ModelAndView bookAdd(MultipartFile file, HttpServletRequest request, HttpSession session) {
 
         Book book = getBook(file, request, "add", session);
+        book.setBookBorrowingNumber(0);
+        book.setBookCommentNumber(0);
         msg(bookService.addBook(book));
         Book book1 = new Book();
         book1.setBookAuthor(book.getBookAuthor());
         book1.setBookName(book.getBookName());
+
         List<Book> list0 = bookService.queryByCondition(book1, 0, 1);
         int bookId = list0.get(0).getBookId();
         int secondTypeId = Integer.parseInt(request.getParameter("city_c"));
